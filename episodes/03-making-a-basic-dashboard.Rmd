@@ -1,5 +1,5 @@
 ---
-title: "Introduction"
+title: "Transforming a Static Dataset into a Dashboard"
 teaching: 10
 exercises: 2
 ---
