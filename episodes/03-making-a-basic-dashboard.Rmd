@@ -1,5 +1,5 @@
 ---
-title: "Transforming a Static Dataset into a Dashboard"
+title: "Shiny Fundamentals"
 teaching: 10
 exercises: 2
 ---

@@ -6,7 +6,9 @@ exercises: 2
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do you write a lesson using R Markdown and `{sandpaper}`?
+- Why might you want to create an interactive data application or dashboard as a wrapper for your research data?
+- What is the *Shiny* package in R?
+- What are some examples of data applications or dashboards created with the Shiny package ecosystem? 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
