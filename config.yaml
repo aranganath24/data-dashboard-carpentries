@@ -18,7 +18,7 @@ carpentry: 'incubator'
 carpentry_description: 'Lesson Description'
 
 # Overall title for pages.
-title: 'Creating Interactive Data Applications and Dashboards for Open Science Using R' # FIXME
+title: 'Creating "Shiny" Data Applications and Dashboards for Open Science in R' # FIXME
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
 created: 2025-01-10 # FIXME: ( ~ means empty, replace with date formatted as above)
@@ -69,7 +69,8 @@ episodes:
 - introduction.Rmd
 - 02-shiny.Rmd
 - 03-making-a-basic-dashboard.Rmd
-- 04-interactivity-basics.Rmd
+- 04-interactive-data-app.Rmd
+- 05-data-dashboards.Rmd
 
 # Information for Learners
 learners: 
