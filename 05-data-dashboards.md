@@ -1,7 +1,7 @@
 ---
-title: "Building a Basic Interactive Application with Shiny"
-teaching: 10
-exercises: 2
+title: "Building Interactive Data Dashboards with *shinydashboard*"
+output: html_document
+date: "2025-04-23"
 ---
 
 
@@ -31,28 +31,6 @@ summary(cars)
 
 You can also embed plots, for example:
 
-<img src="fig/04-interactivity-basics-rendered-pressure-1.png" style="display: block; margin: auto;" />
+<img src="fig/05-data-dashboards-rendered-pressure-1.png" style="display: block; margin: auto;" />
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
-
-
-
-``` r
-# assigns 5 to x
-x<-6
-```
-
-
-``` r
-# prints x
-x
-```
-
-``` output
-[1] 6
-```
-
-
-
-
-

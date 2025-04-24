@@ -1,5 +1,5 @@
 ---
-title: "Getting Started with Shiny"
+title: "Building Interactive Data Applications with Shiny"
 teaching: 10
 exercises: 2
 ---
@@ -31,7 +31,7 @@ summary(cars)
 
 You can also embed plots, for example:
 
-<img src="fig/02-shiny-rendered-pressure-1.png" style="display: block; margin: auto;" />
+<img src="fig/04-interactive-data-app-rendered-pressure-1.png" style="display: block; margin: auto;" />
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
@@ -39,7 +39,7 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 
 ``` r
 # assigns 5 to x
-x<-5
+x<-6
 ```
 
 
@@ -49,7 +49,7 @@ x
 ```
 
 ``` output
-[1] 5
+[1] 6
 ```
 
 

@@ -1,5 +1,5 @@
 ---
-title: "Introduction"
+title: "Introduction and Motivation"
 teaching: 10
 exercises: 2
 ---
