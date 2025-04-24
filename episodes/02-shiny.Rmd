@@ -1,5 +1,5 @@
 ---
-title: "The Shiny Environment"
+title: "Getting Started with Shiny"
 teaching: 10
 exercises: 2
 ---

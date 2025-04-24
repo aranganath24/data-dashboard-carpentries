@@ -1,5 +1,5 @@
 ---
-title: "Shiny and Interactivity"
+title: "Shiny Fundamentals"
 teaching: 10
 exercises: 2
 ---
