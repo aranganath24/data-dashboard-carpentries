@@ -22,7 +22,7 @@ It's important to emphasize that the Shiny ecosystem is vast, and that programmi
 the learning curve is considerably less steep than that for web development or software engineering). Our goal is not to provide participants with a comprehensive treatment of application development in Shiny, 
 but with an introduction that demonstrates the value of Shiny to applied researchers, and gives them a basic foundation for continuing to explore Shiny on their own upon the Workshop's conclusion. 
 
-Participants are requested to prepare for the workshop by considering the following: 
+Before proceeding, participants are requested to consider the prerequsites and software requirements discussed below. 
 
 ## Prerequisites
 
@@ -30,49 +30,25 @@ The workshop presupposes some prior experience using the R programming language,
 and should also be familiar with the *tidyverse*. This workshop is NOT an appropriate introduction to R and R Studio for beginners, especially because programming in Shiny using
 reactive logic is different in important ways from more traditional R programming; before diving into Shiny, it's important to understand the basic principles of R programming, which 
 this workshop will not explicitly review. If you have not previously used R and R Studio, but would like to learn Shiny, please consider first working through other introductory Carpentries lessons on R/R Studio,
-such as [Programming with R](https://swcarpentry.github.io/r-novice-inflammation/) and [Data and Visualization with R for Social Scientists](https://datacarpentry.github.io/r-socialsci/). 
+such as [Programming with R](https://swcarpentry.github.io/r-novice-inflammation/), which covers the topic of writing custom functions, and [Data and Visualization with R for Social Scientists](https://datacarpentry.github.io/r-socialsci/),
+which offers an extensive treatment of useful data wrangling and visualization functions from the *tidyverse*. 
 
 ## Software Setup
 
-::::::::::::::::::::::::::::::::::::::: discussion
-
-### Details
-
-Setup for different systems can be presented in dropdown menus via a `spoiler`
-tag. They will join to this discussion block, so you can give a general overview
-of the software used in this lesson here and fill out the individual operating
-systems (and potentially add more, e.g. online setup) in the solutions blocks.
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::: spoiler
-
-### Windows
-
-Use PuTTY
-
-::::::::::::::::::::::::
-
-:::::::::::::::: spoiler
-
-### MacOS
-
-Use Terminal.app
-
-::::::::::::::::::::::::
-
-
-:::::::::::::::: spoiler
-
-### Linux
-
-Use Terminal
-
-::::::::::::::::::::::::
+It is possible to develop Shiny applications in both Python and R, but in this Workshop, we will focus exclusively on working with Shiny in R.
+In order to fully participate, therefore, you must have both [R and R Studio installed](https://posit.co/download/rstudio-desktop/#download) before the Workshop begins. 
 
 ## Libraries
 
+We will work with a variety of R libraries over the course of the Workshop. You can install (if necessary) and load these libraries
+now, or as they are needed over the course of the various episodes. They are: *shiny*, *shinydashboard*, the *tidyverse*, and 
+*fivethirtyeight*, and *rsconnect*. We'll discuss these libraries at greater length as we proceed through the various episodes.  
+
 ## Data Sets
+
+We will work with a variety of datasets over the course of the lesson. Most of these datasets are built into 
+R packages that you loaded in the previous section, but we will also work with a dataset outside of the package ecosystem,
+which you can load below. 
 
 <!--
 FIXME: place any data you want learners to use in `episodes/data` and then use
