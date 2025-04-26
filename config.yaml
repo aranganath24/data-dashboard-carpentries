@@ -8,39 +8,38 @@
 # lc: Library Carpentry
 # cp: Carpentries (to use for instructor training for instance)
 # incubator: The Carpentries Incubator
-# 
-# This option supports custom types so lessons can be branded
-# and themed with your own logo and alt-text (see `carpentry_description`)
-# See https://carpentries.github.io/sandpaper-docs/editing.html#adding-a-custom-logo
+# Note that you can also use a custom carpentry type. For more info,
+# see the documentation: https://carpentries.github.io/sandpaper-docs/editing.html
 carpentry: 'incubator'
 
-# Alt-text description of the lesson.
-carpentry_description: 'Lesson Description'
+# Custom carpentry description
+# This will be used as the alt text for the logo
+# carpentry_description: "Custom Carpentry"
 
 # Overall title for pages.
-title: 'Creating "Shiny" Data Applications and Dashboards for Open Science in R' # FIXME
+title: 'Creating "Shiny" Data Applications and Dashboards for Open Science in R'
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
-created: 2025-01-10 # FIXME: ( ~ means empty, replace with date formatted as above)
+created: '2025-01-10'
 
 # Comma-separated list of keywords for the lesson
-keywords: 'dashboard, data, application development, Shiny, open science, The Carpentries' # FIXME
+keywords: 'dashboard, data, application development, Shiny, open science, The Carpentries'
 
 # Life cycle stage of the lesson
 # possible values: pre-alpha, alpha, beta, stable
-life_cycle: 'pre-alpha' # FIXME
+life_cycle: 'pre-alpha'
 
-# License of the lesson
+# License of the lesson materials (recommended CC-BY 4.0)
 license: 'CC-BY 4.0'
 
 # Link to the source repository for this lesson
-source: 'https://github.com/aranganath24/data-dashboard-carpentries' # FIXME
+source: 'https://github.com/aranganath24/data-dashboard-carpentries'
 
 # Default branch of your lesson
 branch: 'main'
 
 # Who to contact if there are any issues
-contact: 'aranganath24@gmail.com' # FIXME
+contact: 'aranganath24@gmail.com'
 
 # Navigation ------------------------------------------------
 #
@@ -71,6 +70,7 @@ episodes:
 - 03-making-a-basic-dashboard.Rmd
 - 04-interactive-data-app.Rmd
 - 05-data-dashboards.Rmd
+- 06-publishing-applications.Rmd
 
 # Information for Learners
 learners: 
@@ -86,4 +86,4 @@ profiles:
 # This space below is where custom yaml items (e.g. pinning
 # sandpaper and varnish versions) should live
 
-
+carpentry_description: Lesson Description
