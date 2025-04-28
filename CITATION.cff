@@ -13,10 +13,8 @@ message: >-
   training material.
 type: dataset
 authors:
-  - given-names: FIXME
-    family-names: FIXME
+  - given-names: Aditya
+    family-names: Ranganath
 abstract: >-
-  FIXME Replace this with a short abstract describing the
-  lesson, e.g. its target audience and main intended
-  learning objectives.
+  This lesson introduces building interactive data applications and dashboards with the Shiny package in R. Participants learn when to use Shiny for research communication, create basic apps, explore shinydashboard layouts, and review options for publishing applications to support open science. Basic R knowledge is recommended.
 license: CC-BY-4.0
