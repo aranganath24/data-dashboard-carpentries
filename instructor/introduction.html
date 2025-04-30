@@ -216,7 +216,9 @@
 
     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
-        <ul><li><a href="#introduction">Introduction</a></li>
+        <ul><li><a href="#introduction-interactive-data-applications-for-open-science">Introduction: Interactive Data Applications for Open Science</a></li>
+<li><a href="#the-shiny-package-ecosystem-for-interactive-application-development">The <em>Shiny</em> Package Ecosystem for Interactive Application
+Development</a></li>
 <li><a href="#figures">Figures</a></li>
 <li><a href="#math">Math</a></li>
         </ul></div><!--/div.accordion-body-->
@@ -328,13 +330,13 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Introduction and Motivation</h1>
-        <p>Last updated on 2025-04-24 |
+        <p>Last updated on 2025-04-30 |
 
         <a href="https://github.com/aranganath24/data-dashboard-carpentries/edit/main/episodes/introduction.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
 
 
-        <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
+        <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 20 minutes</p>
 
         <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
@@ -361,16 +363,75 @@ with the Shiny package ecosystem?</li>
 <div class="card-body">
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
-<ul><li>Explain how to use markdown with the new lesson template</li>
-<li>Demonstrate how to include pieces of code, figures, and nested
-challenge blocks</li>
+<ul><li>Survey published examples of Shiny applications and dashboards and
+explore some of their features and properties</li>
+<li>Reflect on what an “ideal” application or dashboard would look like
+for your particular research data use case</li>
+<li>Appreciate the relevance of data applications and dashboards for
+Open Science</li>
 </ul></div>
 </div>
 </div>
 </div>
 </div>
-<section><h2 class="section-heading" id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a></h2>
-<hr class="half-width"><p>This is a lesson created via The Carpentries Workbench. It is written
+<section><h2 class="section-heading" id="introduction-interactive-data-applications-for-open-science">Introduction: Interactive Data Applications for Open Science<a class="anchor" aria-label="anchor" href="#introduction-interactive-data-applications-for-open-science"></a></h2>
+<hr class="half-width"><p>The practice of open science promotes a global “knowledge commons”
+that has the potential to support enlightened and informed public
+discourse. While open scholarly outputs such as open-access publications
+and research datasets are typically intended for scholarly audiences
+with specialized training and expertise, the broader public is a
+critical stakeholder in open science, and researchers may wish to invite
+non-specialist audiences to engage with their research data and findings
+for a variety of reasons, such as the following:</p>
+<ul><li>Some researchers may view it as a civic duty, to the extent that a
+significant share of scientific research is ultimately funded by the
+public</li>
+<li>It offers academic researchers an opportunity to build their public
+profiles beyond their scholarly communities, which allows them to
+credibly share their expertise</li>
+<li>It could help to build public appreciation for open science and
+academic research, which could have valuable downstream impacts
+(i.e. increased funding)</li>
+<li>The research data may cast important light on issues of public
+interest or public policy, and making it available to a broad
+non-specialist audience in an accessible form could contribute to a more
+informed or enlightened public discourse</li>
+</ul><p>In short, the dissemination of research data to non-specialist
+audiences can be an important and valuable part of scientific
+communication in the context of open science. However, it can be
+challenging to present complex research datasets in ways that are
+intuitive, accessible, and engaging to a broader audience. One way to do
+so is through the use of digital applications that wrap research
+datasets into an interactive graphical-user-interface (GUI) that allows
+non-specialists to explore and query the underlying data. These
+applications can be constructed in any number of ways. Data dashboards
+are one example of a GUI-based data exploration application; typically,
+a dashboard offers an interactive visual display of multiple pieces of
+information in different formats, arrayed across different sections or
+“panels” of a rectangular display. One famous example of a data
+dashboard is the <a href="https://coronavirus.jhu.edu/map.html" class="external-link">COVID-19
+Dashboard</a>, developed by the Center for Systems Science and
+Engineering at Johns Hopkins:</p>
+<figure style="text-align: center"><img src="../fig/fig1-covid-dashboard.png" alt="Figure 1. The Johns Hopkins COVID-19 Dashboard" class="figure mx-auto d-block"><figcaption>
+Figure 1. The Johns Hopkins COVID-19 Dashboard
+</figcaption></figure><p>Data dashboards, and interactive data applications more generally,
+are frequently used in government, public health, and corporate contexts
+in which important and potentially complex information needs to be
+communicated with a broad audience in an accessible way. However, they
+are not used as frequently in the context of communicating information
+and insights derived from research data. There could be many potential
+reasons for this, one of which is that the creation of these
+applications can be time-consuming and resource-intensive for
+researchers and scientists who do not have previous experience with
+application development. For such researchers, who would like to develop
+simple applications that could help foster broader engagement with their
+research and data, but do not have software expertise or access to
+specialized programs that facilitate application or dashboard creation,
+the <em>Shiny</em> package ecosystem is an excellent option.</p>
+</section><section><h2 class="section-heading" id="the-shiny-package-ecosystem-for-interactive-application-development">The <em>Shiny</em> Package Ecosystem for Interactive Application
+Development<a class="anchor" aria-label="anchor" href="#the-shiny-package-ecosystem-for-interactive-application-development"></a></h2>
+<hr class="half-width"><p><a href="https://shiny.posit.co/r/gallery/#user-showcase" class="external-link uri">https://shiny.posit.co/r/gallery/#user-showcase</a></p>
+<p>This is a lesson created via The Carpentries Workbench. It is written
 in <a href="https://pandoc.org/MANUAL.txt" class="external-link">Pandoc-flavored Markdown</a>
 for static files and <a href="https://rmarkdown.rstudio.com/" class="external-link">R
 Markdown</a> for dynamic files that can render code into output. Please
@@ -578,8 +639,8 @@ any links that you are not going to use.
   "url": "https://aranganath24.github.io/data-dashboard-carpentries/instructor/introduction.html",
   "identifier": "https://aranganath24.github.io/data-dashboard-carpentries/instructor/introduction.html",
   "dateCreated": "2025-01-10",
-  "dateModified": "2025-04-24",
-  "datePublished": "2025-04-29"
+  "dateModified": "2025-04-30",
+  "datePublished": "2025-04-30"
 }
 
   </script><script>
