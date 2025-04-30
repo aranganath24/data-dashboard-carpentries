@@ -1,7 +1,7 @@
 ---
 title: "Introduction and Motivation"
 teaching: 10
-exercises: 2
+exercises: 10
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -14,12 +14,35 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to use markdown with the new lesson template
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+- Survey published examples of Shiny applications and dashboards and explore some of their features and properties
+- Reflect on what an "ideal" application or dashboard would look like for your particular research data use case
+- Appreciate the relevance of data applications and dashboards for Open Science
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Introduction
+## Introduction: Interactive Data Applications for Open Science
+
+The practice of open science promotes a global “knowledge commons” that has the potential to support enlightened and informed public discourse. While open scholarly outputs such as open-access publications and research datasets are typically intended for scholarly audiences with specialized training and expertise, the broader public is a critical stakeholder in open science, and researchers may wish to invite non-specialist audiences to engage with their research data and findings for a variety of reasons, such as the following: 
+
+* Some researchers may view it as a civic duty, to the extent that a significant share of scientific research is ultimately funded by the public
+* It offers academic researchers an opportunity to build their public profiles beyond their scholarly communities, which allows them to credibly share their expertise 
+* It could help to build public appreciation for open science and academic research, which could have valuable downstream impacts (i.e. increased funding)
+* The research data may cast important light on issues of public interest or public policy, and making it available to a broad non-specialist audience in an accessible form could contribute to a more informed or enlightened public discourse
+
+In short, the dissemination of research data to non-specialist audiences can be an important and valuable part of scientific communication in the context of open science. However, it can be challenging to present complex research datasets in ways that are intuitive, accessible, and engaging to a broader audience. One way to do so is through the use of digital applications that wrap research datasets into an interactive graphical-user-interface (GUI) that allows non-specialists to explore and query the underlying data. These applications can be constructed in any number of ways. Data dashboards are one example of a GUI-based data exploration application; typically, a dashboard offers an interactive visual display of multiple pieces of information in different formats, arrayed across different sections or "panels" of a rectangular display. One famous example of a data dashboard is the [COVID-19 Dashboard](https://coronavirus.jhu.edu/map.html), developed by the Center for Systems Science and Engineering at Johns Hopkins:
+
+```{r, fig:covid-example, fig.cap="Figure 1. The Johns Hopkins COVID-19 Dashboard", echo=FALSE}
+knitr::include_graphics("fig/fig1-covid-dashboard.png")
+```
+
+Data dashboards, and interactive data applications more generally, are frequently used in government, public health, and corporate contexts in which important and potentially complex information needs to be communicated with a broad audience in an accessible way. However, they are not used as frequently in the context of communicating information and insights derived from research data. There could be many potential reasons for this, one of which is that the creation of these applications can be time-consuming and resource-intensive for researchers and scientists who do not have previous experience with application development. For such researchers, who would like to develop simple applications that could help foster broader engagement with their research and data, but do not have software expertise or access to specialized programs that facilitate application or dashboard creation, the *Shiny* package ecosystem is an excellent option. 
+
+## The *Shiny* Package Ecosystem for Interactive Application Development
+
+https://shiny.posit.co/r/gallery/#user-showcase 
+
+
+
 
 This is a lesson created via The Carpentries Workbench. It is written in
 [Pandoc-flavored Markdown](https://pandoc.org/MANUAL.txt) for static files and
