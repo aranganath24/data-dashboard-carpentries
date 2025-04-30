@@ -40,117 +40,38 @@ Data dashboards, and interactive data applications more generally, are frequentl
 
 ## The *Shiny* Package Ecosystem for Interactive Application Development
 
-https://shiny.posit.co/r/gallery/#user-showcase 
+The *Shiny* package facilitates the development of interactive data-oriented applications (such as data exploration tools, dashboards, and user interfaces for data) in programming languages familiar to empirical researchers and data scientists, such as R and Python, without requiring any knowledge of traditional application development tools HTML, CSS, JavaScript. Because Shiny applications are written using R or Python, they are also able to leverage the powerful data manipulation, visualization, and analysis capabilities of these scientific computing languages, while wrapping them into a responsive and intuitive interface that allows researchers to communicate insights and share their data in an engaging and accessible manner. Shiny apps can be deployed locally or hosted online, and allow you to create a useful bridge between data analysis and statistical computing work (which other Carpentries lessons introduce) and non-specialist downstream "consumers" of your research. 
 
+There are several adjacent packages that add to the core *Shiny* package's functionality, and allow for the creation of more sophisticated applications. Examples of packages within this broader Shiny ecosystem include (but are not limited to):
 
+* *shinydashboard* offers functions that simplify the process of dashboard creation
+* *shinyWidgets* offers functions that allow one to enrich and customize the user interface of Shiny applications
+* *shinythemes* provides tools to customize the appearance of Shiny applications
+* *rsconnect* allows for the deployment of Shiny applications to sites such as [shinyapps.io](https://www.shinyapps.io) or [Posit Connect](https://posit.co/products/enterprise/connect/).
 
+Over the course of the Workshop, we will work with a variety of packages within the broader *Shiny* ecosystem. 
 
-This is a lesson created via The Carpentries Workbench. It is written in
-[Pandoc-flavored Markdown](https://pandoc.org/MANUAL.txt) for static files and
-[R Markdown][r-markdown] for dynamic files that can render code into output. 
-Please refer to the [Introduction to The Carpentries 
-Workbench](https://carpentries.github.io/sandpaper-docs/) for full documentation.
+Before proceeding, and getting started with the process of building *Shiny* applications for your data, it can be useful to survey some published applications created with Shiny. 
 
-What you need to know is that there are three sections required for a valid
-Carpentries lesson template:
-
- 1. `questions` are displayed at the beginning of the episode to prime the
-    learner for the content.
- 2. `objectives` are the learning objectives for an episode displayed with
-    the questions.
- 3. `keypoints` are displayed at the end of the episode to reinforce the
-    objectives.
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
-
-Inline instructor notes can help inform instructors of timing challenges
-associated with the lessons. They appear in the "Instructor View"
-
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 1: Can you do it?
+## Challenge 1: Explore Shiny Applications
 
-What is the output of this command?
-
-```r
-paste("This", "new", "lesson", "looks", "good")
-```
+Go to this [online repository of published Shiny applications](https://shiny.posit.co/r/gallery/#user-showcase) and look around. Are there any applications you find especially appealing? What are some of its relevant features and characteristics? After getting acquainted with some "real world" Shiny applications, sketch out a rough prototype for a Shiny application that could be relevant for your own work. 
 
 :::::::::::::::::::::::: solution 
 
-## Output
- 
-```output
-[1] "This new lesson looks good"
-```
-
-:::::::::::::::::::::::::::::::::
-
-
-## Challenge 2: how do you nest solutions within challenge blocks?
-
-:::::::::::::::::::::::: solution 
-
-You can add a line with at least three colons and a `solution` tag.
+Discuss your observations and protoypes with a partner. 
 
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
-
-## Figures
-
-You can also include figures generated from R Markdown:
-
-
-``` r
-pie(
-  c(Sky = 78, "Sunny side of pyramid" = 17, "Shady side of pyramid" = 5), 
-  init.angle = 315, 
-  col = c("deepskyblue", "yellow", "yellow3"), 
-  border = FALSE
-)
-```
-
-<div class="figure" style="text-align: center">
-<img src="fig/introduction-rendered-pyramid-1.png" alt="pie chart illusion of a pyramid"  />
-<p class="caption">Sun arise each and every morning</p>
-</div>
-
-Or you can use standard markdown for static figures with the following syntax:
-
-`![optional caption that appears below the figure](figure url){alt='alt text for
-accessibility purposes'}`
-
-![You belong in The Carpentries!](https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg){alt='Blue Carpentries hex person logo with no text.'}
-
-::::::::::::::::::::::::::::::::::::: callout
-
-Callout sections can highlight information.
-
-They are sometimes used to emphasise particularly important points
-but are also used in some lessons to present "asides": 
-content that is not central to the narrative of the lesson,
-e.g. by providing the answer to a commonly-asked question.
-
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-
-## Math
-
-One of our episodes contains $\LaTeX$ equations when describing how to create
-dynamic reports with {knitr}, so we now use mathjax to describe this:
-
-`$\alpha = \dfrac{1}{(1 - \beta)^2}$` becomes: $\alpha = \dfrac{1}{(1 - \beta)^2}$
-
-Cool, right?
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- Interactive applications and dashboards are valuable tools for presenting complex research data in an intuitive and engaging way, particularly for non-specialist audiences.
+- Open science benefits from such applications because they can help increase public understanding, enhance the visibility of research, and support informed discourse on topics of public interest.
+- Shiny is an R package that allows researchers to create interactive web applications and dashboards without needing to know web technologies like HTML, CSS, or JavaScript.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
