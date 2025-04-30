@@ -20,7 +20,7 @@ exercises: 10
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Introduction: Interactive Data Applications for Open Science
+## Interactive Data Applications for Open Science
 
 The practice of open science promotes a global “knowledge commons” that has the potential to support enlightened and informed public discourse. While open scholarly outputs such as open-access publications and research datasets are typically intended for scholarly audiences with specialized training and expertise, the broader public is a critical stakeholder in open science, and researchers may wish to invite non-specialist audiences to engage with their research data and findings for a variety of reasons, such as the following: 
 
@@ -51,7 +51,9 @@ There are several adjacent packages that add to the core *Shiny* package's funct
 
 Over the course of the Workshop, we will work with a variety of packages within the broader *Shiny* ecosystem. 
 
-Before proceeding, and getting started with the process of building *Shiny* applications for your data, it can be useful to survey some published applications created with Shiny. 
+## Exploring Shiny Applications
+
+Before proceeding to the next Episode, and getting started with the process of building *Shiny* applications for your data, it can be useful to survey some published applications created with Shiny. 
 
 
 ::::::::::::::::::::::::::::::::::::: challenge 
