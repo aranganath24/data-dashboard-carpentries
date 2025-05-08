@@ -88,7 +88,7 @@ Some aspects of this code require additional clarification.
 Again, this may still seem a little but abstract, but will hopefully come into focus as we proceed. You can launch an application from your script by simply running the UI and server code, along with with ```shinyApp(ui, server)```:
 
 ```{r, fig:launching-app, fig.cap="Figure 2. Launching an App", echo=F}
-knitr::include_graphics("fig/fig2-alt-launching-app.png")
+knitr::include_graphics("fig/screenshot_fixed.png")
 ```
 
 Since our application is still empty, launching it will generate a blank page that looks something like this:
