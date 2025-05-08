@@ -279,7 +279,7 @@ shinyApp(ui, server)
 Now, let's go ahead and launch our application, and see what it looks like:
 
 <div class="figure" style="text-align: center">
-<img src="fig/fig6-exploring-normal-text.png" alt="Figure 6. The Normal Plot Application With Text"  />
+<img src="fig/fig6-exploring-normal-text.jpg" alt="Figure 6. The Normal Plot Application With Text"  />
 <p class="caption">Figure 6. The Normal Plot Application With Text</p>
 </div>
 
