@@ -88,7 +88,7 @@ Some aspects of this code require additional clarification.
 Again, this may still seem a little but abstract, but will hopefully come into focus as we proceed. You can launch an application from your script by simply running the UI and server code, along with with ```shinyApp(ui, server)```:
 
 ```{r, fig:launching-app, fig.cap="Figure 2. Launching an App", echo=F}
-knitr::include_graphics("fig/screenshot_fixed_alt.jpg")
+knitr::include_graphics("fig/fig2-launching-app.png")
 ```
 
 Since our application is still empty, launching it will generate a blank page that looks something like this:
@@ -263,7 +263,7 @@ shinyApp(ui, server)
 Now, let's go ahead and launch our application, and see what it looks like:
 
 ```{r, echo=FALSE, fig:exploring-normal-text, fig.cap="Figure 6. The Normal Plot Application With Text"}
-knitr::include_graphics("fig/fig6-exploring-normal-text.jpg")
+knitr::include_graphics("fig/fig6-exploring-normal-text.png")
 ```
 
 Note the text above the plot in this modified application.
@@ -316,7 +316,7 @@ shinyApp(ui, server)
 
 :::::::::::::::::::::::::::::::::::::
 
-## Interactive applications: Concepts
+## Interactive applications: concepts
 
 So far, we have learned about the basic structure of Shiny applications and how to populate them with content by linking output functions in the UI (placeholder functions) with output functions in the server (render functions). You may have noticed that the applications we have built so far are static, in the sense that they don't respond dynamically to user input. However, static applications have limited utility, and much of the power and usefulness of Shiny applications comes from their ability to dynamically respond to user input. 
 
