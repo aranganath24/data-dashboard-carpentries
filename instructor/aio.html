@@ -36,7 +36,7 @@
       <div class="large-logo">
         <img id="incubator-logo" alt="Lesson Description" src="../assets/images/incubator-logo.svg"><span class="badge text-bg-danger">
           <abbr title="This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.">
-            <a href="https://cdh.carpentries.org/the-lesson-life-cycle.html#early-development-pre-alpha-through-alpha" class="external-link alert-link">
+            <a href="https://docs.carpentries.org/resources/curriculum/lesson-life-cycle.html" class="external-link alert-link">
               <i aria-hidden="true" class="icon" data-feather="alert-octagon" style="border-radius: 5px"></i>
               Pre-Alpha
             </a>
@@ -370,7 +370,7 @@
         
 <section id="aio-introduction"><p>Content from <a href="introduction.html">Introduction and Motivation</a></p>
 <hr>
-<p>Last updated on 2025-04-30 |
+<p>Last updated on 2025-05-08 |
 
         <a href="https://github.com/aranganath24/data-dashboard-carpentries/edit/main/episodes/introduction.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 20 minutes</p>
@@ -571,7 +571,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-02-shiny"><p>Content from <a href="02-shiny.html">Getting Started with Shiny</a></p>
 <hr>
-<p>Last updated on 2025-04-30 |
+<p>Last updated on 2025-05-08 |
 
         <a href="https://github.com/aranganath24/data-dashboard-carpentries/edit/main/episodes/02-shiny.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
@@ -586,8 +586,13 @@ any links that you are not going to use.
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul>
-<li>How do you write a lesson using R Markdown and
-<a href="https://carpentries.github.io/sandpaper/" class="external-link">sandpaper</a>?</li>
+<li>What are the different components of a Shiny application and how do
+they fit together?</li>
+<li>How can we create, run, and view a simple Shiny application?</li>
+<li>How can we create an interactive Shiny application that is
+responsive to user inputs or requests?</li>
+<li>How can we customize the appearance of a simple Shiny
+application?</li>
 </ul>
 </div>
 </div>
@@ -606,9 +611,510 @@ challenge blocks</li>
 </div>
 </div>
 </div>
-<section><h2 class="section-heading" id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+<section><h2 class="section-heading" id="preliminaries">Preliminaries<a class="anchor" aria-label="anchor" href="#preliminaries"></a>
 </h2>
 <hr class="half-width">
+<p>Before beginning this episode, please load the following
+libraries”</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># load libraries</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">shiny</span><span class="op">)</span></span></code></pre>
+</div>
+</section><section><h2 class="section-heading" id="the-structure-of-a-shiny-application">The Structure of a Shiny Application<a class="anchor" aria-label="anchor" href="#the-structure-of-a-shiny-application"></a>
+</h2>
+<hr class="half-width">
+<p>At the conclusion of the previous Episode, we examined some currently
+published Shiny applications. Now, we’ll begin peeking “under the hood”
+to see how these applications are put together, and how they work. Our
+starting point is the observation that all Shiny applications, no matter
+how complex, have three fundamental and interrelated building
+blocks:</p>
+<ul>
+<li>A <strong>user interface (UI)</strong> that specifies the appearance
+and layout of the application</li>
+<li>A <strong>server</strong> that defines how an application generates
+outputs in response to user inputs</li>
+<li>A call to the <code>shinyApp()</code> function, which launches the
+application by bringing together the <strong>UI</strong> and
+<strong>server</strong>
+</li>
+</ul>
+<p>The relationship between the user interface and server is dynamic and
+bi-directional; the server provides substantive content (created using R
+code) that populates the user interface, while the user interface
+defines how that content is organized and displayed to users. This may
+sound fairly abstract, but will hopefully come into focus as we
+proceed.</p>
+</section><section><h2 class="section-heading" id="our-first-application-hello-world">Our first application: Hello, World!<a class="anchor" aria-label="anchor" href="#our-first-application-hello-world"></a>
+</h2>
+<hr class="half-width">
+<p>In this section, we’ll develop our very first Shiny application.
+There’s a good chance that the first (or one of the first) things you
+did in R was to print a “Hello, World” statement:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># prints "Hello, World"</span></span>
+<span><span class="fu">print</span><span class="op">(</span><span class="st">"Hello, World"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>[1] "Hello, World"</code></pre>
+</div>
+<p>Our goal in this section is to wrap this statement into a “Hello,
+World” Shiny application.</p>
+<div class="section level3">
+<h3 id="a-note-on-application-files-and-directories">A note on application files and directories<a class="anchor" aria-label="anchor" href="#a-note-on-application-files-and-directories"></a>
+</h3>
+<p>First, though, it is important to briefly discuss where to write and
+store your applications. Ideally, you should create a separate dedicated
+directory for each application you write. For now, we’ll create our
+application scripts, containing the UI and server code, in a familiar
+<strong>.R</strong> file (but R Studio does have a handy pre-built
+template for Shiny applications, which we’ll introduce later on). This
+application directory can also contain other elements relevant to or
+referenced by your application (such as image files, datasets, Readme
+files etc.). As applications grow in complexity, it could make sense for
+you to use subdirectories to organize your main application
+directory.</p>
+<p>Each R script should only contain the code for a single application;
+trying to include the code for multiple applications in a single script
+can cause errors or undefined behavior when you try to launch an
+application (since Shiny may be confused about which application it’s
+supposed to run). That said, in this episode, we’ll be creating and
+running several simple “toy” applications to illustrate important Shiny
+features. You can either save each application in separate scripts, or
+write all of the applications in a single script while commenting out
+the code for the application(s) you are NOT running; that way, you can
+write code for several simple applications in one <strong>.R</strong>
+file, while ensuring that only one script at a time is “live” when you
+try to launch it.</p>
+</div>
+<div class="section level3">
+<h3 id="writing-the-hello-world-application">Writing the “Hello, World” application<a class="anchor" aria-label="anchor" href="#writing-the-hello-world-application"></a>
+</h3>
+<p>Let’s first write out our application’s skeletal structure,
+translating the three components we discussed above (the UI, server, and
+<code>shinyApp()</code>) into actual Shiny code. After getting this
+structure down, we’ll fill in elements to create the “Hello, World”
+application below. Recall from above that the application’s UI defines
+how the application <em>looks</em> (i.e. what are the inputs and
+outputs, and how are they visually displayed), the server defines what
+the application <em>does</em> and how it works (i.e. how inputs are
+processed to generate outputs), and the call to <code>shinyApp()</code>
+brings these elements together to launch the application.</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># UI: Layout and inputs/outputs go here</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="co"># Add UI code (specifying application's inputs, outputs, and layouts) here</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Server: Logic and reactivity go here</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Add server code (specifying application's content) here</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Launch the app </span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Some aspects of this code require additional clarification.</p>
+<ul>
+<li>The <code>fluidPage()</code> function used in the creation of the UI
+object is a Shiny layout function that creates a responsive web page
+layout that automatically adjusts to different screen sizes. The
+arguments to <code>fluidPage()</code>, will contain additional functions
+that define the user interface.</li>
+<li>Within the server function, “input” is used to access values the
+user has entered or selected in the UI, while “output” is used to define
+the content that is displayed within the UI. Sometimes, in more complex
+applications with more sophisticated user interfaces, you will also see
+a “session” argument in the server function, but that is beyond the
+scope of our current workshop.</li>
+</ul>
+<p>Again, this may still seem a little but abstract, but will hopefully
+come into focus as we proceed. You can launch an application from your
+script by simply running the UI and server code, along with with
+<code>shinyApp(ui, server)</code>:</p>
+<figure style="text-align: center"><img src="../fig/fig2-launching-app.png" alt="Figure 2. Launching an App" class="figure mx-auto d-block"><figcaption>
+Figure 2. Launching an App
+</figcaption></figure><p>Since our application is still empty, launching it will generate a
+blank page that looks something like this:</p>
+<figure style="text-align: center"><img src="../fig/fig3-blank-page.png" alt="Figure 3. Launching a Blank Application" class="figure mx-auto d-block"><figcaption>
+Figure 3. Launching a Blank Application
+</figcaption></figure><p>Now, let’s go ahead and create our “Hello, World” app by adding this
+text to the application structure we’ve defined above. It may not seem
+intuitive at first, but we’ll unpack it after writing out the code and
+launching the application.</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># UI: Layout and inputs/outputs go here</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="fu">textOutput</span><span class="op">(</span>outputId<span class="op">=</span><span class="st">"greeting"</span><span class="op">)</span>  <span class="co"># Placeholder for text</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Server: Logic and reactivity go here</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Add server code (specifying application's text)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">greeting</span> <span class="op">&lt;-</span> <span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="st">"Hello, World!"</span>  <span class="co"># application content</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Launch the app</span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre>
+</div>
+<p>When you go ahead and launch this application from your .R file,
+you’ll see something that looks like this:</p>
+<figure style="text-align: center"><img src="../fig/fig4-hello-world.png" alt="Figure 4. The 'Hello, World!' Application" class="figure mx-auto d-block"><figcaption>
+Figure 4. The ‘Hello, World!’ Application
+</figcaption></figure><p>Congratulations on writing your first Shiny application!</p>
+<p>This application was simple–it’s just a blank web page with “Hello,
+World!” written on it–but it’s certainly less intuitive than printing
+that string to the console with <code>Hello, World</code>. The code
+above needs some unpacking:</p>
+<ul>
+<li>
+<code>textOutput()</code> is one of Shiny’s UI output functions; it
+creates a placeholder in the user interface for a text string that will
+be defined in the server. The argument to this function, “greeting”, is
+an arbitrary identifier that will be used to link the text string
+defined in the server back to this placeholder in the user interface. To
+learn more about <code>textOutput()</code> please consult the
+documentation with <code>?textOutput()</code>.</li>
+<li>After creating the placeholder for text output in the UI, the server
+defines what text will be displayed in the UI with
+<code>output$greeting &lt;- renderText({"Hello, World!"})</code>.
+<code>renderText()</code> is a server-side output function used to
+generate the text displayed in the placeholder created by
+<code>textOutput()</code>. In Shiny, <code>output()</code> is a special
+object that is used to store content that will be displayed in the UI.
+Shiny uses dollar sign notation to assign the content in the output
+object to a specific UI placeholder, identified by its output ID. Here,
+<code>output$greeting</code> connects the rendered text to the UI
+placeholder identified by <code>outputId="greeting"</code>.</li>
+</ul>
+<div id="callout1" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Callout</h3>
+<div class="callout-content">
+<p>In Shiny, output functions determine what gets displayed in the
+application. These are used to show text, plots, tables, or other
+content, either by reserving space in the UI (UI output functions) or by
+generating content in the server (server-side output functions).</p>
+<ul>
+<li><p>Output functions in the UI are sometimes referred to as
+“placeholder functions” because they reserve space in the UI where
+content created in the server will appear.</p></li>
+<li><p>Output functions in the server are sometimes referred to as
+“render functions”, because they generate (or “render”) the content that
+fills the placeholders defined in the UI.</p></li>
+</ul>
+<p>Each render function in the server has a matching placeholder in the
+UI. For example, in the simple “Hello, World!” app, the placeholder
+function <code>textOutput()</code> reserves space in the UI, while the
+corresponding render function <code>renderText()</code> generates the
+text that will be shown there.</p>
+<p>Shiny connects the two using <code>output$id</code> where “id”
+matches the identifier given to the placeholder.The content returned by
+the render function is displayed in the UI at the location specified by
+the placeholder.</p>
+</div>
+</div>
+</div>
+<div id="challenge-1-make-your-own-text-app" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="challenge-1-make-your-own-text-app" class="callout-inner">
+<h3 class="callout-title">Challenge 1: Make your own text app</h3>
+<div class="callout-content">
+<p>Using what you’ve learned above, make your own basic Shiny
+application that communicates a message in simple text. Rather than
+simply modifying the “Hello, World!” app, write it from scratch; this
+will help you become familiar with Shiny’s syntax.</p>
+</div>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="displaying-a-plot-in-a-shiny-application">Displaying a plot in a Shiny application<a class="anchor" aria-label="anchor" href="#displaying-a-plot-in-a-shiny-application"></a>
+</h2>
+<hr class="half-width">
+<p>Instead of printing a text string in our application, let’s instead
+create a Shiny application that displays a simple plot that’s generated
+with some R code. Below, we generate 1000 random values from a normal
+distribution with a mean of 0 and a standard deviation of 1, and assign
+the resulting vector to a new object named <code>samples</code>. We then
+plot a histogram of the <code>samples</code> data that’s divided into 30
+bins:</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># create a vector of 1000 randomly generated values from a normal distribution with a mean of 0 and SD of 1</span></span>
+<span><span class="va">samples</span> <span class="op">&lt;-</span> <span class="fu">rnorm</span><span class="op">(</span><span class="fl">1000</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># make a histogram of "samples" data</span></span>
+<span><span class="fu">hist</span><span class="op">(</span><span class="va">samples</span>, breaks <span class="op">=</span> <span class="fl">30</span>, col <span class="op">=</span> <span class="st">"skyblue"</span>,</span>
+<span>     main <span class="op">=</span> <span class="st">"Histogram of Normal Samples"</span>,</span>
+<span>     xlab <span class="op">=</span> <span class="st">"Value"</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="../fig/02-shiny-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Let’s wrap this histogram into a simple Shiny app; we’ll do so in
+much the same way we wrapped “Hello, World” into a Shiny app, with some
+minor adjustments to account for the fact that we want to display a
+plot, rather than text. In particular, we’ll use a new set of output
+functions designed specifically for plots (rather than output functions
+designed for text, as above). Let’s start by first creating the skeletal
+structure for a blank application:</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># UI: Layout and inputs/outputs go here</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="co"># Add UI code (specifying application's inputs, outputs, and layouts) here</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Server: Logic and reactivity go here</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Add server code (specifying application's content) here</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Launch the app </span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Now, let’s begin populating the application:</p>
+<ul>
+<li>In the “Hello, World!” application, we didn’t make a title for the
+application. That can be a useful thing to do, so here, we’ll create a
+title for the application using Shiny’s <code>titlePanel()</code>
+function. We’ll name the application “Exploring the Normal
+Distribution”, which we can pass as an argument to
+<code>titlePanel()</code> in the UI.</li>
+<li>We’ll create a placeholder for the plot in the UI using Shiny’s
+<code>plotOutput()</code> function, and use “normal_plot” as the output
+ID. Note that different elements in the UI are separated by a comma (in
+this case, a comma separates the <code>titlePanel()</code> and
+<code>plotOutput()</code> functions)</li>
+<li>Then, in the server, we’ll wrap the code to make our plot within the
+<code>renderPlot()</code> function, and assign this output back to the
+UI using the “normal_plot” ID.</li>
+</ul>
+<p>Our application code should look something like this:</p>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># UI: Layout and inputs/outputs go here</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="co"># Add UI code (specifying application's inputs, outputs, and layouts) here</span></span>
+<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Exploring the Normal Distribution"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">plotOutput</span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"normal_plot"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Server: Logic and reactivity go here</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Add server code (specifying application's content) here</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">normal_plot</span><span class="op">&lt;-</span><span class="fu">renderPlot</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="co"># create vector</span></span>
+<span>    <span class="va">samples</span> <span class="op">&lt;-</span> <span class="fu">rnorm</span><span class="op">(</span><span class="fl">1000</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="co"># make a histogram of "samples" data</span></span>
+<span>    <span class="fu">hist</span><span class="op">(</span><span class="va">samples</span>, breaks <span class="op">=</span> <span class="fl">30</span>, col <span class="op">=</span> <span class="st">"skyblue"</span>,</span>
+<span>         main <span class="op">=</span> <span class="st">"Histogram of Normal Samples"</span>,</span>
+<span>         xlab <span class="op">=</span> <span class="st">"Value"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Launch the app </span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre>
+</div>
+<p>When you’re ready, go ahead and launch the application. It will look
+something like this:</p>
+<figure style="text-align: center"><img src="../fig/fig5-exploring-normal.png" alt="Figure 5. The Normal Plot Application" class="figure mx-auto d-block"><figcaption>
+Figure 5. The Normal Plot Application
+</figcaption></figure></section><section><h2 class="section-heading" id="applications-with-multiple-outputs">Applications with multiple outputs<a class="anchor" aria-label="anchor" href="#applications-with-multiple-outputs"></a>
+</h2>
+<hr class="half-width">
+<p>The “Hello, World!” application displayed a text output, while the
+app we just created displayed a plot output. There’s no reason why a
+Shiny application cannot include many different types of outputs
+(indeed, most “real world” Shiny apps do!). Let’s now make a slightly
+more complex application that incorporates both text and plot outputs;
+we’ll use the same plot as above, and add some text to provide some
+additional context, using <code>textOutput()</code> to create a
+placeholder in the UI, and the <code>renderText()</code> function to
+create the message we’d like to display. The output created using
+<code>renderText()</code> is assigned back to the UI placeholder by
+using dollar sign notation to reference the output ID specified in
+<code>textOutput()</code>. Your application code should look something
+like the following:</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># UI: Layout and inputs/outputs go here</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="co"># Add UI code (specifying application's inputs, outputs, and layouts) here</span></span>
+<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Exploring the Normal Distribution"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">textOutput</span><span class="op">(</span>outputId<span class="op">=</span><span class="st">"context_discussion"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">plotOutput</span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"normal_plot"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Server: Logic and reactivity go here</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Add server code (specifying application's content) here</span></span>
+<span>  </span>
+<span>  <span class="co"># creates text output</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">context_discussion</span><span class="op">&lt;-</span><span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="st">"This histogram shows 1,000 values randomly drawn from a standard normal distribution. Most values fall between -3 and 3, with a peak around 0."</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># creates plot output</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">normal_plot</span><span class="op">&lt;-</span><span class="fu">renderPlot</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="co"># create vector</span></span>
+<span>    <span class="va">samples</span> <span class="op">&lt;-</span> <span class="fu">rnorm</span><span class="op">(</span><span class="fl">1000</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="co"># make a histogram of "samples" data</span></span>
+<span>    <span class="fu">hist</span><span class="op">(</span><span class="va">samples</span>, breaks <span class="op">=</span> <span class="fl">30</span>, col <span class="op">=</span> <span class="st">"skyblue"</span>,</span>
+<span>         main <span class="op">=</span> <span class="st">"Histogram of Normal Samples"</span>,</span>
+<span>         xlab <span class="op">=</span> <span class="st">"Value"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Launch the app </span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Now, let’s go ahead and launch our application, and see what it looks
+like:</p>
+<figure style="text-align: center"><img src="../fig/fig6-exploring-normal-text.png" alt="Figure 6. The Normal Plot Application With Text" class="figure mx-auto d-block"><figcaption>
+Figure 6. The Normal Plot Application With Text
+</figcaption></figure><p>Note the text above the plot in this modified application.</p>
+<div id="challenge-2-change-an-applications-layout" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="challenge-2-change-an-applications-layout" class="callout-inner">
+<h3 class="callout-title">Challenge 2: Change an application’s layout</h3>
+<div class="callout-content">
+<p>In the application we just created, the written text providing
+relevant context is situated above the plot. Modify the application code
+so that it’s instead below the plot.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div class="accordion-body">
+<p>To make this change, you can simply move <code>textOutput()</code>
+function below the <code>plotOutput()</code> function in the UI. There
+is no need to change the order of anything in the server; the order in
+which elements is displayed is solely governed by the UI code. The code
+for a modified application with the text element below the plot looks as
+follows:</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># UI: Layout and inputs/outputs go here</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="co"># Add UI code (specifying application's inputs, outputs, and layouts) here</span></span>
+<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Exploring the Normal Distribution"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">plotOutput</span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"normal_plot"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">textOutput</span><span class="op">(</span>outputId<span class="op">=</span><span class="st">"context_discussion"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Server: Logic and reactivity go here</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Add server code (specifying application's content) here</span></span>
+<span>  </span>
+<span>  <span class="co"># creates text output</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">context_discussion</span><span class="op">&lt;-</span><span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="st">"This histogram shows 1,000 values randomly drawn from a standard normal distribution. Most values fall between -3 and 3, with a peak around 0."</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># creates plot output</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">normal_plot</span><span class="op">&lt;-</span><span class="fu">renderPlot</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="co"># create vector</span></span>
+<span>    <span class="va">samples</span> <span class="op">&lt;-</span> <span class="fu">rnorm</span><span class="op">(</span><span class="fl">1000</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="co"># make a histogram of "samples" data</span></span>
+<span>    <span class="fu">hist</span><span class="op">(</span><span class="va">samples</span>, breaks <span class="op">=</span> <span class="fl">30</span>, col <span class="op">=</span> <span class="st">"skyblue"</span>,</span>
+<span>         main <span class="op">=</span> <span class="st">"Histogram of Normal Samples"</span>,</span>
+<span>         xlab <span class="op">=</span> <span class="st">"Value"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Launch the app </span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="interactive-applications">Interactive applications<a class="anchor" aria-label="anchor" href="#interactive-applications"></a>
+</h2>
+<hr class="half-width">
+<p>So far, we have learned about the basic structure of Shiny
+applications, and about how to populate these applications with content
+by linking output functions in the UI (placeholder functions) and output
+functions in the server (render functions). You may have noticed that
+the applications we created were static, in the sense that they didn’t
+dynamically adjust or react to user inputs or specifications. Static
+applications such as the ones we created have limited utility, and much
+of the power and usefulness of Shiny applications comes from their
+ability to dynamically respond to user commands. In this section, we’ll
+begin creating more dynamic and interactive applications.</p>
+<p>In order to do so, we’ll need to introduce a new class of Shiny
+functions, namely, input functions. Input functions are UI functions
+that create interactive interfaces for users to enter or select data
+that will govern the outputs that are ultimately displayed in the
+application. For example, imagine an application that contains some text
+output in the UI, but the language of this text output can be specified
+by the user using radio buttons in the UI. If they select the “English”
+button, the text is displayed in English, and if they select “Spanish”
+the text is displayed in Spanish. The function used to create these
+radio buttons in Shiny would be considered an input function. Shiny
+contains a number of different input functions that can create different
+ways for users to interact with an application (i.e. text boxes,
+sliders, radio buttons, check boxes etc.).</p>
+<p>In Shiny, applications respond to user input by automatically
+recalculating and updating outputs whenever their underlying inputs
+change. For example, if a user adjusts a slider input specifying a date
+range, any outputs depending on that slider (i.e. a plot, text, table
+etc.) will automatically update without needing to refresh or re-run the
+app. This concept is known as <em>reactivity</em>.</p>
+<p>it’s a good starting point. Before moving on, there are a few things
+we should note about this application:</p>
+<ul>
+<li>First, note that</li>
+</ul></section><section><h2 class="section-heading" id="adds-plot">adds plot<a class="anchor" aria-label="anchor" href="#adds-plot"></a>
+</h2>
+<hr class="half-width"></section><section><h2 class="section-heading" id="introducing-reactivity">Introducing Reactivity<a class="anchor" aria-label="anchor" href="#introducing-reactivity"></a>
+</h2>
+<hr class="half-width">
+<div class="section level3">
+<h3 id="creating-the-hello-world-application">Creating the “Hello, World” Application<a class="anchor" aria-label="anchor" href="#creating-the-hello-world-application"></a>
+</h3>
+<p>Let’s begin by writing out the code for an empty Shiny application.
+You can write Shiny applications in a simple R</p>
+<p>-organizing files in a directory devoted to shiny</p>
 <p>This is a lesson created via The Carpentries Workbench. It is written
 in <a href="https://pandoc.org/MANUAL.html" class="external-link">Pandoc-flavored Markdown</a>
 for static files (with extension <code>.md</code>) and <a href="https://rmarkdown.rstudio.com/" class="external-link">R Markdown</a> for dynamic files
@@ -633,7 +1139,7 @@ reinforce the objectives.</li>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>Inline instructor notes can help inform instructors of timing
 challenges associated with the lessons. They appear in the “Instructor
@@ -650,7 +1156,7 @@ View”</p>
 <h3 class="callout-title">Challenge 1: Can you do it?</h3>
 <div class="callout-content">
 <p>What is the output of this command?</p>
-<div class="codewrapper sourceCode" id="cb1">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -659,12 +1165,12 @@ View”</p>
 </div>
 </div>
 </div>
-<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1"> Output </h4>
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2"> Output </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -686,15 +1192,16 @@ View”</p>
 </div>
 </div>
 </div>
-<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
-  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>You can add a line with at least three colons and a
 <code>solution</code> tag.</p>
+</div>
 </div>
 </div>
 </div>
@@ -703,7 +1210,7 @@ View”</p>
 </h2>
 <hr class="half-width">
 <p>You can include figures generated from R Markdown:</p>
-<div class="codewrapper sourceCode" id="cb3">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -754,7 +1261,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-03-making-a-basic-dashboard"><p>Content from <a href="03-making-a-basic-dashboard.html">Shiny and Interactivity</a></p>
 <hr>
-<p>Last updated on 2025-04-24 |
+<p>Last updated on 2025-05-08 |
 
         <a href="https://github.com/aranganath24/data-dashboard-carpentries/edit/main/episodes/03-making-a-basic-dashboard.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
@@ -952,7 +1459,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-04-interactive-data-app"><p>Content from <a href="04-interactive-data-app.html">Building Interactive Data Applications with Shiny</a></p>
 <hr>
-<p>Last updated on 2025-04-24 |
+<p>Last updated on 2025-05-08 |
 
         <a href="https://github.com/aranganath24/data-dashboard-carpentries/edit/main/episodes/04-interactive-data-app.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
@@ -1018,7 +1525,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-05-data-dashboards"><p>Content from <a href="05-data-dashboards.html">Building Interactive Data Dashboards with shinydashboard</a></p>
 <hr>
-<p>Last updated on 2025-04-24 |
+<p>Last updated on 2025-05-08 |
 
         <a href="https://github.com/aranganath24/data-dashboard-carpentries/edit/main/episodes/05-data-dashboards.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1064,7 +1571,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-06-publishing-applications"><p>Content from <a href="06-publishing-applications.html">Publishing Your Shiny Applications</a></p>
 <hr>
-<p>Last updated on 2025-04-26 |
+<p>Last updated on 2025-05-08 |
 
         <a href="https://github.com/aranganath24/data-dashboard-carpentries/edit/main/episodes/06-publishing-applications.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
@@ -1270,7 +1777,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.11" class="external-link">sandpaper (0.16.11)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.5" class="external-link">varnish (1.0.5)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.12" class="external-link">sandpaper (0.16.12)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.6" class="external-link">varnish (1.0.6)</a></p>
 			</div>
 		</footer>
 </div> <!-- / div.container -->
@@ -1282,10 +1789,10 @@ any links that you are not going to use.
   <script type="application/ld+json">
     {
   "@context": "https://schema.org",
-  "@type": "TrainingMaterial",
+  "@type": "LearningResource",
   "@id": "https://aranganath24.github.io/data-dashboard-carpentries/instructor/aio.html",
   "inLanguage": "en",
-  "dct:conformsTo": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE",
+  "dct:conformsTo": "https://bioschemas.org/profiles/LearningResource/1.0-RELEASE",
   "description": "A Carpentries Lesson teaching foundational data and coding skills to researchers worldwide",
   "keywords": "dashboard, data, application development, Shiny, open science, The Carpentries",
   "name": "All in One View",
@@ -1293,8 +1800,8 @@ any links that you are not going to use.
   "url": "https://aranganath24.github.io/data-dashboard-carpentries/instructor/aio.html",
   "identifier": "https://aranganath24.github.io/data-dashboard-carpentries/instructor/aio.html",
   "dateCreated": "2025-01-10",
-  "dateModified": "2025-05-06",
-  "datePublished": "2025-05-06"
+  "dateModified": "2025-05-08",
+  "datePublished": "2025-05-08"
 }
 
   </script><script>
