@@ -263,7 +263,7 @@ shinyApp(ui, server)
 Now, let's go ahead and launch our application, and see what it looks like:
 
 ```{r, echo=FALSE, fig:exploring-normal-text, fig.cap="Figure 6. The Normal Plot Application With Text"}
-knitr::include_graphics("fig/fig6-exploring-normal-text.png")
+knitr::include_graphics("fig/fig6-exploring-normal-text.jpg")
 ```
 
 Note the text above the plot in this modified application.
