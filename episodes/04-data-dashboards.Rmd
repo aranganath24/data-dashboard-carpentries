@@ -1,5 +1,5 @@
 ---
-title: "Building Interactive Data Dashboards with *shinydashboard*"
+title: "Shiny Data Dashboards"
 output: html_document
 date: "2025-04-23"
 ---

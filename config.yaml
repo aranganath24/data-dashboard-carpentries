@@ -66,11 +66,10 @@ contact: 'aranganath24@gmail.com'
 # Order of episodes in your lesson
 episodes: 
 - introduction.Rmd
-- 02-shiny.Rmd
-- 03-making-a-basic-dashboard.Rmd
-- 04-interactive-data-app.Rmd
-- 05-data-dashboards.Rmd
-- 06-publishing-applications.Rmd
+- 02-shiny-fundamentals.Rmd
+- 03-data-applications.Rmd
+- 04-data-dashboards.Rmd
+- 05-publishing-applications.Rmd
 
 # Information for Learners
 learners: 
