@@ -14,7 +14,8 @@ message: >-
 type: dataset
 authors:
   - given-names: Aditya
-  - family-names: Ranganath
+    family-names: Ranganath
+    orcid: 'https://orcid.org/0000-0002-4721-2313'
 abstract: >-
   This lesson introduces building interactive data applications and dashboards with the Shiny package in R. Participants learn when to use Shiny for research communication, create basic apps, explore shinydashboard layouts, and review options for publishing applications to support open science. Basic R knowledge is recommended.
 license: CC-BY-4.0
