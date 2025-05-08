@@ -316,7 +316,7 @@ shinyApp(ui, server)
 
 :::::::::::::::::::::::::::::::::::::
 
-## Interactive applications
+## Interactive applications: Concepts
 
 So far, we have learned about the basic structure of Shiny applications and how to populate them with content by linking output functions in the UI (placeholder functions) with output functions in the server (render functions). You may have noticed that the applications we have built so far are static, in the sense that they don't respond dynamically to user input. However, static applications have limited utility, and much of the power and usefulness of Shiny applications comes from their ability to dynamically respond to user input. 
 
@@ -361,7 +361,17 @@ Now, what is the value of ```y```? As you likely know from your previous experie
 y
 ```
 
-This is the essence of *non-reactive* behavior: 
+This is the essence of *non-reactive* behavior: R does not automatically re-calculate the value of ```y``` after the change in ```x```. In order for the updated value of ```x``` to be reflected in the value of ```y```, it would be necessary to re-run ```y<-x+1```. However, in a reactive context such as Shiny, outputs automatically update whenever their dependent inputs change. For example, if ```x``` were controlled by a user input (e.g. a slider), and ```y``` was displayed in the app using ```renderText()```, then an app user updating the slider would automatically trigger a recalculation of y, without needing to re-run any code. This is the essence of reactivity in Shiny: it allows your applications to respond automatically to user input, without manual intervention or re-running code. 
+
+## Interactive applications: practice
+
+Let's now turn to 
+
+  
+
+
+
+because ```y``` was calculated before ```x``` was changed, and R does not automatically re-calculate Y 
 
 
 
