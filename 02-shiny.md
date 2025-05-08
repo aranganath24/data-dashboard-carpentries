@@ -336,13 +336,62 @@ shinyApp(ui, server)
 
 ## Interactive applications
 
-So far, we have learned about the basic structure of Shiny applications, and about how to populate these applications with content by linking output functions in the UI (placeholder functions) and output functions in the server (render functions). You may have noticed that the applications we created were static, in the sense that they didn't dynamically adjust or react to user inputs or specifications. Static applications such as the ones we created have limited utility, and much of the power and usefulness of Shiny applications comes from their ability to dynamically respond to user commands. In this section, we'll begin creating more dynamic and interactive applications.
+So far, we have learned about the basic structure of Shiny applications and how to populate them with content by linking output functions in the UI (placeholder functions) with output functions in the server (render functions). You may have noticed that the applications we have built so far are static, in the sense that they don't respond dynamically to user input. However, static applications have limited utility, and much of the power and usefulness of Shiny applications comes from their ability to dynamically respond to user input. 
 
-In order to do so, we'll need to introduce a new class of Shiny functions, namely, input functions. Input functions are UI functions that create interactive interfaces for users to enter or select data that will govern the outputs that are ultimately displayed in the application. For example, imagine an application that contains some text output in the UI, but the language of this text output can be specified by the user using radio buttons in the UI. If they select the "English" button, the text is displayed in English, and if they select "Spanish" the text is displayed in Spanish. The function used to create these radio buttons in Shiny would be considered an input function. Shiny contains a number of different input functions that can create different ways for users to interact with an application (i.e. text boxes, sliders, radio buttons, check boxes etc.).
+### Input Functions
+
+To build dynamic, interactive applications, we need to introduce a new class of Shiny functions: input functions. Input functions are UI functions that create interactive elements where users can enter or select information (such as text boxes, sliders, check boxes, or radio buttons). This user input can then determine what gets displayed in the app. 
+
+For example, imagine an app that contains some text output in the UI, and radio buttons that let the user choose a language. If the user selects "English", the text appears in English; if they select "Spanish", it appears in Spanish. The function that creates these radio buttons in Shiny is considered an input function.
+
+### Reactivity
 
 In Shiny, applications respond to user input by automatically recalculating and updating outputs whenever their underlying inputs change. For example, if a user adjusts a slider input specifying a date range, any outputs depending on that slider (i.e. a plot, text, table etc.) will automatically update without needing to refresh or re-run the app. This concept is known as *reactivity*.
 
+Reactivity is built into Shiny functions. For example, the server-side ```renderPlot()``` function can explicitly reference input values (we'll see how to do this below); the plot will automatically re-render whenever the user changes a relevant input value. In other words, render functions "listen" for changes in inputs and update their output value accordingly. 
 
+It's worth highlighting how unique reactive behavior in Shiny is, compared to the way the R programming language works more generally. In particular, traditional R code is emphatically *not* reactive. To make this more concrete, let's consider an example. First, we'll define two new objects, ```x``` and ```y```"
+
+
+``` r
+# defines objects x and y
+x<-5
+y<-x+1
+```
+
+As expected, we can see the value of ```y``` is 6:
+
+
+``` r
+# prints value of y
+y
+```
+
+``` output
+[1] 6
+```
+
+Now, let's change the value of of ```x``` to 10:
+
+
+``` r
+# assigns new value of 10 to object x
+x<-10
+```
+
+Now, what is the value of ```y```? As you likely know from your previous experience with R, the value of y would remain unchanged:
+
+
+``` r
+# prints value of y
+y
+```
+
+``` output
+[1] 6
+```
+
+This is the essence of *non-reactive* behavior: 
 
 
 
