@@ -1,5 +1,5 @@
 ---
-title: "Getting Started with Shiny"
+title: "Shiny Fundamentals"
 teaching: 10
 exercises: 2
 ---
@@ -100,8 +100,8 @@ Again, this may still seem a little but abstract, but will hopefully come into f
 Since our application is still empty, launching it will generate a blank page that looks something like this:
 
 <div class="figure" style="text-align: center">
-<img src="fig/fig3-blank-page.png" alt="Figure 3. Launching a Blank Application"  />
-<p class="caption">Figure 3. Launching a Blank Application</p>
+<img src="fig/fig3-blank-page.png" alt="Figure 3. A Blank Application"  />
+<p class="caption">Figure 3. A Blank Application</p>
 </div>
 
 Now, let's go ahead and create our "Hello, World" app by adding this text to the application structure we've defined above. It may not seem intuitive at first, but we'll unpack it after writing out the code and launching the application. 
@@ -175,7 +175,7 @@ hist(samples, breaks = 30, col = "skyblue",
      xlab = "Value")
 ```
 
-<img src="fig/02-shiny-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" />
+<img src="fig/02-shiny-fundamentals-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" />
 
 Let's wrap this histogram into a simple Shiny app; we'll do so in much the same way we wrapped "Hello, World" into a Shiny app, with some minor adjustments to account for the fact that we want to display a plot, rather than text. In particular, we'll use a new set of output functions designed specifically for plots (rather than output functions designed for text, as above). Let's start by first creating the skeletal structure for a blank application:
 
@@ -334,7 +334,7 @@ shinyApp(ui, server)
 
 :::::::::::::::::::::::::::::::::::::
 
-## Interactive applications: concepts
+## A conceptual overview of interactive applications
 
 So far, we have learned about the basic structure of Shiny applications and how to populate them with content by linking output functions in the UI (placeholder functions) with output functions in the server (render functions). You may have noticed that the applications we have built so far are static, in the sense that they don't respond dynamically to user input. However, static applications have limited utility, and much of the power and usefulness of Shiny applications comes from their ability to dynamically respond to user input. 
 
@@ -393,9 +393,48 @@ y
 
 This is the essence of *non-reactive* behavior: R does not automatically re-calculate the value of ```y``` after the change in ```x```. In order for the updated value of ```x``` to be reflected in the value of ```y```, it would be necessary to re-run ```y<-x+1```. However, in a reactive context such as Shiny, outputs automatically update whenever their dependent inputs change. For example, if ```x``` were controlled by a user input (e.g. a slider), and ```y``` was displayed in the app using ```renderText()```, then an app user updating the slider would automatically trigger a recalculation of y, without needing to re-run any code. This is the essence of reactivity in Shiny: it allows your applications to respond automatically to user input, without manual intervention or re-running code. 
 
-## Interactive applications: practice
+## Writing interactive applications
 
-Let's now turn to 
+With those concepts in mind, let's now turn to writing some simple interactive applications that use input functions and utilize Shiny's reactive capabilities. We'll start by modifying our previous "Hello, World!" application. Rather than having the application always display the same static "Hello, World!" greeting, we'll allow the user to enter their own greeting using a text box. By default, the app will display "Hello, World!", but users can replace this with a custom message-making the application dynamic and interactive (though still, of course, very simple). We can generate such an application with the following:
+
+
+``` r
+# UI: Layout and inputs/outputs go here
+ui <- fluidPage(
+  titlePanel("Greeting Application"),
+  
+  # Input: Text box for user to input their own message
+  textInput("user_input", label = "Enter your greeting:", value = "Hello, World!"),
+  
+  # Output: Display the greeting
+  textOutput("greeting")
+)
+
+# Server: Logic and reactivity go here
+server <- function(input, output) {
+  
+  # Reactive output based on user input
+  output$greeting <- renderText({
+    paste(input$user_input)  # Dynamically update the greeting based on input
+  })
+}
+
+# Launch the app 
+shinyApp(ui, server)
+```
+
+Let's unpack the code above:
+
+* We use 
+
+
+
+
+make an app in which "Hello, World!" is the default text output, but which also allows the user to change this greeting by writing their preferred greeting into a text box, which is then returned by the application as an output. 
+
+
+
+simply having  "Hello, World", we'll make an app in which "Hello, World!" is the default greeting, but allow the user to change the greeting by writing a new greeting of their choicehave app respond to user input. 
 
   
 
@@ -506,7 +545,7 @@ pie(
 ```
 
 <div class="figure" style="text-align: center">
-<img src="fig/02-shiny-rendered-pyramid-1.png" alt="pie chart illusion of a pyramid"  />
+<img src="fig/02-shiny-fundamentals-rendered-pyramid-1.png" alt="pie chart illusion of a pyramid"  />
 <p class="caption">Sun arise each and every morning</p>
 </div>
 Or you can use pandoc markdown for static figures with the following syntax:
