@@ -93,7 +93,7 @@ Some aspects of this code require additional clarification.
 Again, this may still seem a little but abstract, but will hopefully come into focus as we proceed. You can launch an application from your script by simply running the UI and server code, along with with ```shinyApp(ui, server)```:
 
 <div class="figure" style="text-align: center">
-<img src="fig/screenshot_fixed.png" alt="Figure 2. Launching an App"  />
+<img src="fig/screenshot_fixed_alt.jpg" alt="Figure 2. Launching an App"  />
 <p class="caption">Figure 2. Launching an App</p>
 </div>
 
