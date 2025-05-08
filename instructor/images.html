@@ -256,7 +256,7 @@
 <div class="accordion accordion-flush" id="accordionFlush3">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading3">
-        <a href="02-shiny.html">2. Getting Started with Shiny</a>
+        <a href="02-shiny-fundamentals.html">2. Shiny Fundamentals</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -268,7 +268,7 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="03-making-a-basic-dashboard.html">3. Shiny and Interactivity</a>
+        <a href="03-data-applications.html">3. Shiny Data Applications</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -280,7 +280,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="04-interactive-data-app.html">4. Building Interactive Data Applications with Shiny</a>
+        <a href="04-data-dashboards.html">4. Shiny Data Dashboards</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -292,19 +292,7 @@
 <div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading6">
-        <a href="05-data-dashboards.html">5. Building Interactive Data Dashboards with <em>shinydashboard</em></a>
-    </div>
-<!--/div.accordion-header-->
-
-  </div>
-<!--/div.accordion-item-->
-</div>
-<!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush7">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading7">
-        <a href="06-publishing-applications.html">6. Publishing Your Shiny Applications</a>
+        <a href="05-publishing-applications.html">5. Publishing Shiny Applications</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -374,67 +362,64 @@
 <p aria-hidden="true">Image 1 of 1: ‘Figure 1. The Johns Hopkins COVID-19 Dashboard’</p>
 <figure style="text-align: center"><img src="../fig/fig1-covid-dashboard.png" alt="Figure 1. The Johns Hopkins COVID-19 Dashboard" class="figure mx-auto d-block"><figcaption>
 Figure 1. The Johns Hopkins COVID-19 Dashboard
-</figcaption></figure><hr></section><section id="02-shiny"><h2 class="section-heading"><a href="02-shiny.html">Getting Started with Shiny</a></h2>
+</figcaption></figure><hr></section><section id="02-shiny-fundamentals"><h2 class="section-heading"><a href="02-shiny-fundamentals.html">Shiny Fundamentals</a></h2>
 <hr class="half-width">
-<h3 id="02-shiny-figure-1">Figure 1</h3>
+<h3 id="02-shiny-fundamentals-figure-1">Figure 1</h3>
 <p aria-hidden="true">Image 1 of 1: ‘Figure 2. Launching an App’</p>
 <figure style="text-align: center"><img src="../fig/fig2-launching-app.png" alt="Figure 2. Launching an App" class="figure mx-auto d-block"><figcaption>
 Figure 2. Launching an App
 </figcaption></figure><hr>
-<h3 id="02-shiny-figure-2">Figure 2</h3>
-<p aria-hidden="true">Image 1 of 1: ‘Figure 3. Launching a Blank Application’</p>
-<figure style="text-align: center"><img src="../fig/fig3-blank-page.png" alt="Figure 3. Launching a Blank Application" class="figure mx-auto d-block"><figcaption>
-Figure 3. Launching a Blank Application
+<h3 id="02-shiny-fundamentals-figure-2">Figure 2</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Figure 3. A Blank Application’</p>
+<figure style="text-align: center"><img src="../fig/fig3-blank-page.png" alt="Figure 3. A Blank Application" class="figure mx-auto d-block"><figcaption>
+Figure 3. A Blank Application
 </figcaption></figure><hr>
-<h3 id="02-shiny-figure-3">Figure 3</h3>
+<h3 id="02-shiny-fundamentals-figure-3">Figure 3</h3>
 <p aria-hidden="true">Image 1 of 1: ‘Figure 4. The 'Hello, World!' Application’</p>
 <figure style="text-align: center"><img src="../fig/fig4-hello-world.png" alt="Figure 4. The 'Hello, World!' Application" class="figure mx-auto d-block"><figcaption>
 Figure 4. The ‘Hello, World!’ Application
 </figcaption></figure><hr>
-<h3 id="02-shiny-figure-4">Figure 4</h3>
-<figure><img src="../fig/02-shiny-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
-<h3 id="02-shiny-figure-5">Figure 5</h3>
+<h3 id="02-shiny-fundamentals-figure-4">Figure 4</h3>
+<figure><img src="../fig/02-shiny-fundamentals-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr>
+<h3 id="02-shiny-fundamentals-figure-5">Figure 5</h3>
 <p aria-hidden="true">Image 1 of 1: ‘Figure 5. The Normal Plot Application’</p>
 <figure style="text-align: center"><img src="../fig/fig5-exploring-normal.png" alt="Figure 5. The Normal Plot Application" class="figure mx-auto d-block"><figcaption>
 Figure 5. The Normal Plot Application
 </figcaption></figure><hr>
-<h3 id="02-shiny-figure-6">Figure 6</h3>
+<h3 id="02-shiny-fundamentals-figure-6">Figure 6</h3>
 <p aria-hidden="true">Image 1 of 1: ‘Figure 6. The Normal Plot Application With Text’</p>
 <figure style="text-align: center"><img src="../fig/fig6-exploring-normal-text.png" alt="Figure 6. The Normal Plot Application With Text" class="figure mx-auto d-block"><figcaption>
 Figure 6. The Normal Plot Application With Text
 </figcaption></figure><hr>
-<h3 id="02-shiny-figure-7">Figure 7</h3>
+<h3 id="02-shiny-fundamentals-figure-7">Figure 7</h3>
 <p aria-hidden="true">Image 1 of 1: ‘pie chart illusion of a pyramid’</p>
-<figure style="text-align: center"><img src="../fig/02-shiny-rendered-pyramid-1.png" alt="pie chart illusion of a pyramid" class="figure mx-auto d-block"><figcaption>
+<figure style="text-align: center"><img src="../fig/02-shiny-fundamentals-rendered-pyramid-1.png" alt="pie chart illusion of a pyramid" class="figure mx-auto d-block"><figcaption>
 Sun arise each and every morning
 </figcaption></figure><hr>
-<h3 id="02-shiny-figure-8">Figure 8</h3>
+<h3 id="02-shiny-fundamentals-figure-8">Figure 8</h3>
 <p aria-hidden="true">Image 1 of 1: ‘Blue Carpentries hex person logo with no text.’</p>
 <figure><img src="https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg" alt="Blue Carpentries hex person logo with no text." class="figure mx-auto d-block"><div class="figcaption">You belong in The Carpentries!</div>
-</figure><hr></section><section id="03-making-a-basic-dashboard"><h2 class="section-heading"><a href="03-making-a-basic-dashboard.html">Shiny and Interactivity</a></h2>
+</figure><hr></section><section id="03-data-applications"><h2 class="section-heading"><a href="03-data-applications.html">Shiny Data Applications</a></h2>
 <hr class="half-width">
-<h3 id="03-making-a-basic-dashboard-figure-1">Figure 1</h3>
+<h3 id="03-data-applications-figure-1">Figure 1</h3>
 <p aria-hidden="true">Image 1 of 1: ‘pie chart illusion of a pyramid’</p>
-<figure style="text-align: center"><img src="../fig/03-making-a-basic-dashboard-rendered-pyramid-1.png" alt="pie chart illusion of a pyramid" class="figure mx-auto d-block"><figcaption>
+<figure style="text-align: center"><img src="../fig/03-data-applications-rendered-pyramid-1.png" alt="pie chart illusion of a pyramid" class="figure mx-auto d-block"><figcaption>
 Sun arise each and every morning
 </figcaption></figure><hr>
-<h3 id="03-making-a-basic-dashboard-figure-2">Figure 2</h3>
+<h3 id="03-data-applications-figure-2">Figure 2</h3>
 <p aria-hidden="true">Image 1 of 1: ‘Blue Carpentries hex person logo with no text.’</p>
 <figure><img src="https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg" alt="Blue Carpentries hex person logo with no text." class="figure mx-auto d-block"><div class="figcaption">You belong in The Carpentries!</div>
-</figure><hr></section><section id="04-interactive-data-app"><h2 class="section-heading"><a href="04-interactive-data-app.html">Building Interactive Data Applications with Shiny</a></h2>
+</figure><hr></section><section id="04-data-dashboards"><h2 class="section-heading"><a href="04-data-dashboards.html">Shiny Data Dashboards</a></h2>
 <hr class="half-width">
-<h3 id="04-interactive-data-app-figure-1">Figure 1</h3>
-<figure><img src="../fig/04-interactive-data-app-rendered-pressure-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr></section><section id="05-data-dashboards"><h2 class="section-heading"><a href="05-data-dashboards.html">Building Interactive Data Dashboards with <em>shinydashboard</em></a></h2>
+<h3 id="04-data-dashboards-figure-1">Figure 1</h3>
+<figure><img src="../fig/04-data-dashboards-rendered-pressure-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr></section><section id="05-publishing-applications"><h2 class="section-heading"><a href="05-publishing-applications.html">Publishing Shiny Applications</a></h2>
 <hr class="half-width">
-<h3 id="05-data-dashboards-figure-1">Figure 1</h3>
-<figure><img src="../fig/05-data-dashboards-rendered-pressure-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><hr></section><section id="06-publishing-applications"><h2 class="section-heading"><a href="06-publishing-applications.html">Publishing Your Shiny Applications</a></h2>
-<hr class="half-width">
-<h3 id="06-publishing-applications-figure-1">Figure 1</h3>
+<h3 id="05-publishing-applications-figure-1">Figure 1</h3>
 <p aria-hidden="true">Image 1 of 1: ‘pie chart illusion of a pyramid’</p>
-<figure style="text-align: center"><img src="../fig/06-publishing-applications-rendered-pyramid-1.png" alt="pie chart illusion of a pyramid" class="figure mx-auto d-block"><figcaption>
+<figure style="text-align: center"><img src="../fig/05-publishing-applications-rendered-pyramid-1.png" alt="pie chart illusion of a pyramid" class="figure mx-auto d-block"><figcaption>
 Sun arise each and every morning
 </figcaption></figure><hr>
-<h3 id="06-publishing-applications-figure-2">Figure 2</h3>
+<h3 id="05-publishing-applications-figure-2">Figure 2</h3>
 <p aria-hidden="true">Image 1 of 1: ‘Blue Carpentries hex person logo with no text.’</p>
 <figure><img src="https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg" alt="Blue Carpentries hex person logo with no text." class="figure mx-auto d-block"><div class="figcaption">You belong in The Carpentries!</div>
 </figure><hr></section>

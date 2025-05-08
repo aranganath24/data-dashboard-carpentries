@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://aranganath24.github.io/data-dashboard-carpentries/02-shiny-fundamentals.html</loc>
+  </url>
+  <url>
     <loc>https://aranganath24.github.io/data-dashboard-carpentries/02-shiny.html</loc>
   </url>
   <url>
+    <loc>https://aranganath24.github.io/data-dashboard-carpentries/03-data-applications.html</loc>
+  </url>
+  <url>
     <loc>https://aranganath24.github.io/data-dashboard-carpentries/03-making-a-basic-dashboard.html</loc>
+  </url>
+  <url>
+    <loc>https://aranganath24.github.io/data-dashboard-carpentries/04-data-dashboards.html</loc>
   </url>
   <url>
     <loc>https://aranganath24.github.io/data-dashboard-carpentries/04-interactive-data-app.html</loc>
@@ -14,6 +23,9 @@
   </url>
   <url>
     <loc>https://aranganath24.github.io/data-dashboard-carpentries/05-data-dashboards.html</loc>
+  </url>
+  <url>
+    <loc>https://aranganath24.github.io/data-dashboard-carpentries/05-publishing-applications.html</loc>
   </url>
   <url>
     <loc>https://aranganath24.github.io/data-dashboard-carpentries/06-publishing-applications.html</loc>
@@ -37,10 +49,19 @@
     <loc>https://aranganath24.github.io/data-dashboard-carpentries/index.html</loc>
   </url>
   <url>
+    <loc>https://aranganath24.github.io/data-dashboard-carpentries/instructor/02-shiny-fundamentals.html</loc>
+  </url>
+  <url>
     <loc>https://aranganath24.github.io/data-dashboard-carpentries/instructor/02-shiny.html</loc>
   </url>
   <url>
+    <loc>https://aranganath24.github.io/data-dashboard-carpentries/instructor/03-data-applications.html</loc>
+  </url>
+  <url>
     <loc>https://aranganath24.github.io/data-dashboard-carpentries/instructor/03-making-a-basic-dashboard.html</loc>
+  </url>
+  <url>
+    <loc>https://aranganath24.github.io/data-dashboard-carpentries/instructor/04-data-dashboards.html</loc>
   </url>
   <url>
     <loc>https://aranganath24.github.io/data-dashboard-carpentries/instructor/04-interactive-data-app.html</loc>
@@ -50,6 +71,9 @@
   </url>
   <url>
     <loc>https://aranganath24.github.io/data-dashboard-carpentries/instructor/05-data-dashboards.html</loc>
+  </url>
+  <url>
+    <loc>https://aranganath24.github.io/data-dashboard-carpentries/instructor/05-publishing-applications.html</loc>
   </url>
   <url>
     <loc>https://aranganath24.github.io/data-dashboard-carpentries/instructor/06-publishing-applications.html</loc>

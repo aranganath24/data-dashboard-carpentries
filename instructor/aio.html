@@ -256,7 +256,7 @@
 <div class="accordion accordion-flush" id="accordionFlush3">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading3">
-        <a href="02-shiny.html">2. Getting Started with Shiny</a>
+        <a href="02-shiny-fundamentals.html">2. Shiny Fundamentals</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -268,7 +268,7 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="03-making-a-basic-dashboard.html">3. Shiny and Interactivity</a>
+        <a href="03-data-applications.html">3. Shiny Data Applications</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -280,7 +280,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="04-interactive-data-app.html">4. Building Interactive Data Applications with Shiny</a>
+        <a href="04-data-dashboards.html">4. Shiny Data Dashboards</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -292,19 +292,7 @@
 <div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading6">
-        <a href="05-data-dashboards.html">5. Building Interactive Data Dashboards with <em>shinydashboard</em></a>
-    </div>
-<!--/div.accordion-header-->
-
-  </div>
-<!--/div.accordion-item-->
-</div>
-<!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush7">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading7">
-        <a href="06-publishing-applications.html">6. Publishing Your Shiny Applications</a>
+        <a href="05-publishing-applications.html">5. Publishing Shiny Applications</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -569,11 +557,11 @@ like HTML, CSS, or JavaScript.</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
-</section></section><section id="aio-02-shiny"><p>Content from <a href="02-shiny.html">Getting Started with Shiny</a></p>
+</section></section><section id="aio-02-shiny-fundamentals"><p>Content from <a href="02-shiny-fundamentals.html">Shiny Fundamentals</a></p>
 <hr>
 <p>Last updated on 2025-05-08 |
 
-        <a href="https://github.com/aranganath24/data-dashboard-carpentries/edit/main/episodes/02-shiny.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+        <a href="https://github.com/aranganath24/data-dashboard-carpentries/edit/main/episodes/02-shiny-fundamentals.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
@@ -747,8 +735,8 @@ script by simply running the UI and server code, along with with
 Figure 2. Launching an App
 </figcaption></figure><p>Since our application is still empty, launching it will generate a
 blank page that looks something like this:</p>
-<figure style="text-align: center"><img src="../fig/fig3-blank-page.png" alt="Figure 3. Launching a Blank Application" class="figure mx-auto d-block"><figcaption>
-Figure 3. Launching a Blank Application
+<figure style="text-align: center"><img src="../fig/fig3-blank-page.png" alt="Figure 3. A Blank Application" class="figure mx-auto d-block"><figcaption>
+Figure 3. A Blank Application
 </figcaption></figure><p>Now, let’s go ahead and create our “Hello, World” app by adding this
 text to the application structure we’ve defined above. It may not seem
 intuitive at first, but we’ll unpack it after writing out the code and
@@ -871,7 +859,7 @@ bins:</p>
 <span>     main <span class="op">=</span> <span class="st">"Histogram of Normal Samples"</span>,</span>
 <span>     xlab <span class="op">=</span> <span class="st">"Value"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/02-shiny-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Let’s wrap this histogram into a simple Shiny app; we’ll do so in
+<figure><img src="../fig/02-shiny-fundamentals-rendered-unnamed-chunk-5-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Let’s wrap this histogram into a simple Shiny app; we’ll do so in
 much the same way we wrapped “Hello, World” into a Shiny app, with some
 minor adjustments to account for the fact that we want to display a
 plot, rather than text. In particular, we’ll use a new set of output
@@ -1068,7 +1056,7 @@ follows:</p>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="interactive-applications-concepts">Interactive applications: concepts<a class="anchor" aria-label="anchor" href="#interactive-applications-concepts"></a>
+</section><section><h2 class="section-heading" id="a-conceptual-overview-of-interactive-applications">A conceptual overview of interactive applications<a class="anchor" aria-label="anchor" href="#a-conceptual-overview-of-interactive-applications"></a>
 </h2>
 <hr class="half-width">
 <p>So far, we have learned about the basic structure of Shiny
@@ -1172,10 +1160,57 @@ any code. This is the essence of reactivity in Shiny: it allows your
 applications to respond automatically to user input, without manual
 intervention or re-running code.</p>
 </div>
-</section><section><h2 class="section-heading" id="interactive-applications-practice">Interactive applications: practice<a class="anchor" aria-label="anchor" href="#interactive-applications-practice"></a>
+</section><section><h2 class="section-heading" id="writing-interactive-applications">Writing interactive applications<a class="anchor" aria-label="anchor" href="#writing-interactive-applications"></a>
 </h2>
 <hr class="half-width">
-<p>Let’s now turn to</p>
+<p>With those concepts in mind, let’s now turn to writing some simple
+interactive applications that use input functions and utilize Shiny’s
+reactive capabilities. We’ll start by modifying our previous “Hello,
+World!” application. Rather than having the application always display
+the same static “Hello, World!” greeting, we’ll allow the user to enter
+their own greeting using a text box. By default, the app will display
+“Hello, World!”, but users can replace this with a custom message-making
+the application dynamic and interactive (though still, of course, very
+simple). We can generate such an application with the following:</p>
+<div class="codewrapper sourceCode" id="cb17">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># UI: Layout and inputs/outputs go here</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Greeting Application"</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co"># Input: Text box for user to input their own message</span></span>
+<span>  <span class="fu">textInput</span><span class="op">(</span><span class="st">"user_input"</span>, label <span class="op">=</span> <span class="st">"Enter your greeting:"</span>, value <span class="op">=</span> <span class="st">"Hello, World!"</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co"># Output: Display the greeting</span></span>
+<span>  <span class="fu">textOutput</span><span class="op">(</span><span class="st">"greeting"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Server: Logic and reactivity go here</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="co"># Reactive output based on user input</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">greeting</span> <span class="op">&lt;-</span> <span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu">paste</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">user_input</span><span class="op">)</span>  <span class="co"># Dynamically update the greeting based on input</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Launch the app </span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Let’s unpack the code above:</p>
+<ul>
+<li>We use</li>
+</ul>
+<p>make an app in which “Hello, World!” is the default text output, but
+which also allows the user to change this greeting by writing their
+preferred greeting into a text box, which is then returned by the
+application as an output.</p>
+<p>simply having “Hello, World”, we’ll make an app in which “Hello,
+World!” is the default greeting, but allow the user to change the
+greeting by writing a new greeting of their choicehave app respond to
+user input.</p>
 <p>because <code>y</code> was calculated before <code>x</code> was
 changed, and R does not automatically re-calculate Y</p>
 <p>it’s a good starting point. Before moving on, there are a few things
@@ -1234,7 +1269,7 @@ View”</p>
 <h3 class="callout-title">Challenge 1: Can you do it?</h3>
 <div class="callout-content">
 <p>What is the output of this command?</p>
-<div class="codewrapper sourceCode" id="cb17">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1288,7 +1323,7 @@ View”</p>
 </h2>
 <hr class="half-width">
 <p>You can include figures generated from R Markdown:</p>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1299,7 +1334,7 @@ View”</p>
 <span>  border <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
-<figure style="text-align: center"><img src="../fig/02-shiny-rendered-pyramid-1.png" alt="pie chart illusion of a pyramid" class="figure mx-auto d-block"><figcaption>
+<figure style="text-align: center"><img src="../fig/02-shiny-fundamentals-rendered-pyramid-1.png" alt="pie chart illusion of a pyramid" class="figure mx-auto d-block"><figcaption>
 Sun arise each and every morning
 </figcaption></figure><p>Or you can use pandoc markdown for static figures with the following
 syntax:</p>
@@ -1337,11 +1372,11 @@ locally</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
-</section></section><section id="aio-03-making-a-basic-dashboard"><p>Content from <a href="03-making-a-basic-dashboard.html">Shiny and Interactivity</a></p>
+</section></section><section id="aio-03-data-applications"><p>Content from <a href="03-data-applications.html">Shiny Data Applications</a></p>
 <hr>
 <p>Last updated on 2025-05-08 |
 
-        <a href="https://github.com/aranganath24/data-dashboard-carpentries/edit/main/episodes/03-making-a-basic-dashboard.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+        <a href="https://github.com/aranganath24/data-dashboard-carpentries/edit/main/episodes/03-data-applications.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
@@ -1401,7 +1436,7 @@ reinforce the objectives.</li>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Inline instructor notes can help inform instructors of timing
 challenges associated with the lessons. They appear in the “Instructor
@@ -1432,7 +1467,7 @@ View”</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Output </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1459,7 +1494,7 @@ View”</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>You can add a line with at least three colons and a
 <code>solution</code> tag.</p>
@@ -1482,7 +1517,7 @@ View”</p>
 <span>  border <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
-<figure style="text-align: center"><img src="../fig/03-making-a-basic-dashboard-rendered-pyramid-1.png" alt="pie chart illusion of a pyramid" class="figure mx-auto d-block"><figcaption>
+<figure style="text-align: center"><img src="../fig/03-data-applications-rendered-pyramid-1.png" alt="pie chart illusion of a pyramid" class="figure mx-auto d-block"><figcaption>
 Sun arise each and every morning
 </figcaption></figure><p>Or you can use standard markdown for static figures with the
 following syntax:</p>
@@ -1535,12 +1570,11 @@ locally</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
-</section></section><section id="aio-04-interactive-data-app"><p>Content from <a href="04-interactive-data-app.html">Building Interactive Data Applications with Shiny</a></p>
+</section></section><section id="aio-04-data-dashboards"><p>Content from <a href="04-data-dashboards.html">Shiny Data Dashboards</a></p>
 <hr>
 <p>Last updated on 2025-05-08 |
 
-        <a href="https://github.com/aranganath24/data-dashboard-carpentries/edit/main/episodes/04-interactive-data-app.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
-<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
+        <a href="https://github.com/aranganath24/data-dashboard-carpentries/edit/main/episodes/04-data-dashboards.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
@@ -1575,83 +1609,18 @@ chunk like this:</p>
 </h2>
 <hr class="half-width">
 <p>You can also embed plots, for example:</p>
-<figure><img src="../fig/04-interactive-data-app-rendered-pressure-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Note that the <code>echo = FALSE</code> parameter was added to the
-code chunk to prevent printing of the R code that generated the
-plot.</p>
-<div class="codewrapper sourceCode" id="cb3">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># assigns 5 to x</span></span>
-<span><span class="va">x</span><span class="op">&lt;-</span><span class="fl">6</span></span></code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb4">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># prints x</span></span>
-<span><span class="va">x</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>[1] 6</code></pre>
-</div>
-<!--
-Place links that you need to refer to multiple times across pages here. Delete
-any links that you are not going to use.
- -->
-</section></section><section id="aio-05-data-dashboards"><p>Content from <a href="05-data-dashboards.html">Building Interactive Data Dashboards with shinydashboard</a></p>
-<hr>
-<p>Last updated on 2025-05-08 |
-
-        <a href="https://github.com/aranganath24/data-dashboard-carpentries/edit/main/episodes/05-data-dashboards.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
-<div class="text-end">
-          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
-        </div>
-<section><h2 class="section-heading" id="r-markdown">R Markdown<a class="anchor" aria-label="anchor" href="#r-markdown"></a>
-</h2>
-<hr class="half-width">
-<p>This is an R Markdown document. Markdown is a simple formatting
-syntax for authoring HTML, PDF, and MS Word documents. For more details
-on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="external-link uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>When you click the <strong>Knit</strong> button a document will be
-generated that includes both content as well as the output of any
-embedded R code chunks within the document. You can embed an R code
-chunk like this:</p>
-<div class="codewrapper sourceCode" id="cb1">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">summary</span><span class="op">(</span><span class="va">cars</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>     speed           dist
- Min.   : 4.0   Min.   :  2.00
- 1st Qu.:12.0   1st Qu.: 26.00
- Median :15.0   Median : 36.00
- Mean   :15.4   Mean   : 42.98
- 3rd Qu.:19.0   3rd Qu.: 56.00
- Max.   :25.0   Max.   :120.00  </code></pre>
-</div>
-</section><section><h2 class="section-heading" id="including-plots">Including Plots<a class="anchor" aria-label="anchor" href="#including-plots"></a>
-</h2>
-<hr class="half-width">
-<p>You can also embed plots, for example:</p>
-<figure><img src="../fig/05-data-dashboards-rendered-pressure-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Note that the <code>echo = FALSE</code> parameter was added to the
+<figure><img src="../fig/04-data-dashboards-rendered-pressure-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Note that the <code>echo = FALSE</code> parameter was added to the
 code chunk to prevent printing of the R code that generated the
 plot.</p>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
-</section></section><section id="aio-06-publishing-applications"><p>Content from <a href="06-publishing-applications.html">Publishing Your Shiny Applications</a></p>
+</section></section><section id="aio-05-publishing-applications"><p>Content from <a href="05-publishing-applications.html">Publishing Shiny Applications</a></p>
 <hr>
 <p>Last updated on 2025-05-08 |
 
-        <a href="https://github.com/aranganath24/data-dashboard-carpentries/edit/main/episodes/06-publishing-applications.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+        <a href="https://github.com/aranganath24/data-dashboard-carpentries/edit/main/episodes/05-publishing-applications.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
@@ -1792,7 +1761,7 @@ View”</p>
 <span>  border <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre>
 </div>
-<figure style="text-align: center"><img src="../fig/06-publishing-applications-rendered-pyramid-1.png" alt="pie chart illusion of a pyramid" class="figure mx-auto d-block"><figcaption>
+<figure style="text-align: center"><img src="../fig/05-publishing-applications-rendered-pyramid-1.png" alt="pie chart illusion of a pyramid" class="figure mx-auto d-block"><figcaption>
 Sun arise each and every morning
 </figcaption></figure><p>Or you can use pandoc markdown for static figures with the following
 syntax:</p>
