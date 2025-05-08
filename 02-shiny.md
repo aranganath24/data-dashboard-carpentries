@@ -93,7 +93,7 @@ Some aspects of this code require additional clarification.
 Again, this may still seem a little but abstract, but will hopefully come into focus as we proceed. You can launch an application from your script by simply running the UI and server code, along with with ```shinyApp(ui, server)```:
 
 <div class="figure" style="text-align: center">
-<img src="fig/screenshot_fixed_alt.jpg" alt="Figure 2. Launching an App"  />
+<img src="fig/fig2-launching-app.png" alt="Figure 2. Launching an App"  />
 <p class="caption">Figure 2. Launching an App</p>
 </div>
 
@@ -279,7 +279,7 @@ shinyApp(ui, server)
 Now, let's go ahead and launch our application, and see what it looks like:
 
 <div class="figure" style="text-align: center">
-<img src="fig/fig6-exploring-normal-text.jpg" alt="Figure 6. The Normal Plot Application With Text"  />
+<img src="fig/fig6-exploring-normal-text.png" alt="Figure 6. The Normal Plot Application With Text"  />
 <p class="caption">Figure 6. The Normal Plot Application With Text</p>
 </div>
 
@@ -334,7 +334,7 @@ shinyApp(ui, server)
 
 :::::::::::::::::::::::::::::::::::::
 
-## Interactive applications: Concepts
+## Interactive applications: concepts
 
 So far, we have learned about the basic structure of Shiny applications and how to populate them with content by linking output functions in the UI (placeholder functions) with output functions in the server (render functions). You may have noticed that the applications we have built so far are static, in the sense that they don't respond dynamically to user input. However, static applications have limited utility, and much of the power and usefulness of Shiny applications comes from their ability to dynamically respond to user input. 
 
