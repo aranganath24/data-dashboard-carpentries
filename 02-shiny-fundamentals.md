@@ -495,12 +495,143 @@ The user can select the desired greeting from the drop-down menu; let's say they
 
 After the selection is made, the corresponding text is printed as text output:
 
-
 <div class="figure" style="text-align: center">
 <img src="fig/fig11-greeting-dropdown-output.png" alt="Figure 11. Text output after selecting an input from the dropdown menu"  />
 <p class="caption">Figure 11. Text output after selecting an input from the dropdown menu</p>
 </div>
 
+::::::::::::::::::::::::::::::::::::: challenge
+
+## Challenge 3: Modify the greeting application to use radio buttons
+
+Replace the drop down menu in the app we just created with radio buttons, using the ```radioButtons()``` input function. You may have to consult the function's documentation to specify the necessary arguments. Make sure to create a label, and a default selection. Use the same greeting options we used for the dropdown menu above. 
+
+::: solution
+
+To make this change, you can replace ```selectInput()``` with ```radioButtons()```, while keeping the remaining code unchanged. It will look something like this: 
+
+
+``` r
+# UI: Layout and inputs/outputs go here
+ui <- fluidPage(
+  titlePanel("Greeting Application"),
+  
+  # Input: Radio buttons for user to select a greeting
+  radioButtons(
+    inputId = "user_input",
+    label = "Choose your greeting:",
+    choices = c("Hello, World!", "Hi there :)", "What's up?", "Nice to meet you"),
+    selected = "Hello, World!"
+  ),
+  
+  # Output: Display the selected greeting
+  textOutput(outputId = "greeting")
+)
+
+# Server: Logic and reactivity go here
+server <- function(input, output) {
+  
+  # Reactive output based on selected greeting
+  output$greeting <- renderText({
+    input$user_input
+  })
+}
+
+# Launch the app 
+shinyApp(ui, server)
+```
+
+Once launched, the modified application will look something like this:
+
+<div class="figure" style="text-align: center">
+<img src="fig/fig12-greeting-radio.png" alt="Figure 12. Greeting App with Radio Buttons"  />
+<p class="caption">Figure 12. Greeting App with Radio Buttons</p>
+</div>
+
+:::
+
+:::::::::::::::::::::::::::::::::::::
+
+Let's now create a slightly different greeting app in which the user provides their name, and the application responds with a personal greeting. We can develop this application with some now-familiar functions:
+
+
+``` r
+# UI
+ui <- fluidPage(
+  titlePanel("Personal Greeting App"),
+
+  # Text input for the user's name
+  textInput(inputId="name", label="What is your name?"),
+
+  # Output: Greeting text
+  textOutput(outputId="greeting")
+)
+
+# Server
+server <- function(input, output) {
+  output$greeting <- renderText({
+    paste0("Hello, ", input$name, "! Nice to meet you.")
+  })
+}
+
+# Run the app
+shinyApp(ui = ui, server = server)
+```
+
+When you launch the application, it looks something like this:
+
+<div class="figure" style="text-align: center">
+<img src="fig/fig13-personal-greeting.png" alt="Figure 13. Personal Greeting App"  />
+<p class="caption">Figure 13. Personal Greeting App</p>
+</div>
+
+When a name is typed into the text box, the output updates accordingly:
+
+<div class="figure" style="text-align: center">
+<img src="fig/fig14-personal-greeting-name.png" alt="Figure 14. Personal Greeting App Output"  />
+<p class="caption">Figure 14. Personal Greeting App Output</p>
+</div>
+
+One potential design limitation of this simple application is that before the name is entered into the text box, the output "Hello, ! Nice to meet you." looks awkward. It may be desirable to hide this output before the name is entered, and only show the complete output once the name is actually entered into the box. We can accomplish this by inserting the conditional statement ```if (input$name == "") return(NULL)``` in the ```renderText()``` function before the ```paste0()``` function. This essentially says "If the name field is blank, do not return an output." The modified script looks like this:
+
+
+``` r
+# UI
+ui <- fluidPage(
+  titlePanel("Personal Greeting App"),
+
+  # Text input for the user's name
+  textInput(inputId="name", label="What is your name?"),
+
+  # Output: Greeting text
+  textOutput(outputId="greeting")
+)
+
+# Server
+server <- function(input, output) {
+  output$greeting <- renderText({
+   if (input$name == "") return(NULL)
+    paste0("Hello, ", input$name, "! Nice to meet you.")
+  })
+}
+
+# Run the app
+shinyApp(ui = ui, server = server)
+```
+
+Now, when we launch the app, we'll see an interface that looks like this:
+
+<div class="figure" style="text-align: center">
+<img src="fig/fig15-revised-personal-greeting-blank.png" alt="Figure 15. Launching the Revised Personal Greeting App"  />
+<p class="caption">Figure 15. Launching the Revised Personal Greeting App</p>
+</div>
+
+The application will return the full output in response to the user entering their name in the text field:
+
+<div class="figure" style="text-align: center">
+<img src="fig/fig16-revised-personal-greeting-filled.png" alt="Figure 16. User-Prompted Output in the Revised Personal Greeting App"  />
+<p class="caption">Figure 16. User-Prompted Output in the Revised Personal Greeting App</p>
+</div>
 
 
 
@@ -508,45 +639,21 @@ After the selection is made, the corresponding text is printed as text output:
 ### Interactive Plot Applications
 
 
-simply having  "Hello, World", we'll make an app in which "Hello, World!" is the default greeting, but allow the user to change the greeting by writing a new greeting of their choicehave app respond to user input. 
-
-  
-
-
-
-because ```y``` was calculated before ```x``` was changed, and R does not automatically re-calculate Y 
-
-
-
-
-it's a good starting point. Before moving on, there are a few things we should note about this application:
-
-* First, note that 
-
-
-
-## adds plot
-
-
-## Introducing Reactivity
+* reactive()
+* observers
+* styling
 
 
 
 
 
 
-### Creating the "Hello, World" Application
-
-
-
-
-Let's begin by writing out the code for an empty Shiny application. You can write Shiny applications in a simple R
 
 
 
 
 
--organizing files in a directory devoted to shiny
+
 
 
 
