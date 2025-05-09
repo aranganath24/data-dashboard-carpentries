@@ -633,10 +633,256 @@ The application will return the full output in response to the user entering the
 <p class="caption">Figure 16. User-Prompted Output in the Revised Personal Greeting App</p>
 </div>
 
+Let's build on this to make a slighly more complex personal greeting application. In particular, we'll write an application that requests two different inputs from the user, using two different methods. We'll ask the user their name, which they'll supply in a text box. We'll also ask the user if this is their first Carpentries workshop, which they'll answer by filling in a radio button (Yes/No). If it is their first Carpentries workshop, the following text output is returned: "Hello, <NAME>. Welcome to the Carpentries!". If it is NOT their first Carpentries workshop, the following text output is returned: "Hello, <NAME>. Welcome back to the Carpentries!". 
 
+This interactive application is more complex than the others we've written so far, but uses techniques and functions we're already familiar with. The UI includes two input functions, ```textInput()``` and ```radioButtons``` that are referenced in the server, within conditional statements in the ```renderText()``` function:
+
+
+``` r
+# UI
+ui <- fluidPage(
+  titlePanel("Carpentries Greeting"),
+
+  # Ask for user's name
+  textInput(inputId = "name", label="What is your name?"),
+
+  # Ask if they're new
+  radioButtons(inputId = "new", 
+               label = "Are you new to the Carpentries?",
+               choices = c("Yes", "No"), 
+                selected = character(0)), # No default selection
+
+  # Display greeting
+  textOutput(outputId = "greeting")
+)
+
+# Server
+server <- function(input, output) {
+  output$greeting <- renderText({
+     # Don't show anything unless both inputs are filled
+    if (input$name == "" || is.null(input$new)) return(NULL)
+
+    # Build greeting based on response
+    if (input$new == "Yes") {
+      paste0("Hello ", input$name, ", welcome to the Carpentries.")
+    } else if (input$new == "No") {
+      paste0("Hello ", input$name, ", welcome back to the Carpentries.")
+    } else {
+      NULL  # If no radio button is selected yet
+    }
+  })
+}
+
+# Run the app
+shinyApp(ui = ui, server = server)
+```
+
+When the resulting app is launched, it looks like this:
+
+<div class="figure" style="text-align: center">
+<img src="fig/fig17-carpentries-introduction.png" alt="Figure 17.Carpentries Introduction App"  />
+<p class="caption">Figure 17.Carpentries Introduction App</p>
+</div>
+
+After the user provides their name and clicks the relevant radio button, the text output responds with the appropriate message:
+
+<div class="figure" style="text-align: center">
+<img src="fig/fig18-carpentries-introduction-filled.png" alt="Figure 18.Carpentries Introduction App Text Output"  />
+<p class="caption">Figure 18.Carpentries Introduction App Text Output</p>
+</div>
+
+::::::::::::::::::::::::::::::::::::: challenge
+
+## Challenge 4: Explain the logic of the Carpentries greeting app in your own words
+
+Work with a partner, and in your own words, take turns explaining how the application we've just written is put together. Focus on input functions, output functions, and the server logic. 
+
+::: solution
+
+Here is a sample explanation: This Shiny app has two main parts: the UI (user interface) and the server (logic). In the UI, we use ```textInput()``` to ask the user for their name and ```radioButtons()``` to ask whether they are new to the Carpentries. We set ```selected = character(0)``` in the radio button to ensure that no option is selected by default. We also include ```textOutput()``` as a placeholder where the final greeting message will appear. 
+
+In the server function, we use ```renderText()``` to generate the greeting based on the user's input. Inside ```renderText()```, the line ```if (input$name == "" || is.null(input$new)) return(NULL)``` plays an important role: it tells the app to hold off on showing any message until both the name and the radio button response are provided. The ```input$name == ""``` part checks whether the name text box is empty. The ```is.null(input$new)``` part checks whether the user has not yet selected a radio button. The ```||``` means "or" — so if either of these conditions is true, the function returns NULL (i.e., nothing is shown). Once both inputs are present, the app uses ```paste0()``` to construct a personalized greeting, depending on whether the user selected "Yes" or "No", and displays it using the ```textOutput()``` placeholder.
+
+:::
+
+:::::::::::::::::::::::::::::::::::::
 
 
 ### Interactive Plot Applications
+
+Having explored several interactive variations on our static "Hello, World!" application, let's now turn to our static plot application above, and turn it into an interactive application using Shiny's reactive functions. Let's modify the code we used to create the static plot, and use reactive input functions to allow users to specify the number of bins in the histogram. To do so, we'll use ```numericInput()``` within the UI, which gives users a text box in which they can specify the desired number of bins; in the server, we'll replace the number 30 with ```input$desired_bins```, which sets the "breaks" argument equal to the number specified by the user (using dollar sign notation to reference this number using the ```numericInput``` function's input ID): 
+
+
+``` r
+# UI: Layout and inputs/outputs go here
+ui <- fluidPage(
+  # Add UI code (specifying application's inputs, outputs, and layouts) here
+  titlePanel("Exploring the Normal Distribution"),
+  numericInput(inputId = "desired_bins", 
+               label="Please enter the desired number of bins",
+               value=30),
+  plotOutput(outputId = "normal_plot"),
+  textOutput(outputId="context_discussion")
+)
+
+# Server: Logic and reactivity go here
+server <- function(input, output) {
+  # Add server code (specifying application's content) here
+  
+  # creates text output
+  output$context_discussion<-renderText({
+    "This histogram shows 1,000 values randomly drawn from a standard normal distribution. Most values fall between -3 and 3, with a peak around 0."
+  })
+  
+  # creates plot output
+  output$normal_plot<-renderPlot({
+    # create vector
+    samples <- rnorm(1000, mean = 0, sd = 1)
+    
+    # make a histogram of "samples" data
+    hist(samples, breaks = input$desired_bins, col = "skyblue",
+         main = "Histogram of Normal Samples",
+         xlab = "Value")
+  })
+}
+
+# Launch the app 
+shinyApp(ui, server)
+```
+
+When we launch the application, we see a numeric textbox with the default value set to 30 (the number of bins we had in our static application):
+
+
+<div class="figure" style="text-align: center">
+<img src="fig/fig19-interactive-normal.png" alt="Figure 19.Launching the interactive plot application"  />
+<p class="caption">Figure 19.Launching the interactive plot application</p>
+</div>
+
+However, the desired number of bins can now be changed by the user, and the plot will respond accordingly. For example, let's change the number of bins to 100:
+
+<div class="figure" style="text-align: center">
+<img src="fig/fig20-interactive-normal-bins.png" alt="Figure 20. Increasing the number of bins to 100"  />
+<p class="caption">Figure 20. Increasing the number of bins to 100</p>
+</div>
+
+Let's add another interactive dimension to this application by allowing users to change the color of the plot. We'll create a text input field where a user can type in a color, based on [color codes used in R](https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf
+). We'll place this text box below the numeric input box, and create it using the ```textInput()``` function; we'll refer back to the user specified color in the server using dollar sign notation in conjunction with the ID argument passed to ```textInput()```:
+
+
+``` r
+# UI: Layout and inputs/outputs go here
+ui <- fluidPage(
+  # Add UI code (specifying application's inputs, outputs, and layouts) here
+  titlePanel("Exploring the Normal Distribution"),
+  numericInput(inputId = "desired_bins", 
+               label="Please enter the desired number of bins",
+               value=30),
+  textInput(inputId="desired_color",
+            label="Please enter the desired color for the histogram",
+            value="skyblue"),
+  plotOutput(outputId = "normal_plot"),
+  textOutput(outputId="context_discussion")
+)
+
+# Server: Logic and reactivity go here
+server <- function(input, output) {
+  # Add server code (specifying application's content) here
+  
+  # creates text output
+  output$context_discussion<-renderText({
+    "This histogram shows 1,000 values randomly drawn from a standard normal distribution. Most values fall between -3 and 3, with a peak around 0."
+  })
+  
+  # creates plot output
+  output$normal_plot<-renderPlot({
+    # create vector
+    samples <- rnorm(1000, mean = 0, sd = 1)
+    
+    # make a histogram of "samples" data
+    hist(samples, breaks = input$desired_bins, col = input$desired_color,
+         main = "Histogram of Normal Samples",
+         xlab = "Value")
+  })
+}
+
+# Launch the app 
+shinyApp(ui, server)
+```
+
+Let's launch the app, set the number of bins to 60, and the color to "orangered". It will look something like this:
+
+<div class="figure" style="text-align: center">
+<img src="fig/fig21-interactive-normal-bins-colors.png" alt="Figure 21. Interactively changing number of bins and colors"  />
+<p class="caption">Figure 21. Interactively changing number of bins and colors</p>
+</div>
+
+::::::::::::::::::::::::::::::::::::: challenge
+
+## Challenge 5: Modify the interactive plot application
+
+Modify the interactive plot application in the following ways:
+
+* Instead of inviting users to specify their desired color in a textbox, constrain their choices by asking them to select one of the following colors from a dropdown menu: skyblue, orangered, violet, lightcyan, or lawngreen. 
+* Remove the contextual discussion (i.e. "This histogram shows...)
+* Create a numeric input field where users can specify a desired mean for the sample.
+
+::: solution
+
+Your script should look something like this:
+
+
+``` r
+# UI: Layout and inputs/outputs go here
+ui <- fluidPage(
+  # Add UI code (specifying application's inputs, outputs, and layouts) here
+  titlePanel("Exploring the Normal Distribution"),
+  numericInput(inputId = "desired_bins", 
+               label="Please enter the desired number of bins",
+               value=30),
+  selectInput(inputId="desired_color",
+            label="Please select the desired color for the histogram",
+            choices=c("skyblue", "orangered", "violet", "lightcyan", "lawngreen")),
+  numericInput(inputId="desired_mean", label="Please enter the desired population mean", value=0),
+  plotOutput(outputId = "normal_plot"),
+  textOutput(outputId="context_discussion")
+)
+
+# Server: Logic and reactivity go here
+server <- function(input, output) {
+  # Add server code (specifying application's content) here
+  
+  # creates plot output
+  output$normal_plot<-renderPlot({
+    # create vector
+    samples <- rnorm(1000, mean = input$desired_mean, sd = 1)
+    
+    # make a histogram of "samples" data
+    hist(samples, breaks = input$desired_bins, col = input$desired_color,
+         main = "Histogram of Normal Samples",
+         xlab = "Value")
+  })
+}
+
+# Launch the app 
+shinyApp(ui, server)
+```
+
+Once the app is launched, if we were to set the number of bins to 100, select "lawngreen" as the color, and choose a mean of 45, we will get something that looks like the following:
+
+<div class="figure" style="text-align: center">
+<img src="fig/fig22-interactive-normal-bins-colors-means.png" alt="Figure 21. Interactive plot with user inputs for color, number of bins, and mean"  />
+<p class="caption">Figure 21. Interactive plot with user inputs for color, number of bins, and mean</p>
+</div>
+
+:::
+
+:::::::::::::::::::::::::::::::::::::
+
+
+
+Which yields a static application that looks something like this:
+
+
 
 
 * reactive()
