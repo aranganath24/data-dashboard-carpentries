@@ -556,7 +556,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-02-shiny-fundamentals"><p>Content from <a href="02-shiny-fundamentals.html">Shiny Fundamentals</a></p>
 <hr>
-<p>Last updated on 2025-05-08 |
+<p>Last updated on 2025-05-09 |
 
         <a href="https://github.com/aranganath24/data-dashboard-carpentries/edit/main/episodes/02-shiny-fundamentals.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1168,6 +1168,9 @@ their own greeting using a text box. By default, the app will display
 “Hello, World!”, but users can replace this with a custom message-making
 the application dynamic and interactive (though still, of course, very
 simple). We can generate such an application with the following:</p>
+<div class="section level3">
+<h3 id="interactive-greeting-applications">Interactive Greeting Applications<a class="anchor" aria-label="anchor" href="#interactive-greeting-applications"></a>
+</h3>
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1177,10 +1180,10 @@ simple). We can generate such an application with the following:</p>
 <span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Greeting Application"</span><span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co"># Input: Text box for user to input their own message</span></span>
-<span>  <span class="fu">textInput</span><span class="op">(</span><span class="st">"user_input"</span>, label <span class="op">=</span> <span class="st">"Enter your greeting:"</span>, value <span class="op">=</span> <span class="st">"Hello, World!"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">textInput</span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"user_input"</span>, label <span class="op">=</span> <span class="st">"Enter your greeting:"</span>, value <span class="op">=</span> <span class="st">"Hello, World!"</span><span class="op">)</span>,</span>
 <span>  </span>
 <span>  <span class="co"># Output: Display the greeting</span></span>
-<span>  <span class="fu">textOutput</span><span class="op">(</span><span class="st">"greeting"</span><span class="op">)</span></span>
+<span>  <span class="fu">textOutput</span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"greeting"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Server: Logic and reactivity go here</span></span>
@@ -1188,7 +1191,7 @@ simple). We can generate such an application with the following:</p>
 <span>  </span>
 <span>  <span class="co"># Reactive output based on user input</span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">greeting</span> <span class="op">&lt;-</span> <span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
-<span>    <span class="fu">paste</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">user_input</span><span class="op">)</span>  <span class="co"># Dynamically update the greeting based on input</span></span>
+<span>    <span class="fu">paste0</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">user_input</span><span class="op">)</span>  <span class="co"># Dynamically update the greeting based on input</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -1197,12 +1200,99 @@ simple). We can generate such an application with the following:</p>
 </div>
 <p>Let’s unpack the code above:</p>
 <ul>
-<li>We use</li>
+<li>We use the <code>titlePanel()</code> function in the UI to give the
+application a title, “Greeting Application”.</li>
+<li>We then call <code>textInput()</code> within the UI. This is an
+input function that creates a text box where users can type in a custom
+greeting. Just as output placeholder functions have identifiers that can
+be used to refer to them in the server, so do input functions. The first
+argument, <code>inputId="user_input"</code>, gives the input a unique
+ID. The second argument specifies a label that users will see above the
+text box. Finally, the “value” argument specifies the default starting
+value for the text box.</li>
+<li>The final element of the UI is a call to <code>textOutput()</code>,
+which reserves space in the UI for displaying the greeting. The argument
+to this function is an ID used in the server to link the actual output
+to this placeholder.</li>
+<li>In the server, we use <code>renderText()</code> to specify the
+output text that will be shown. We reference the user’s input using
+<code>input$user_input</code> and return it using <code>paste0()</code>
+to create the final output. The use of <code>input$user_input</code> to
+refer to the user-supplied input within the <code>renderText()</code>
+function ensures the output updates automatically whenever the user
+changes their input. This demonstrates reactivity in action.</li>
 </ul>
-<p>make an app in which “Hello, World!” is the default text output, but
-which also allows the user to change this greeting by writing their
-preferred greeting into a text box, which is then returned by the
-application as an output.</p>
+<p>When you run the application, you’ll initially get a result that
+looks like this:</p>
+<figure style="text-align: center"><img src="fig/fig7-greeting.png" alt="Figure 7. The Interactive Greeting App with Default Value" class="figure mx-auto d-block"><figcaption>
+Figure 7. The Interactive Greeting App with Default Value
+</figcaption></figure><p>When you change the value in the text box, the output text will also
+change. For example, if we go ahead and change the greeting in the text
+box to “Hi there :)”, this change will be reflected in the output:</p>
+<figure style="text-align: center"><img src="fig/fig8-greeting-modified.png" alt="Figure 8. The Interactive Greeting App with a new user-supplied input" class="figure mx-auto d-block"><figcaption>
+Figure 8. The Interactive Greeting App with a new user-supplied input
+</figcaption></figure><p>Let’s now tweak this “greeting” application, which will help you
+become familiar with another input function, and get some more practice
+writing reactive code. In particular, instead of letting users write any
+text they wish into the text box, let’s modify the app to invite users
+to select a greeting from a drop-down menu that presents a few different
+greetings to choose from; the chosen greeting will be printed as the
+output. We can keep all aspects of the code for the initial greeting
+application the same; we just have to change the input function from
+<code>textInput()</code> (which creates a text box) to
+<code>selectInput()</code> which creates a drop-down menu with choices
+defined within one of the function’s arguments. For more information,
+check the <code>selectInput()</code> function’s documentation. The
+modified code will look something like this:</p>
+<div class="codewrapper sourceCode" id="cb18">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># UI: Layout and inputs/outputs go here</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Greeting Application"</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co"># Input: Dropdown menu for user to select a greeting</span></span>
+<span>  <span class="fu">selectInput</span><span class="op">(</span></span>
+<span>    inputId <span class="op">=</span> <span class="st">"user_input"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Choose your greeting:"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Hello, World!"</span>, <span class="st">"Hi there :)"</span>, <span class="st">"What's up?"</span>, <span class="st">"Nice to meet you"</span><span class="op">)</span>,</span>
+<span>    selected <span class="op">=</span> <span class="st">"Hello, World!"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co"># Output: Display the selected greeting</span></span>
+<span>  <span class="fu">textOutput</span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"greeting"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Server: Logic and reactivity go here</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="co"># Reactive output based on selected greeting</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">greeting</span> <span class="op">&lt;-</span> <span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">input</span><span class="op">$</span><span class="va">user_input</span>  <span class="co"># Display the selected greeting</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Launch the app </span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre>
+</div>
+<p>When it is launched, the app looks something like this:</p>
+<figure style="text-align: center"><img src="fig/fig9-greeting-dropdown-launch.png" alt="Figure 9. The Interactive Greeting App with dropdown Menu" class="figure mx-auto d-block"><figcaption>
+Figure 9. The Interactive Greeting App with dropdown Menu
+</figcaption></figure><p>The user can select the desired greeting from the drop-down menu;
+let’s say they want the “Nice to meet you” greeting:</p>
+<figure style="text-align: center"><img src="fig/fig10-greeting-dropdown-select.png" alt="Figure 10. Selecting an option from the interactive greeting app's dropdown menu" class="figure mx-auto d-block"><figcaption>
+Figure 10. Selecting an option from the interactive greeting app’s
+dropdown menu
+</figcaption></figure><p>After the selection is made, the corresponding text is printed as
+text output:</p>
+<figure style="text-align: center"><img src="fig/fig11-greeting-dropdown-output.png" alt="Figure 11. Text output after selecting an input from the dropdown menu" class="figure mx-auto d-block"><figcaption>
+Figure 11. Text output after selecting an input from the dropdown menu
+</figcaption></figure>
+</div>
+<div class="section level3">
+<h3 id="interactive-plot-applications">Interactive Plot Applications<a class="anchor" aria-label="anchor" href="#interactive-plot-applications"></a>
+</h3>
 <p>simply having “Hello, World”, we’ll make an app in which “Hello,
 World!” is the default greeting, but allow the user to change the
 greeting by writing a new greeting of their choicehave app respond to
@@ -1213,7 +1303,9 @@ changed, and R does not automatically re-calculate Y</p>
 we should note about this application:</p>
 <ul>
 <li>First, note that</li>
-</ul></section><section><h2 class="section-heading" id="adds-plot">adds plot<a class="anchor" aria-label="anchor" href="#adds-plot"></a>
+</ul>
+</div>
+</section><section><h2 class="section-heading" id="adds-plot">adds plot<a class="anchor" aria-label="anchor" href="#adds-plot"></a>
 </h2>
 <hr class="half-width"></section><section><h2 class="section-heading" id="introducing-reactivity">Introducing Reactivity<a class="anchor" aria-label="anchor" href="#introducing-reactivity"></a>
 </h2>
@@ -1251,7 +1343,7 @@ reinforce the objectives.</li>
 <h3 class="callout-title">Challenge 1: Can you do it?</h3>
 <div class="callout-content">
 <p>What is the output of this command?</p>
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1305,7 +1397,7 @@ reinforce the objectives.</li>
 </h2>
 <hr class="half-width">
 <p>You can include figures generated from R Markdown:</p>
-<div class="codewrapper sourceCode" id="cb20">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1663,7 +1755,7 @@ reinforce the objectives.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Output </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1690,7 +1782,7 @@ reinforce the objectives.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>You can add a line with at least three colons and a
 <code>solution</code> tag.</p>
@@ -1799,8 +1891,8 @@ any links that you are not going to use.
   "url": "https://aranganath24.github.io/data-dashboard-carpentries/aio.html",
   "identifier": "https://aranganath24.github.io/data-dashboard-carpentries/aio.html",
   "dateCreated": "2025-01-10",
-  "dateModified": "2025-05-08",
-  "datePublished": "2025-05-08"
+  "dateModified": "2025-05-09",
+  "datePublished": "2025-05-09"
 }
 
   </script><script>
