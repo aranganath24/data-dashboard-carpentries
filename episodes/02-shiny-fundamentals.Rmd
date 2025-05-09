@@ -367,16 +367,18 @@ This is the essence of *non-reactive* behavior: R does not automatically re-calc
 
 With those concepts in mind, let's now turn to writing some simple interactive applications that use input functions and utilize Shiny's reactive capabilities. We'll start by modifying our previous "Hello, World!" application. Rather than having the application always display the same static "Hello, World!" greeting, we'll allow the user to enter their own greeting using a text box. By default, the app will display "Hello, World!", but users can replace this with a custom message-making the application dynamic and interactive (though still, of course, very simple). We can generate such an application with the following:
 
+### Interactive Greeting Applications
+
 ```{r, eval=F}
 # UI: Layout and inputs/outputs go here
 ui <- fluidPage(
   titlePanel("Greeting Application"),
   
   # Input: Text box for user to input their own message
-  textInput("user_input", label = "Enter your greeting:", value = "Hello, World!"),
+  textInput(inputId = "user_input", label = "Enter your greeting:", value = "Hello, World!"),
   
   # Output: Display the greeting
-  textOutput("greeting")
+  textOutput(outputId = "greeting")
 )
 
 # Server: Logic and reactivity go here
@@ -384,7 +386,7 @@ server <- function(input, output) {
   
   # Reactive output based on user input
   output$greeting <- renderText({
-    paste(input$user_input)  # Dynamically update the greeting based on input
+    paste0(input$user_input)  # Dynamically update the greeting based on input
   })
 }
 
@@ -395,13 +397,79 @@ shinyApp(ui, server)
 
 Let's unpack the code above:
 
-* We use 
+* We use the ```titlePanel()``` function in the UI to give the application a title, "Greeting Application". 
+* We then call ```textInput()``` within the UI. This is an input function that creates a text box where users can type in a custom greeting. Just as output placeholder functions have identifiers that can be used to refer to them in the server, so do input functions. The first argument, ```inputId="user_input"```, gives the input a unique ID. The second argument specifies a label that users will see above the text box. Finally, the "value" argument specifies the default starting value for the text box. 
+* The final element of the UI is a call to ```textOutput()```, which reserves space in the UI for displaying the greeting. The argument to this function is an ID used in the server to link the actual output to this placeholder.
+* In the server, we use ```renderText()``` to specify the output text that will be shown. We reference the user's input using ```input$user_input``` and return it using ```paste0()``` to create the final output. The use of ```input$user_input``` to refer to the user-supplied input within the ```renderText()``` function ensures the output updates automatically whenever the user changes their input. This demonstrates reactivity in action. 
+
+When you run the application, you'll initially get a result that looks like this:
+
+```{r, echo=FALSE, fig:greeting-interactive, fig.cap="Figure 7. The Interactive Greeting App with Default Value"}
+knitr::include_graphics("fig/fig7-greeting.png")
+```
+
+When you change the value in the text box, the output text will also change. For example, if we go ahead and change the greeting in the text box to "Hi there :)", this change will be reflected in the output:
+
+```{r, echo=FALSE, fig:greeting-interactive-modified, fig.cap="Figure 8. The Interactive Greeting App with a new user-supplied input"}
+knitr::include_graphics("fig/fig8-greeting-modified.png")
+```
+
+Let's now tweak this "greeting" application, which will help you become familiar with another input function, and get some more practice writing reactive code. In particular, instead of letting users write any text they wish into the text box, let's modify the app to invite users to select a greeting from a drop-down menu that presents a few different greetings to choose from; the chosen greeting will be printed as the output. We can keep all aspects of the code for the initial greeting application the same; we just have to change the input function from ```textInput()``` (which creates a text box) to ```selectInput()``` which creates a drop-down menu with choices defined within one of the function's arguments. For more information, check the ```selectInput()``` function's documentation. The modified code will look something like this:
+
+```{r, eval=F}
+# UI: Layout and inputs/outputs go here
+ui <- fluidPage(
+  titlePanel("Greeting Application"),
+  
+  # Input: Dropdown menu for user to select a greeting
+  selectInput(
+    inputId = "user_input",
+    label = "Choose your greeting:",
+    choices = c("Hello, World!", "Hi there :)", "What's up?", "Nice to meet you"),
+    selected = "Hello, World!"
+  ),
+  
+  # Output: Display the selected greeting
+  textOutput(outputId = "greeting")
+)
+
+# Server: Logic and reactivity go here
+server <- function(input, output) {
+  
+  # Reactive output based on selected greeting
+  output$greeting <- renderText({
+    input$user_input  # Display the selected greeting
+  })
+}
+
+# Launch the app 
+shinyApp(ui, server)
+```
+
+When it is launched, the app looks something like this:
+
+```{r, echo=FALSE, fig:greeting-interactive-dropdown, fig.cap="Figure 9. The Interactive Greeting App with dropdown Menu"}
+knitr::include_graphics("fig/fig9-greeting-dropdown-launch.png")
+```
+
+The user can select the desired greeting from the drop-down menu; let's say they want the "Nice to meet you" greeting:
+
+```{r, echo=FALSE, fig:greeting-interactive-dropdown-select, fig.cap="Figure 10. Selecting an option from the interactive greeting app's dropdown menu"}
+knitr::include_graphics("fig/fig10-greeting-dropdown-select.png")
+```
+
+After the selection is made, the corresponding text is printed as text output:
+
+
+```{r, echo=FALSE, fig:greeting-interactive-dropdown-output, fig.cap="Figure 11. Text output after selecting an input from the dropdown menu"}
+knitr::include_graphics("fig/fig11-greeting-dropdown-output.png")
+```
 
 
 
 
-make an app in which "Hello, World!" is the default text output, but which also allows the user to change this greeting by writing their preferred greeting into a text box, which is then returned by the application as an output. 
 
+### Interactive Plot Applications
 
 
 simply having  "Hello, World", we'll make an app in which "Hello, World!" is the default greeting, but allow the user to change the greeting by writing a new greeting of their choicehave app respond to user input. 
