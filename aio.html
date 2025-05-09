@@ -522,7 +522,7 @@ Shiny application that could be relevant for your own work.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Discuss your observations and protoypes with a partner.</p>
 </div>
@@ -1004,7 +1004,7 @@ so that it’s instead below the plot.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>To make this change, you can simply move <code>textOutput()</code>
 function below the <code>plotOutput()</code> function in the UI. There
@@ -1308,7 +1308,7 @@ same greeting options we used for the dropdown menu above.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>To make this change, you can replace <code>selectInput()</code> with
 <code>radioButtons()</code>, while keeping the remaining code unchanged.
@@ -1434,11 +1434,312 @@ Figure 15. Launching the Revised Personal Greeting App
 entering their name in the text field:</p>
 <figure style="text-align: center"><img src="fig/fig16-revised-personal-greeting-filled.png" alt="Figure 16. User-Prompted Output in the Revised Personal Greeting App" class="figure mx-auto d-block"><figcaption>
 Figure 16. User-Prompted Output in the Revised Personal Greeting App
-</figcaption></figure>
+</figcaption></figure><p>Let’s build on this to make a slighly more complex personal greeting
+application. In particular, we’ll write an application that requests two
+different inputs from the user, using two different methods. We’ll ask
+the user their name, which they’ll supply in a text box. We’ll also ask
+the user if this is their first Carpentries workshop, which they’ll
+answer by filling in a radio button (Yes/No). If it is their first
+Carpentries workshop, the following text output is returned: “Hello,
+<name>. Welcome to the Carpentries!”. If it is NOT their first
+Carpentries workshop, the following text output is returned: “Hello,
+<name>. Welcome back to the Carpentries!”.</name></name></p>
+<p>This interactive application is more complex than the others we’ve
+written so far, but uses techniques and functions we’re already familiar
+with. The UI includes two input functions, <code>textInput()</code> and
+<code>radioButtons</code> that are referenced in the server, within
+conditional statements in the <code>renderText()</code> function:</p>
+<div class="codewrapper sourceCode" id="cb22">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># UI</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Carpentries Greeting"</span><span class="op">)</span>,</span>
+<span></span>
+<span>  <span class="co"># Ask for user's name</span></span>
+<span>  <span class="fu">textInput</span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"name"</span>, label<span class="op">=</span><span class="st">"What is your name?"</span><span class="op">)</span>,</span>
+<span></span>
+<span>  <span class="co"># Ask if they're new</span></span>
+<span>  <span class="fu">radioButtons</span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"new"</span>, </span>
+<span>               label <span class="op">=</span> <span class="st">"Are you new to the Carpentries?"</span>,</span>
+<span>               choices <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Yes"</span>, <span class="st">"No"</span><span class="op">)</span>, </span>
+<span>                selected <span class="op">=</span> <span class="fu">character</span><span class="op">(</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span>, <span class="co"># No default selection</span></span>
+<span></span>
+<span>  <span class="co"># Display greeting</span></span>
+<span>  <span class="fu">textOutput</span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"greeting"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Server</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">greeting</span> <span class="op">&lt;-</span> <span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
+<span>     <span class="co"># Don't show anything unless both inputs are filled</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">name</span> <span class="op">==</span> <span class="st">""</span> <span class="op">||</span> <span class="fu">is.null</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">new</span><span class="op">)</span><span class="op">)</span> <span class="kw">return</span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="co"># Build greeting based on response</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">new</span> <span class="op">==</span> <span class="st">"Yes"</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu">paste0</span><span class="op">(</span><span class="st">"Hello "</span>, <span class="va">input</span><span class="op">$</span><span class="va">name</span>, <span class="st">", welcome to the Carpentries."</span><span class="op">)</span></span>
+<span>    <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">new</span> <span class="op">==</span> <span class="st">"No"</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu">paste0</span><span class="op">(</span><span class="st">"Hello "</span>, <span class="va">input</span><span class="op">$</span><span class="va">name</span>, <span class="st">", welcome back to the Carpentries."</span><span class="op">)</span></span>
+<span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>      <span class="cn">NULL</span>  <span class="co"># If no radio button is selected yet</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Run the app</span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre>
+</div>
+<p>When the resulting app is launched, it looks like this:</p>
+<figure style="text-align: center"><img src="fig/fig17-carpentries-introduction.png" alt="Figure 17.Carpentries Introduction App" class="figure mx-auto d-block"><figcaption>
+Figure 17.Carpentries Introduction App
+</figcaption></figure><p>After the user provides their name and clicks the relevant radio
+button, the text output responds with the appropriate message:</p>
+<figure style="text-align: center"><img src="fig/fig18-carpentries-introduction-filled.png" alt="Figure 18.Carpentries Introduction App Text Output" class="figure mx-auto d-block"><figcaption>
+Figure 18.Carpentries Introduction App Text Output
+</figcaption></figure><div id="challenge-4-explain-the-logic-of-the-carpentries-greeting-app-in-your-own-words" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="challenge-4-explain-the-logic-of-the-carpentries-greeting-app-in-your-own-words" class="callout-inner">
+<h3 class="callout-title">Challenge 4: Explain the logic of the Carpentries greeting app in your own words</h3>
+<div class="callout-content">
+<p>Work with a partner, and in your own words, take turns explaining how
+the application we’ve just written is put together. Focus on input
+functions, output functions, and the server logic.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
+</button>
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div class="accordion-body">
+<p>Here is a sample explanation: This Shiny app has two main parts: the
+UI (user interface) and the server (logic). In the UI, we use
+<code>textInput()</code> to ask the user for their name and
+<code>radioButtons()</code> to ask whether they are new to the
+Carpentries. We set <code>selected = character(0)</code> in the radio
+button to ensure that no option is selected by default. We also include
+<code>textOutput()</code> as a placeholder where the final greeting
+message will appear.</p>
+<p>In the server function, we use <code>renderText()</code> to generate
+the greeting based on the user’s input. Inside
+<code>renderText()</code>, the line
+<code>if (input$name == "" || is.null(input$new)) return(NULL)</code>
+plays an important role: it tells the app to hold off on showing any
+message until both the name and the radio button response are provided.
+The <code>input$name == ""</code> part checks whether the name text box
+is empty. The <code>is.null(input$new)</code> part checks whether the
+user has not yet selected a radio button. The <code>||</code> means “or”
+— so if either of these conditions is true, the function returns NULL
+(i.e., nothing is shown). Once both inputs are present, the app uses
+<code>paste0()</code> to construct a personalized greeting, depending on
+whether the user selected “Yes” or “No”, and displays it using the
+<code>textOutput()</code> placeholder.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="section level3">
 <h3 id="interactive-plot-applications">Interactive Plot Applications<a class="anchor" aria-label="anchor" href="#interactive-plot-applications"></a>
 </h3>
+<p>Having explored several interactive variations on our static “Hello,
+World!” application, let’s now turn to our static plot application
+above, and turn it into an interactive application using Shiny’s
+reactive functions. Let’s modify the code we used to create the static
+plot, and use reactive input functions to allow users to specify the
+number of bins in the histogram. To do so, we’ll use
+<code>numericInput()</code> within the UI, which gives users a text box
+in which they can specify the desired number of bins; in the server,
+we’ll replace the number 30 with <code>input$desired_bins</code>, which
+sets the “breaks” argument equal to the number specified by the user
+(using dollar sign notation to reference this number using the
+<code>numericInput</code> function’s input ID):</p>
+<div class="codewrapper sourceCode" id="cb23">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># UI: Layout and inputs/outputs go here</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="co"># Add UI code (specifying application's inputs, outputs, and layouts) here</span></span>
+<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Exploring the Normal Distribution"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">numericInput</span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"desired_bins"</span>, </span>
+<span>               label<span class="op">=</span><span class="st">"Please enter the desired number of bins"</span>,</span>
+<span>               value<span class="op">=</span><span class="fl">30</span><span class="op">)</span>,</span>
+<span>  <span class="fu">plotOutput</span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"normal_plot"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">textOutput</span><span class="op">(</span>outputId<span class="op">=</span><span class="st">"context_discussion"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Server: Logic and reactivity go here</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Add server code (specifying application's content) here</span></span>
+<span>  </span>
+<span>  <span class="co"># creates text output</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">context_discussion</span><span class="op">&lt;-</span><span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="st">"This histogram shows 1,000 values randomly drawn from a standard normal distribution. Most values fall between -3 and 3, with a peak around 0."</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># creates plot output</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">normal_plot</span><span class="op">&lt;-</span><span class="fu">renderPlot</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="co"># create vector</span></span>
+<span>    <span class="va">samples</span> <span class="op">&lt;-</span> <span class="fu">rnorm</span><span class="op">(</span><span class="fl">1000</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="co"># make a histogram of "samples" data</span></span>
+<span>    <span class="fu">hist</span><span class="op">(</span><span class="va">samples</span>, breaks <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desired_bins</span>, col <span class="op">=</span> <span class="st">"skyblue"</span>,</span>
+<span>         main <span class="op">=</span> <span class="st">"Histogram of Normal Samples"</span>,</span>
+<span>         xlab <span class="op">=</span> <span class="st">"Value"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Launch the app </span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre>
+</div>
+<p>When we launch the application, we see a numeric textbox with the
+default value set to 30 (the number of bins we had in our static
+application):</p>
+<figure style="text-align: center"><img src="fig/fig19-interactive-normal.png" alt="Figure 19.Launching the interactive plot application" class="figure mx-auto d-block"><figcaption>
+Figure 19.Launching the interactive plot application
+</figcaption></figure><p>However, the desired number of bins can now be changed by the user,
+and the plot will respond accordingly. For example, let’s change the
+number of bins to 100:</p>
+<figure style="text-align: center"><img src="fig/fig20-interactive-normal-bins.png" alt="Figure 20. Increasing the number of bins to 100" class="figure mx-auto d-block"><figcaption>
+Figure 20. Increasing the number of bins to 100
+</figcaption></figure><p>Let’s add another interactive dimension to this application by
+allowing users to change the color of the plot. We’ll create a text
+input field where a user can type in a color, based on <a href="https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf" class="external-link">color
+codes used in R</a>. We’ll place this text box below the numeric input
+box, and create it using the <code>textInput()</code> function; we’ll
+refer back to the user specified color in the server using dollar sign
+notation in conjunction with the ID argument passed to
+<code>textInput()</code>:</p>
+<div class="codewrapper sourceCode" id="cb24">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># UI: Layout and inputs/outputs go here</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="co"># Add UI code (specifying application's inputs, outputs, and layouts) here</span></span>
+<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Exploring the Normal Distribution"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">numericInput</span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"desired_bins"</span>, </span>
+<span>               label<span class="op">=</span><span class="st">"Please enter the desired number of bins"</span>,</span>
+<span>               value<span class="op">=</span><span class="fl">30</span><span class="op">)</span>,</span>
+<span>  <span class="fu">textInput</span><span class="op">(</span>inputId<span class="op">=</span><span class="st">"desired_color"</span>,</span>
+<span>            label<span class="op">=</span><span class="st">"Please enter the desired color for the histogram"</span>,</span>
+<span>            value<span class="op">=</span><span class="st">"skyblue"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">plotOutput</span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"normal_plot"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">textOutput</span><span class="op">(</span>outputId<span class="op">=</span><span class="st">"context_discussion"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Server: Logic and reactivity go here</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Add server code (specifying application's content) here</span></span>
+<span>  </span>
+<span>  <span class="co"># creates text output</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">context_discussion</span><span class="op">&lt;-</span><span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="st">"This histogram shows 1,000 values randomly drawn from a standard normal distribution. Most values fall between -3 and 3, with a peak around 0."</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># creates plot output</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">normal_plot</span><span class="op">&lt;-</span><span class="fu">renderPlot</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="co"># create vector</span></span>
+<span>    <span class="va">samples</span> <span class="op">&lt;-</span> <span class="fu">rnorm</span><span class="op">(</span><span class="fl">1000</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="co"># make a histogram of "samples" data</span></span>
+<span>    <span class="fu">hist</span><span class="op">(</span><span class="va">samples</span>, breaks <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desired_bins</span>, col <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desired_color</span>,</span>
+<span>         main <span class="op">=</span> <span class="st">"Histogram of Normal Samples"</span>,</span>
+<span>         xlab <span class="op">=</span> <span class="st">"Value"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Launch the app </span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Let’s launch the app, set the number of bins to 60, and the color to
+“orangered”. It will look something like this:</p>
+<figure style="text-align: center"><img src="fig/fig21-interactive-normal-bins-colors.png" alt="Figure 21. Interactively changing number of bins and colors" class="figure mx-auto d-block"><figcaption>
+Figure 21. Interactively changing number of bins and colors
+</figcaption></figure><div id="challenge-5-modify-the-interactive-plot-application" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="challenge-5-modify-the-interactive-plot-application" class="callout-inner">
+<h3 class="callout-title">Challenge 5: Modify the interactive plot application</h3>
+<div class="callout-content">
+<p>Modify the interactive plot application in the following ways:</p>
+<ul>
+<li>Instead of inviting users to specify their desired color in a
+textbox, constrain their choices by asking them to select one of the
+following colors from a dropdown menu: skyblue, orangered, violet,
+lightcyan, or lawngreen.</li>
+<li>Remove the contextual discussion (i.e. “This histogram shows…)</li>
+<li>Create a numeric input field where users can specify a desired mean
+for the sample.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="accordionSolution4" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
+  <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
+</button>
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div class="accordion-body">
+<p>Your script should look something like this:</p>
+<div class="codewrapper sourceCode" id="cb25">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># UI: Layout and inputs/outputs go here</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="co"># Add UI code (specifying application's inputs, outputs, and layouts) here</span></span>
+<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Exploring the Normal Distribution"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">numericInput</span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"desired_bins"</span>, </span>
+<span>               label<span class="op">=</span><span class="st">"Please enter the desired number of bins"</span>,</span>
+<span>               value<span class="op">=</span><span class="fl">30</span><span class="op">)</span>,</span>
+<span>  <span class="fu">selectInput</span><span class="op">(</span>inputId<span class="op">=</span><span class="st">"desired_color"</span>,</span>
+<span>            label<span class="op">=</span><span class="st">"Please select the desired color for the histogram"</span>,</span>
+<span>            choices<span class="op">=</span><span class="fu">c</span><span class="op">(</span><span class="st">"skyblue"</span>, <span class="st">"orangered"</span>, <span class="st">"violet"</span>, <span class="st">"lightcyan"</span>, <span class="st">"lawngreen"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu">numericInput</span><span class="op">(</span>inputId<span class="op">=</span><span class="st">"desired_mean"</span>, label<span class="op">=</span><span class="st">"Please enter the desired population mean"</span>, value<span class="op">=</span><span class="fl">0</span><span class="op">)</span>,</span>
+<span>  <span class="fu">plotOutput</span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"normal_plot"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">textOutput</span><span class="op">(</span>outputId<span class="op">=</span><span class="st">"context_discussion"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Server: Logic and reactivity go here</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Add server code (specifying application's content) here</span></span>
+<span>  </span>
+<span>  <span class="co"># creates plot output</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">normal_plot</span><span class="op">&lt;-</span><span class="fu">renderPlot</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="co"># create vector</span></span>
+<span>    <span class="va">samples</span> <span class="op">&lt;-</span> <span class="fu">rnorm</span><span class="op">(</span><span class="fl">1000</span>, mean <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desired_mean</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="co"># make a histogram of "samples" data</span></span>
+<span>    <span class="fu">hist</span><span class="op">(</span><span class="va">samples</span>, breaks <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desired_bins</span>, col <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desired_color</span>,</span>
+<span>         main <span class="op">=</span> <span class="st">"Histogram of Normal Samples"</span>,</span>
+<span>         xlab <span class="op">=</span> <span class="st">"Value"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Launch the app </span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Once the app is launched, if we were to set the number of bins to
+100, select “lawngreen” as the color, and choose a mean of 45, we will
+get something that looks like the following:</p>
+<figure style="text-align: center"><img src="fig/fig22-interactive-normal-bins-colors-means.png" alt="Figure 21. Interactive plot with user inputs for color, number of bins, and mean" class="figure mx-auto d-block"><figcaption>
+Figure 21. Interactive plot with user inputs for color, number of bins,
+and mean
+</figcaption></figure>
+</div>
+</div>
+</div>
+</div>
+<p>Which yields a static application that looks something like this:</p>
 <ul>
 <li>reactive()</li>
 <li>observers</li>
@@ -1471,7 +1772,7 @@ reinforce the objectives.</li>
 <h3 class="callout-title">Challenge 1: Can you do it?</h3>
 <div class="callout-content">
 <p>What is the output of this command?</p>
-<div class="codewrapper sourceCode" id="cb22">
+<div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1480,12 +1781,12 @@ reinforce the objectives.</li>
 </div>
 </div>
 </div>
-<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSolution5" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
-  <h4 class="accordion-header" id="headingSolution3"> Output </h4>
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
+  <h4 class="accordion-header" id="headingSolution5"> Output </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1507,12 +1808,12 @@ reinforce the objectives.</li>
 </div>
 </div>
 </div>
-<div id="accordionSolution4" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSolution6" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
-  <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution6" aria-expanded="false" aria-controls="collapseSolution6">
+  <h4 class="accordion-header" id="headingSolution6"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution6" class="accordion-collapse collapse" data-bs-parent="#accordionSolution6" aria-labelledby="headingSolution6">
 <div class="accordion-body">
 <p>You can add a line with at least three colons and a
 <code>solution</code> tag.</p>
@@ -1525,7 +1826,7 @@ reinforce the objectives.</li>
 </h2>
 <hr class="half-width">
 <p>You can include figures generated from R Markdown:</p>
-<div class="codewrapper sourceCode" id="cb24">
+<div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1654,7 +1955,7 @@ reinforce the objectives.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Output </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1681,7 +1982,7 @@ reinforce the objectives.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>You can add a line with at least three colons and a
 <code>solution</code> tag.</p>
@@ -1883,7 +2184,7 @@ reinforce the objectives.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Output </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1910,7 +2211,7 @@ reinforce the objectives.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>You can add a line with at least three colons and a
 <code>solution</code> tag.</p>
