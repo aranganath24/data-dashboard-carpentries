@@ -232,8 +232,6 @@
 <li><a href="#applications-with-multiple-outputs">Applications with multiple outputs</a></li>
 <li><a href="#a-conceptual-overview-of-interactive-applications">A conceptual overview of interactive applications</a></li>
 <li><a href="#writing-interactive-applications">Writing interactive applications</a></li>
-<li><a href="#adds-plot">adds plot</a></li>
-<li><a href="#introducing-reactivity">Introducing Reactivity</a></li>
 <li><a href="#figures">Figures</a></li>
 <li><a href="#math">Math</a></li>
         </ul></div><!--/div.accordion-body-->
@@ -1030,27 +1028,158 @@ dropdown menu
 text output:</p>
 <figure style="text-align: center"><img src="fig/fig11-greeting-dropdown-output.png" alt="Figure 11. Text output after selecting an input from the dropdown menu" class="figure mx-auto d-block"><figcaption>
 Figure 11. Text output after selecting an input from the dropdown menu
+</figcaption></figure><div id="challenge-3-modify-the-greeting-application-to-use-radio-buttons" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="challenge-3-modify-the-greeting-application-to-use-radio-buttons" class="callout-inner">
+<h3 class="callout-title">Challenge 3: Modify the greeting application to use radio buttons</h3>
+<div class="callout-content">
+<p>Replace the drop down menu in the app we just created with radio
+buttons, using the <code>radioButtons()</code> input function. You may
+have to consult the function’s documentation to specify the necessary
+arguments. Make sure to create a label, and a default selection. Use the
+same greeting options we used for the dropdown menu above.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div class="accordion-body">
+<p>To make this change, you can replace <code>selectInput()</code> with
+<code>radioButtons()</code>, while keeping the remaining code unchanged.
+It will look something like this:</p>
+<div class="codewrapper sourceCode" id="cb19">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># UI: Layout and inputs/outputs go here</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Greeting Application"</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co"># Input: Radio buttons for user to select a greeting</span></span>
+<span>  <span class="fu">radioButtons</span><span class="op">(</span></span>
+<span>    inputId <span class="op">=</span> <span class="st">"user_input"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Choose your greeting:"</span>,</span>
+<span>    choices <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Hello, World!"</span>, <span class="st">"Hi there :)"</span>, <span class="st">"What's up?"</span>, <span class="st">"Nice to meet you"</span><span class="op">)</span>,</span>
+<span>    selected <span class="op">=</span> <span class="st">"Hello, World!"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="co"># Output: Display the selected greeting</span></span>
+<span>  <span class="fu">textOutput</span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"greeting"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Server: Logic and reactivity go here</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="co"># Reactive output based on selected greeting</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">greeting</span> <span class="op">&lt;-</span> <span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">input</span><span class="op">$</span><span class="va">user_input</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Launch the app </span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Once launched, the modified application will look something like
+this:</p>
+<figure style="text-align: center"><img src="fig/fig12-greeting-radio.png" alt="Figure 12. Greeting App with Radio Buttons" class="figure mx-auto d-block"><figcaption>
+Figure 12. Greeting App with Radio Buttons
+</figcaption></figure></div>
+</div>
+</div>
+</div>
+<p>Let’s now create a slightly different greeting app in which the user
+provides their name, and the application responds with a personal
+greeting. We can develop this application with some now-familiar
+functions:</p>
+<div class="codewrapper sourceCode" id="cb20">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># UI</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Personal Greeting App"</span><span class="op">)</span>,</span>
+<span></span>
+<span>  <span class="co"># Text input for the user's name</span></span>
+<span>  <span class="fu">textInput</span><span class="op">(</span>inputId<span class="op">=</span><span class="st">"name"</span>, label<span class="op">=</span><span class="st">"What is your name?"</span><span class="op">)</span>,</span>
+<span></span>
+<span>  <span class="co"># Output: Greeting text</span></span>
+<span>  <span class="fu">textOutput</span><span class="op">(</span>outputId<span class="op">=</span><span class="st">"greeting"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Server</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">greeting</span> <span class="op">&lt;-</span> <span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu">paste0</span><span class="op">(</span><span class="st">"Hello, "</span>, <span class="va">input</span><span class="op">$</span><span class="va">name</span>, <span class="st">"! Nice to meet you."</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Run the app</span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre>
+</div>
+<p>When you launch the application, it looks something like this:</p>
+<figure style="text-align: center"><img src="fig/fig13-personal-greeting.png" alt="Figure 13. Personal Greeting App" class="figure mx-auto d-block"><figcaption>
+Figure 13. Personal Greeting App
+</figcaption></figure><p>When a name is typed into the text box, the output updates
+accordingly:</p>
+<figure style="text-align: center"><img src="fig/fig14-personal-greeting-name.png" alt="Figure 14. Personal Greeting App Output" class="figure mx-auto d-block"><figcaption>
+Figure 14. Personal Greeting App Output
+</figcaption></figure><p>One potential design limitation of this simple application is that
+before the name is entered into the text box, the output “Hello, ! Nice
+to meet you.” looks awkward. It may be desirable to hide this output
+before the name is entered, and only show the complete output once the
+name is actually entered into the box. We can accomplish this by
+inserting the conditional statement
+<code>if (input$name == "") return(NULL)</code> in the
+<code>renderText()</code> function before the <code>paste0()</code>
+function. This essentially says “If the name field is blank, do not
+return an output.” The modified script looks like this:</p>
+<div class="codewrapper sourceCode" id="cb21">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># UI</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Personal Greeting App"</span><span class="op">)</span>,</span>
+<span></span>
+<span>  <span class="co"># Text input for the user's name</span></span>
+<span>  <span class="fu">textInput</span><span class="op">(</span>inputId<span class="op">=</span><span class="st">"name"</span>, label<span class="op">=</span><span class="st">"What is your name?"</span><span class="op">)</span>,</span>
+<span></span>
+<span>  <span class="co"># Output: Greeting text</span></span>
+<span>  <span class="fu">textOutput</span><span class="op">(</span>outputId<span class="op">=</span><span class="st">"greeting"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Server</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">greeting</span> <span class="op">&lt;-</span> <span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
+<span>   <span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">name</span> <span class="op">==</span> <span class="st">""</span><span class="op">)</span> <span class="kw">return</span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></span>
+<span>    <span class="fu">paste0</span><span class="op">(</span><span class="st">"Hello, "</span>, <span class="va">input</span><span class="op">$</span><span class="va">name</span>, <span class="st">"! Nice to meet you."</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Run the app</span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Now, when we launch the app, we’ll see an interface that looks like
+this:</p>
+<figure style="text-align: center"><img src="fig/fig15-revised-personal-greeting-blank.png" alt="Figure 15. Launching the Revised Personal Greeting App" class="figure mx-auto d-block"><figcaption>
+Figure 15. Launching the Revised Personal Greeting App
+</figcaption></figure><p>The application will return the full output in response to the user
+entering their name in the text field:</p>
+<figure style="text-align: center"><img src="fig/fig16-revised-personal-greeting-filled.png" alt="Figure 16. User-Prompted Output in the Revised Personal Greeting App" class="figure mx-auto d-block"><figcaption>
+Figure 16. User-Prompted Output in the Revised Personal Greeting App
 </figcaption></figure></div>
 <div class="section level3">
 <h3 id="interactive-plot-applications">Interactive Plot Applications<a class="anchor" aria-label="anchor" href="#interactive-plot-applications"></a></h3>
-<p>simply having “Hello, World”, we’ll make an app in which “Hello,
-World!” is the default greeting, but allow the user to change the
-greeting by writing a new greeting of their choicehave app respond to
-user input.</p>
-<p>because <code>y</code> was calculated before <code>x</code> was
-changed, and R does not automatically re-calculate Y</p>
-<p>it’s a good starting point. Before moving on, there are a few things
-we should note about this application:</p>
-<ul><li>First, note that</li>
-</ul></div>
-</section><section><h2 class="section-heading" id="adds-plot">adds plot<a class="anchor" aria-label="anchor" href="#adds-plot"></a></h2>
-<hr class="half-width"></section><section><h2 class="section-heading" id="introducing-reactivity">Introducing Reactivity<a class="anchor" aria-label="anchor" href="#introducing-reactivity"></a></h2>
-<hr class="half-width"><div class="section level3">
-<h3 id="creating-the-hello-world-application">Creating the “Hello, World” Application<a class="anchor" aria-label="anchor" href="#creating-the-hello-world-application"></a></h3>
-<p>Let’s begin by writing out the code for an empty Shiny application.
-You can write Shiny applications in a simple R</p>
-<p>-organizing files in a directory devoted to shiny</p>
-<p>This is a lesson created via The Carpentries Workbench. It is written
+<ul><li>reactive()</li>
+<li>observers</li>
+<li>styling</li>
+</ul><p>This is a lesson created via The Carpentries Workbench. It is written
 in <a href="https://pandoc.org/MANUAL.html" class="external-link">Pandoc-flavored Markdown</a>
 for static files (with extension <code>.md</code>) and <a href="https://rmarkdown.rstudio.com/" class="external-link">R Markdown</a> for dynamic files
 that can render code into output (with extension <code>.Rmd</code>).
@@ -1075,7 +1204,7 @@ reinforce the objectives.</li>
 <h3 class="callout-title">Challenge 1: Can you do it?</h3>
 <div class="callout-content">
 <p>What is the output of this command?</p>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1084,12 +1213,12 @@ reinforce the objectives.</li>
 </div>
 </div>
 </div>
-<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
-  <h4 class="accordion-header" id="headingSolution2"> Output </h4>
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3"> Output </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1111,12 +1240,12 @@ reinforce the objectives.</li>
 </div>
 </div>
 </div>
-<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSolution4" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
-  <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
+  <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>You can add a line with at least three colons and a
 <code>solution</code> tag.</p>
@@ -1127,7 +1256,7 @@ reinforce the objectives.</li>
 </div>
 </section><section><h2 class="section-heading" id="figures">Figures<a class="anchor" aria-label="anchor" href="#figures"></a></h2>
 <hr class="half-width"><p>You can include figures generated from R Markdown:</p>
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
