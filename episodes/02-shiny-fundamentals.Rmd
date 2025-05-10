@@ -31,6 +31,7 @@ Before beginning this episode, please load the following libraries"
 ```{r}
 # load libraries
 library(shiny)
+library(shinythemes)
 ```
 
 
@@ -792,7 +793,6 @@ ui <- fluidPage(
             choices=c("skyblue", "orangered", "violet", "lightcyan", "lawngreen")),
   numericInput(inputId="desired_mean", label="Please enter the desired population mean", value=0),
   plotOutput(outputId = "normal_plot"),
-  textOutput(outputId="context_discussion")
 )
 
 # Server: Logic and reactivity go here
@@ -824,6 +824,374 @@ knitr::include_graphics("fig/fig22-interactive-normal-bins-colors-means.png")
 :::
 
 :::::::::::::::::::::::::::::::::::::
+
+## Layouts and Themes
+
+We'll use the app you just created in the exercise above to explore some basic tools that can be used to lay out the elements within your application, as well as style the application as a whole.
+
+### Sidebar layouts
+
+First, note that the user inputs in the app you created were laid out on top of the plot. Often, it can be preferable to situate these elements towards the side. Indeed, one of the most useful Shiny application layouts is known as the sidebar layout, in which there is a sidebar for inputs, and a "main" panel for outputs. To see how the sidebar layout works, let's wrap the application we wrote in the previous exercise into a sidebar layout, with the inputs on the side, and the plot in the main panel:
+
+```{r, eval=F}
+ui <- fluidPage(
+  # Add UI code (specifying application's inputs, outputs, and layouts) here
+  titlePanel("Exploring the Normal Distribution"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      numericInput(inputId = "desired_bins", 
+                   label = "Please enter the desired number of bins",
+                   value = 30),
+      
+      selectInput(inputId = "desired_color",
+                  label = "Please select the desired color for the histogram",
+                  choices = c("skyblue", "orangered", "violet", "lightcyan", "lawngreen")),
+      
+      numericInput(inputId = "desired_mean", 
+                   label = "Please enter the desired population mean", 
+                   value = 0)
+    ), # closes sidebarPanel
+    
+    mainPanel(
+      plotOutput(outputId = "normal_plot")
+    ) # closes mainPanel
+  ) # closes sidebarLayout
+) # closes fluidPage
+
+
+# Server: Logic and reactivity go here
+server <- function(input, output) {
+  # Add server code (specifying application's content) here
+  
+  # creates plot output
+  output$normal_plot <- renderPlot({
+    # create vector
+    samples <- rnorm(1000, mean = input$desired_mean, sd = 1)
+    
+    # make a histogram of "samples" data
+    hist(samples, breaks = input$desired_bins, col = input$desired_color,
+         main = "Histogram of Normal Samples",
+         xlab = "Value")
+  })
+}
+
+# Launch the app 
+shinyApp(ui, server)
+```
+
+As you can see, the ```sidebarLayout()``` function declares a sidebar structure; within this function, relevant input widgets are placed within ```sidebarPanel()```, and the outputs to be displayed within the main panel are placed within ```sidebarPanel()```. Once this sidebar structure is in place, the revised app will look like the following:
+
+```{r, echo=FALSE, fig:sidebar-layout, fig.cap="Figure 23. Sidebar layout"}
+knitr::include_graphics("fig/fig23-sidebar.png")
+```
+
+If you wanted to place the input widgets to the right of the main panel, you can do so by specifying ```position="right" within ```sidebarLayout()```, right before calling ```sidebarPanel()```. The modified script would look like this:
+
+```{r, eval=F}
+ui <- fluidPage(
+  # Add UI code (specifying application's inputs, outputs, and layouts) here
+  titlePanel("Exploring the Normal Distribution"),
+  
+  sidebarLayout(
+    position="right",
+    sidebarPanel(
+      numericInput(inputId = "desired_bins", 
+                   label = "Please enter the desired number of bins",
+                   value = 30),
+      
+      selectInput(inputId = "desired_color",
+                  label = "Please select the desired color for the histogram",
+                  choices = c("skyblue", "orangered", "violet", "lightcyan", "lawngreen")),
+      
+      numericInput(inputId = "desired_mean", 
+                   label = "Please enter the desired population mean", 
+                   value = 0)
+    ), # closes sidebarPanel
+    
+    mainPanel(
+      plotOutput(outputId = "normal_plot")
+    ) # closes mainPanel
+  ) # closes sidebarLayout
+) # closes fluidPage
+
+
+# Server: Logic and reactivity go here
+server <- function(input, output) {
+  # Add server code (specifying application's content) here
+  
+  # creates plot output
+  output$normal_plot <- renderPlot({
+    # create vector
+    samples <- rnorm(1000, mean = input$desired_mean, sd = 1)
+    
+    # make a histogram of "samples" data
+    hist(samples, breaks = input$desired_bins, col = input$desired_color,
+         main = "Histogram of Normal Samples",
+         xlab = "Value")
+  })
+}
+
+# Launch the app 
+shinyApp(ui, server)
+```
+
+Yielding an application with the inputs on the right, as expected: 
+
+```{r, echo=FALSE, fig:sidebar-layout-right, fig.cap="Figure 24. Sidebar layout with inputs on the right"}
+knitr::include_graphics("fig/fig24-sidebar-right.png")
+```
+
+Recall, from above, that if we want the input widgets below the main plot, we could remove the sidebar layout, and place the input widgets below the plot output in the UI:
+
+```{r, eval=F}
+# UI: Layout and inputs/outputs go here
+ui <- fluidPage(
+  # Add UI code (specifying application's inputs, outputs, and layouts) here
+  titlePanel("Exploring the Normal Distribution"),
+  plotOutput(outputId = "normal_plot"),
+  numericInput(inputId = "desired_bins", 
+               label="Please enter the desired number of bins",
+               value=30),
+  selectInput(inputId="desired_color",
+            label="Please select the desired color for the histogram",
+            choices=c("skyblue", "orangered", "violet", "lightcyan", "lawngreen")),
+  numericInput(inputId="desired_mean", label="Please enter the desired population mean", value=0),
+)
+
+# Server: Logic and reactivity go here
+server <- function(input, output) {
+  # Add server code (specifying application's content) here
+  
+  # creates plot output
+  output$normal_plot<-renderPlot({
+    # create vector
+    samples <- rnorm(1000, mean = input$desired_mean, sd = 1)
+    
+    # make a histogram of "samples" data
+    hist(samples, breaks = input$desired_bins, col = input$desired_color,
+         main = "Histogram of Normal Samples",
+         xlab = "Value")
+  })
+}
+
+# Launch the app 
+shinyApp(ui, server)
+```
+
+This minor adjustment in the UI leads to an app with the following appearance:
+
+```{r, echo=FALSE, fig:inputs-bottom, fig.cap="Figure 25. Inputs on the bottom"}
+knitr::include_graphics("fig/fig25-inputs-bottom.png")
+```
+
+### Tabs
+
+So far, our apps have been fairly simple, but as they grow in complexity and the amount of information displayed increases, it can be helpful to use tabs as an organizational tool. Tabs allow us to distribute content across multiple panels, reducing clutter and creating a more streamlined and user-friendly design. In Shiny, we can use the ```tabsetPanel()``` function to organize the content into tabs. Each individual tab is then defined using the tabPanel() function, where the material for that tab is placed. Below, we demonstrate the use of tabs by placing the plot in one tab (the tab is named "Histogram"), and then place some contextual information in another tab (named "Explanation"). 
+
+```{r, eval=F}
+# UI
+ui <- fluidPage(
+  titlePanel("Exploring the Normal Distribution"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      numericInput(inputId = "desired_bins", 
+                   label = "Please enter the desired number of bins",
+                   value = 30),
+      
+      selectInput(inputId = "desired_color",
+                  label = "Please select the desired color for the histogram",
+                  choices = c("skyblue", "orangered", "violet", "lightcyan", "lawngreen")),
+      
+      numericInput(inputId = "desired_mean", 
+                   label = "Please enter the desired population mean", 
+                   value = 0)
+    ), # closes sidebarPanel
+    
+    mainPanel(
+      tabsetPanel(
+        tabPanel(title="Histogram", 
+                 plotOutput(outputId = "normal_plot")),
+        tabPanel(title="Explanation", 
+                 textOutput(outputId = "context_discussion"))
+      ) # closes tabsetPanel
+    ) # closes mainPanel
+  ) # closes sidebarLayout
+) # closes fluidPage
+
+# Server
+server <- function(input, output) {
+  
+  output$normal_plot <- renderPlot({
+    samples <- rnorm(1000, mean = input$desired_mean, sd = 1)
+    
+    hist(samples, breaks = input$desired_bins, col = input$desired_color,
+         main = "Histogram of Normal Samples",
+         xlab = "Value")
+  })
+  
+  output$context_discussion <- renderText({
+    "This histogram shows 1,000 values drawn from a normal distribution with the specified mean. 
+    You can change the number of bins and the histogram color using the controls on the right."
+  })
+}
+
+# Run the app
+shinyApp(ui = ui, server = server)
+```
+
+When launched, this tab-based app looks something like this; note the "Histogram" tab is live:
+
+```{r, echo=FALSE, fig:tab-histogram, fig.cap="Figure 26. Tab based app with Histogram tab open"}
+knitr::include_graphics("fig/fig26-tab1.png")
+```
+
+When the user toggles to the "Explanation" tab, it looks like this:
+
+```{r, echo=FALSE, fig:tab-histogram-explanation, fig.cap="Figure 27. Tab based app with Explanation tab open"}
+knitr::include_graphics("fig/fig27-tab2.png")
+```
+
+### Themes
+
+Issues of application design and style are complex issues, and many of them are beyond the scope of our Workshop. However, we will briefly introduce themes, which can help shape the visual appearance of your applications with relatively little effort. Shiny themes come from the *shinythemes* package, and you can add a theme to your app with one line of code. Before deciding on a theme, you'd probably want to preview various options, which you can do with the ```themeSelector()``` function. Let's explore various themes that could be applied to the tab-based app we made above:
+
+```{r, eval=F}
+# UI
+ui <- fluidPage(
+  themeSelector(),
+  titlePanel("Exploring the Normal Distribution"),
+  sidebarLayout(
+    sidebarPanel(
+      numericInput(inputId = "desired_bins", 
+                   label = "Please enter the desired number of bins",
+                   value = 30),
+      
+      selectInput(inputId = "desired_color",
+                  label = "Please select the desired color for the histogram",
+                  choices = c("skyblue", "orangered", "violet", "lightcyan", "lawngreen")),
+      
+      numericInput(inputId = "desired_mean", 
+                   label = "Please enter the desired population mean", 
+                   value = 0)
+    ), # closes sidebarPanel
+    
+    mainPanel(
+      tabsetPanel(
+        tabPanel(title="Histogram", 
+                 plotOutput(outputId = "normal_plot")),
+        tabPanel(title="Explanation", 
+                 textOutput(outputId = "context_discussion"))
+      ) # closes tabsetPanel
+    ) # closes mainPanel
+  ) # closes sidebarLayout
+) # closes fluidPage
+
+# Server
+server <- function(input, output) {
+  
+  output$normal_plot <- renderPlot({
+    samples <- rnorm(1000, mean = input$desired_mean, sd = 1)
+    
+    hist(samples, breaks = input$desired_bins, col = input$desired_color,
+         main = "Histogram of Normal Samples",
+         xlab = "Value")
+  })
+  
+  output$context_discussion <- renderText({
+    "This histogram shows 1,000 values drawn from a normal distribution with the specified mean. 
+    You can change the number of bins and the histogram color using the controls on the right."
+  })
+}
+
+# Run the app
+shinyApp(ui = ui, server = server)
+```
+
+When you launch this app, it will launch with a drop-down menu that allows you to select and preview how various themes look in the context of your app:
+
+```{r, echo=FALSE, fig:theme-selector, fig.cap="Figure 28. Shiny theme selector"}
+knitr::include_graphics("fig/fig28-theme-selector.png")
+```
+
+After previewing the various themes, let's say you decide you want to select the "slate" theme. To apply that theme, replace ```themeSelector()``` in the code with ```theme=shinytheme("superhero")```:
+
+```{r, eval=F}
+# UI
+ui <- fluidPage(
+  theme=shinytheme("superhero"),
+  titlePanel("Exploring the Normal Distribution"),
+  sidebarLayout(
+    sidebarPanel(
+      numericInput(inputId = "desired_bins", 
+                   label = "Please enter the desired number of bins",
+                   value = 30),
+      
+      selectInput(inputId = "desired_color",
+                  label = "Please select the desired color for the histogram",
+                  choices = c("skyblue", "orangered", "violet", "lightcyan", "lawngreen")),
+      
+      numericInput(inputId = "desired_mean", 
+                   label = "Please enter the desired population mean", 
+                   value = 0)
+    ), # closes sidebarPanel
+    
+    mainPanel(
+      tabsetPanel(
+        tabPanel(title="Histogram", 
+                 plotOutput(outputId = "normal_plot")),
+        tabPanel(title="Explanation", 
+                 textOutput(outputId = "context_discussion"))
+      ) # closes tabsetPanel
+    ) # closes mainPanel
+  ) # closes sidebarLayout
+) # closes fluidPage
+
+# Server
+server <- function(input, output) {
+  
+  output$normal_plot <- renderPlot({
+    samples <- rnorm(1000, mean = input$desired_mean, sd = 1)
+    
+    hist(samples, breaks = input$desired_bins, col = input$desired_color,
+         main = "Histogram of Normal Samples",
+         xlab = "Value")
+  })
+  
+  output$context_discussion <- renderText({
+    "This histogram shows 1,000 values drawn from a normal distribution with the specified mean. 
+    You can change the number of bins and the histogram color using the controls on the right."
+  })
+}
+
+# Run the app
+shinyApp(ui = ui, server = server)
+```
+
+Now, when the app is launched, you'll see the theme is applied:
+
+```{r, echo=FALSE, fig:superhero-theme, fig.cap="Figure 29. Shiny superhero theme"}
+knitr::include_graphics("fig/fig29-theme-applied.png")
+```
+
+
+
+
+
+
+
+
+
+
+```{r}
+
+```
+
+
+
+
+
 
 
 
