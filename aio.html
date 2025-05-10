@@ -356,7 +356,7 @@
         
 <section id="aio-introduction"><p>Content from <a href="introduction.html">Introduction and Motivation</a></p>
 <hr>
-<p>Last updated on 2025-05-08 |
+<p>Last updated on 2025-05-10 |
 
         <a href="https://github.com/aranganath24/data-dashboard-carpentries/edit/main/episodes/introduction.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -556,7 +556,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-02-shiny-fundamentals"><p>Content from <a href="02-shiny-fundamentals.html">Shiny Fundamentals</a></p>
 <hr>
-<p>Last updated on 2025-05-09 |
+<p>Last updated on 2025-05-10 |
 
         <a href="https://github.com/aranganath24/data-dashboard-carpentries/edit/main/episodes/02-shiny-fundamentals.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -605,7 +605,8 @@ libraries”</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># load libraries</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">shiny</span><span class="op">)</span></span></code></pre>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">shiny</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">shinythemes</span><span class="op">)</span></span></code></pre>
 </div>
 </section><section><h2 class="section-heading" id="the-structure-of-a-shiny-application">The Structure of a Shiny Application<a class="anchor" aria-label="anchor" href="#the-structure-of-a-shiny-application"></a>
 </h2>
@@ -1004,7 +1005,7 @@ so that it’s instead below the plot.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>To make this change, you can simply move <code>textOutput()</code>
 function below the <code>plotOutput()</code> function in the UI. There
@@ -1308,7 +1309,7 @@ same greeting options we used for the dropdown menu above.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>To make this change, you can replace <code>selectInput()</code> with
 <code>radioButtons()</code>, while keeping the remaining code unchanged.
@@ -1515,7 +1516,7 @@ functions, output functions, and the server logic.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>Here is a sample explanation: This Shiny app has two main parts: the
 UI (user interface) and the server (logic). In the UI, we use
@@ -1687,7 +1688,7 @@ for the sample.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>Your script should look something like this:</p>
 <div class="codewrapper sourceCode" id="cb25">
@@ -1706,7 +1707,6 @@ for the sample.</li>
 <span>            choices<span class="op">=</span><span class="fu">c</span><span class="op">(</span><span class="st">"skyblue"</span>, <span class="st">"orangered"</span>, <span class="st">"violet"</span>, <span class="st">"lightcyan"</span>, <span class="st">"lawngreen"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  <span class="fu">numericInput</span><span class="op">(</span>inputId<span class="op">=</span><span class="st">"desired_mean"</span>, label<span class="op">=</span><span class="st">"Please enter the desired population mean"</span>, value<span class="op">=</span><span class="fl">0</span><span class="op">)</span>,</span>
 <span>  <span class="fu">plotOutput</span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"normal_plot"</span><span class="op">)</span>,</span>
-<span>  <span class="fu">textOutput</span><span class="op">(</span>outputId<span class="op">=</span><span class="st">"context_discussion"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Server: Logic and reactivity go here</span></span>
@@ -1739,7 +1739,396 @@ and mean
 </div>
 </div>
 </div>
-<p>Which yields a static application that looks something like this:</p>
+</div>
+</section><section><h2 class="section-heading" id="layouts-and-themes">Layouts and Themes<a class="anchor" aria-label="anchor" href="#layouts-and-themes"></a>
+</h2>
+<hr class="half-width">
+<p>We’ll use the app you just created in the exercise above to explore
+some basic tools that can be used to lay out the elements within your
+application, as well as style the application as a whole.</p>
+<div class="section level3">
+<h3 id="sidebar-layouts">Sidebar layouts<a class="anchor" aria-label="anchor" href="#sidebar-layouts"></a>
+</h3>
+<p>First, note that the user inputs in the app you created were laid out
+on top of the plot. Often, it can be preferable to situate these
+elements towards the side. Indeed, one of the most useful Shiny
+application layouts is known as the sidebar layout, in which there is a
+sidebar for inputs, and a “main” panel for outputs. To see how the
+sidebar layout works, let’s wrap the application we wrote in the
+previous exercise into a sidebar layout, with the inputs on the side,
+and the plot in the main panel:</p>
+<div class="codewrapper sourceCode" id="cb26">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="co"># Add UI code (specifying application's inputs, outputs, and layouts) here</span></span>
+<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Exploring the Normal Distribution"</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="fu">sidebarLayout</span><span class="op">(</span></span>
+<span>    <span class="fu">sidebarPanel</span><span class="op">(</span></span>
+<span>      <span class="fu">numericInput</span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"desired_bins"</span>, </span>
+<span>                   label <span class="op">=</span> <span class="st">"Please enter the desired number of bins"</span>,</span>
+<span>                   value <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>,</span>
+<span>      </span>
+<span>      <span class="fu">selectInput</span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"desired_color"</span>,</span>
+<span>                  label <span class="op">=</span> <span class="st">"Please select the desired color for the histogram"</span>,</span>
+<span>                  choices <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"skyblue"</span>, <span class="st">"orangered"</span>, <span class="st">"violet"</span>, <span class="st">"lightcyan"</span>, <span class="st">"lawngreen"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      </span>
+<span>      <span class="fu">numericInput</span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"desired_mean"</span>, </span>
+<span>                   label <span class="op">=</span> <span class="st">"Please enter the desired population mean"</span>, </span>
+<span>                   value <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>, <span class="co"># closes sidebarPanel</span></span>
+<span>    </span>
+<span>    <span class="fu">mainPanel</span><span class="op">(</span></span>
+<span>      <span class="fu">plotOutput</span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"normal_plot"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span> <span class="co"># closes mainPanel</span></span>
+<span>  <span class="op">)</span> <span class="co"># closes sidebarLayout</span></span>
+<span><span class="op">)</span> <span class="co"># closes fluidPage</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Server: Logic and reactivity go here</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Add server code (specifying application's content) here</span></span>
+<span>  </span>
+<span>  <span class="co"># creates plot output</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">normal_plot</span> <span class="op">&lt;-</span> <span class="fu">renderPlot</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="co"># create vector</span></span>
+<span>    <span class="va">samples</span> <span class="op">&lt;-</span> <span class="fu">rnorm</span><span class="op">(</span><span class="fl">1000</span>, mean <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desired_mean</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="co"># make a histogram of "samples" data</span></span>
+<span>    <span class="fu">hist</span><span class="op">(</span><span class="va">samples</span>, breaks <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desired_bins</span>, col <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desired_color</span>,</span>
+<span>         main <span class="op">=</span> <span class="st">"Histogram of Normal Samples"</span>,</span>
+<span>         xlab <span class="op">=</span> <span class="st">"Value"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Launch the app </span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre>
+</div>
+<p>As you can see, the <code>sidebarLayout()</code> function declares a
+sidebar structure; within this function, relevant input widgets are
+placed within <code>sidebarPanel()</code>, and the outputs to be
+displayed within the main panel are placed within
+<code>sidebarPanel()</code>. Once this sidebar structure is in place,
+the revised app will look like the following:</p>
+<figure style="text-align: center"><img src="fig/fig23-sidebar.png" alt="Figure 23. Sidebar layout" class="figure mx-auto d-block"><figcaption>
+Figure 23. Sidebar layout
+</figcaption></figure><p>If you wanted to place the input widgets to the right of the main
+panel, you can do so by specifying
+<code>position="right" within</code>sidebarLayout()<code>, right before calling</code>sidebarPanel()```.
+The modified script would look like this:</p>
+<div class="codewrapper sourceCode" id="cb27">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="co"># Add UI code (specifying application's inputs, outputs, and layouts) here</span></span>
+<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Exploring the Normal Distribution"</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="fu">sidebarLayout</span><span class="op">(</span></span>
+<span>    position<span class="op">=</span><span class="st">"right"</span>,</span>
+<span>    <span class="fu">sidebarPanel</span><span class="op">(</span></span>
+<span>      <span class="fu">numericInput</span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"desired_bins"</span>, </span>
+<span>                   label <span class="op">=</span> <span class="st">"Please enter the desired number of bins"</span>,</span>
+<span>                   value <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>,</span>
+<span>      </span>
+<span>      <span class="fu">selectInput</span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"desired_color"</span>,</span>
+<span>                  label <span class="op">=</span> <span class="st">"Please select the desired color for the histogram"</span>,</span>
+<span>                  choices <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"skyblue"</span>, <span class="st">"orangered"</span>, <span class="st">"violet"</span>, <span class="st">"lightcyan"</span>, <span class="st">"lawngreen"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      </span>
+<span>      <span class="fu">numericInput</span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"desired_mean"</span>, </span>
+<span>                   label <span class="op">=</span> <span class="st">"Please enter the desired population mean"</span>, </span>
+<span>                   value <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>, <span class="co"># closes sidebarPanel</span></span>
+<span>    </span>
+<span>    <span class="fu">mainPanel</span><span class="op">(</span></span>
+<span>      <span class="fu">plotOutput</span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"normal_plot"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span> <span class="co"># closes mainPanel</span></span>
+<span>  <span class="op">)</span> <span class="co"># closes sidebarLayout</span></span>
+<span><span class="op">)</span> <span class="co"># closes fluidPage</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Server: Logic and reactivity go here</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Add server code (specifying application's content) here</span></span>
+<span>  </span>
+<span>  <span class="co"># creates plot output</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">normal_plot</span> <span class="op">&lt;-</span> <span class="fu">renderPlot</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="co"># create vector</span></span>
+<span>    <span class="va">samples</span> <span class="op">&lt;-</span> <span class="fu">rnorm</span><span class="op">(</span><span class="fl">1000</span>, mean <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desired_mean</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="co"># make a histogram of "samples" data</span></span>
+<span>    <span class="fu">hist</span><span class="op">(</span><span class="va">samples</span>, breaks <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desired_bins</span>, col <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desired_color</span>,</span>
+<span>         main <span class="op">=</span> <span class="st">"Histogram of Normal Samples"</span>,</span>
+<span>         xlab <span class="op">=</span> <span class="st">"Value"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Launch the app </span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Yielding an application with the inputs on the right, as
+expected:</p>
+<figure style="text-align: center"><img src="fig/fig24-sidebar-right.png" alt="Figure 24. Sidebar layout with inputs on the right" class="figure mx-auto d-block"><figcaption>
+Figure 24. Sidebar layout with inputs on the right
+</figcaption></figure><p>Recall, from above, that if we want the input widgets below the main
+plot, we could remove the sidebar layout, and place the input widgets
+below the plot output in the UI:</p>
+<div class="codewrapper sourceCode" id="cb28">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># UI: Layout and inputs/outputs go here</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="co"># Add UI code (specifying application's inputs, outputs, and layouts) here</span></span>
+<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Exploring the Normal Distribution"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">plotOutput</span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"normal_plot"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">numericInput</span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"desired_bins"</span>, </span>
+<span>               label<span class="op">=</span><span class="st">"Please enter the desired number of bins"</span>,</span>
+<span>               value<span class="op">=</span><span class="fl">30</span><span class="op">)</span>,</span>
+<span>  <span class="fu">selectInput</span><span class="op">(</span>inputId<span class="op">=</span><span class="st">"desired_color"</span>,</span>
+<span>            label<span class="op">=</span><span class="st">"Please select the desired color for the histogram"</span>,</span>
+<span>            choices<span class="op">=</span><span class="fu">c</span><span class="op">(</span><span class="st">"skyblue"</span>, <span class="st">"orangered"</span>, <span class="st">"violet"</span>, <span class="st">"lightcyan"</span>, <span class="st">"lawngreen"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu">numericInput</span><span class="op">(</span>inputId<span class="op">=</span><span class="st">"desired_mean"</span>, label<span class="op">=</span><span class="st">"Please enter the desired population mean"</span>, value<span class="op">=</span><span class="fl">0</span><span class="op">)</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Server: Logic and reactivity go here</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Add server code (specifying application's content) here</span></span>
+<span>  </span>
+<span>  <span class="co"># creates plot output</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">normal_plot</span><span class="op">&lt;-</span><span class="fu">renderPlot</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="co"># create vector</span></span>
+<span>    <span class="va">samples</span> <span class="op">&lt;-</span> <span class="fu">rnorm</span><span class="op">(</span><span class="fl">1000</span>, mean <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desired_mean</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="co"># make a histogram of "samples" data</span></span>
+<span>    <span class="fu">hist</span><span class="op">(</span><span class="va">samples</span>, breaks <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desired_bins</span>, col <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desired_color</span>,</span>
+<span>         main <span class="op">=</span> <span class="st">"Histogram of Normal Samples"</span>,</span>
+<span>         xlab <span class="op">=</span> <span class="st">"Value"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Launch the app </span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre>
+</div>
+<p>This minor adjustment in the UI leads to an app with the following
+appearance:</p>
+<figure style="text-align: center"><img src="fig/fig25-inputs-bottom.png" alt="Figure 25. Inputs on the bottom" class="figure mx-auto d-block"><figcaption>
+Figure 25. Inputs on the bottom
+</figcaption></figure>
+</div>
+<div class="section level3">
+<h3 id="tabs">Tabs<a class="anchor" aria-label="anchor" href="#tabs"></a>
+</h3>
+<p>So far, our apps have been fairly simple, but as they grow in
+complexity and the amount of information displayed increases, it can be
+helpful to use tabs as an organizational tool. Tabs allow us to
+distribute content across multiple panels, reducing clutter and creating
+a more streamlined and user-friendly design. In Shiny, we can use the
+<code>tabsetPanel()</code> function to organize the content into tabs.
+Each individual tab is then defined using the tabPanel() function, where
+the material for that tab is placed. Below, we demonstrate the use of
+tabs by placing the plot in one tab (the tab is named “Histogram”), and
+then place some contextual information in another tab (named
+“Explanation”).</p>
+<div class="codewrapper sourceCode" id="cb29">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># UI</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Exploring the Normal Distribution"</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="fu">sidebarLayout</span><span class="op">(</span></span>
+<span>    <span class="fu">sidebarPanel</span><span class="op">(</span></span>
+<span>      <span class="fu">numericInput</span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"desired_bins"</span>, </span>
+<span>                   label <span class="op">=</span> <span class="st">"Please enter the desired number of bins"</span>,</span>
+<span>                   value <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>,</span>
+<span>      </span>
+<span>      <span class="fu">selectInput</span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"desired_color"</span>,</span>
+<span>                  label <span class="op">=</span> <span class="st">"Please select the desired color for the histogram"</span>,</span>
+<span>                  choices <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"skyblue"</span>, <span class="st">"orangered"</span>, <span class="st">"violet"</span>, <span class="st">"lightcyan"</span>, <span class="st">"lawngreen"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      </span>
+<span>      <span class="fu">numericInput</span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"desired_mean"</span>, </span>
+<span>                   label <span class="op">=</span> <span class="st">"Please enter the desired population mean"</span>, </span>
+<span>                   value <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>, <span class="co"># closes sidebarPanel</span></span>
+<span>    </span>
+<span>    <span class="fu">mainPanel</span><span class="op">(</span></span>
+<span>      <span class="fu">tabsetPanel</span><span class="op">(</span></span>
+<span>        <span class="fu">tabPanel</span><span class="op">(</span>title<span class="op">=</span><span class="st">"Histogram"</span>, </span>
+<span>                 <span class="fu">plotOutput</span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"normal_plot"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        <span class="fu">tabPanel</span><span class="op">(</span>title<span class="op">=</span><span class="st">"Explanation"</span>, </span>
+<span>                 <span class="fu">textOutput</span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"context_discussion"</span><span class="op">)</span><span class="op">)</span></span>
+<span>      <span class="op">)</span> <span class="co"># closes tabsetPanel</span></span>
+<span>    <span class="op">)</span> <span class="co"># closes mainPanel</span></span>
+<span>  <span class="op">)</span> <span class="co"># closes sidebarLayout</span></span>
+<span><span class="op">)</span> <span class="co"># closes fluidPage</span></span>
+<span></span>
+<span><span class="co"># Server</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">normal_plot</span> <span class="op">&lt;-</span> <span class="fu">renderPlot</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">samples</span> <span class="op">&lt;-</span> <span class="fu">rnorm</span><span class="op">(</span><span class="fl">1000</span>, mean <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desired_mean</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="fu">hist</span><span class="op">(</span><span class="va">samples</span>, breaks <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desired_bins</span>, col <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desired_color</span>,</span>
+<span>         main <span class="op">=</span> <span class="st">"Histogram of Normal Samples"</span>,</span>
+<span>         xlab <span class="op">=</span> <span class="st">"Value"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">context_discussion</span> <span class="op">&lt;-</span> <span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="st">"This histogram shows 1,000 values drawn from a normal distribution with the specified mean. </span></span>
+<span><span class="st">    You can change the number of bins and the histogram color using the controls on the right."</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Run the app</span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre>
+</div>
+<p>When launched, this tab-based app looks something like this; note the
+“Histogram” tab is live:</p>
+<figure style="text-align: center"><img src="fig/fig26-tab1.png" alt="Figure 26. Tab based app with Histogram tab open" class="figure mx-auto d-block"><figcaption>
+Figure 26. Tab based app with Histogram tab open
+</figcaption></figure><p>When the user toggles to the “Explanation” tab, it looks like
+this:</p>
+<figure style="text-align: center"><img src="fig/fig27-tab2.png" alt="Figure 27. Tab based app with Explanation tab open" class="figure mx-auto d-block"><figcaption>
+Figure 27. Tab based app with Explanation tab open
+</figcaption></figure>
+</div>
+<div class="section level3">
+<h3 id="themes">Themes<a class="anchor" aria-label="anchor" href="#themes"></a>
+</h3>
+<p>Issues of application design and style are complex issues, and many
+of them are beyond the scope of our Workshop. However, we will briefly
+introduce themes, which can help shape the visual appearance of your
+applications with relatively little effort. Shiny themes come from the
+<em>shinythemes</em> package, and you can add a theme to your app with
+one line of code. Before deciding on a theme, you’d probably want to
+preview various options, which you can do with the
+<code>themeSelector()</code> function. Let’s explore various themes that
+could be applied to the tab-based app we made above:</p>
+<div class="codewrapper sourceCode" id="cb30">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># UI</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="fu">themeSelector</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Exploring the Normal Distribution"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">sidebarLayout</span><span class="op">(</span></span>
+<span>    <span class="fu">sidebarPanel</span><span class="op">(</span></span>
+<span>      <span class="fu">numericInput</span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"desired_bins"</span>, </span>
+<span>                   label <span class="op">=</span> <span class="st">"Please enter the desired number of bins"</span>,</span>
+<span>                   value <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>,</span>
+<span>      </span>
+<span>      <span class="fu">selectInput</span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"desired_color"</span>,</span>
+<span>                  label <span class="op">=</span> <span class="st">"Please select the desired color for the histogram"</span>,</span>
+<span>                  choices <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"skyblue"</span>, <span class="st">"orangered"</span>, <span class="st">"violet"</span>, <span class="st">"lightcyan"</span>, <span class="st">"lawngreen"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      </span>
+<span>      <span class="fu">numericInput</span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"desired_mean"</span>, </span>
+<span>                   label <span class="op">=</span> <span class="st">"Please enter the desired population mean"</span>, </span>
+<span>                   value <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>, <span class="co"># closes sidebarPanel</span></span>
+<span>    </span>
+<span>    <span class="fu">mainPanel</span><span class="op">(</span></span>
+<span>      <span class="fu">tabsetPanel</span><span class="op">(</span></span>
+<span>        <span class="fu">tabPanel</span><span class="op">(</span>title<span class="op">=</span><span class="st">"Histogram"</span>, </span>
+<span>                 <span class="fu">plotOutput</span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"normal_plot"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        <span class="fu">tabPanel</span><span class="op">(</span>title<span class="op">=</span><span class="st">"Explanation"</span>, </span>
+<span>                 <span class="fu">textOutput</span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"context_discussion"</span><span class="op">)</span><span class="op">)</span></span>
+<span>      <span class="op">)</span> <span class="co"># closes tabsetPanel</span></span>
+<span>    <span class="op">)</span> <span class="co"># closes mainPanel</span></span>
+<span>  <span class="op">)</span> <span class="co"># closes sidebarLayout</span></span>
+<span><span class="op">)</span> <span class="co"># closes fluidPage</span></span>
+<span></span>
+<span><span class="co"># Server</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">normal_plot</span> <span class="op">&lt;-</span> <span class="fu">renderPlot</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">samples</span> <span class="op">&lt;-</span> <span class="fu">rnorm</span><span class="op">(</span><span class="fl">1000</span>, mean <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desired_mean</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="fu">hist</span><span class="op">(</span><span class="va">samples</span>, breaks <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desired_bins</span>, col <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desired_color</span>,</span>
+<span>         main <span class="op">=</span> <span class="st">"Histogram of Normal Samples"</span>,</span>
+<span>         xlab <span class="op">=</span> <span class="st">"Value"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">context_discussion</span> <span class="op">&lt;-</span> <span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="st">"This histogram shows 1,000 values drawn from a normal distribution with the specified mean. </span></span>
+<span><span class="st">    You can change the number of bins and the histogram color using the controls on the right."</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Run the app</span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre>
+</div>
+<p>When you launch this app, it will launch with a drop-down menu that
+allows you to select and preview how various themes look in the context
+of your app:</p>
+<figure style="text-align: center"><img src="fig/fig28-theme-selector.png" alt="Figure 28. Shiny theme selector" class="figure mx-auto d-block"><figcaption>
+Figure 28. Shiny theme selector
+</figcaption></figure><p>After previewing the various themes, let’s say you decide you want to
+select the “slate” theme. To apply that theme, replace
+<code>themeSelector()</code> in the code with
+<code>theme=shinytheme("superhero")</code>:</p>
+<div class="codewrapper sourceCode" id="cb31">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># UI</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  theme<span class="op">=</span><span class="fu">shinytheme</span><span class="op">(</span><span class="st">"superhero"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Exploring the Normal Distribution"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">sidebarLayout</span><span class="op">(</span></span>
+<span>    <span class="fu">sidebarPanel</span><span class="op">(</span></span>
+<span>      <span class="fu">numericInput</span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"desired_bins"</span>, </span>
+<span>                   label <span class="op">=</span> <span class="st">"Please enter the desired number of bins"</span>,</span>
+<span>                   value <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>,</span>
+<span>      </span>
+<span>      <span class="fu">selectInput</span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"desired_color"</span>,</span>
+<span>                  label <span class="op">=</span> <span class="st">"Please select the desired color for the histogram"</span>,</span>
+<span>                  choices <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"skyblue"</span>, <span class="st">"orangered"</span>, <span class="st">"violet"</span>, <span class="st">"lightcyan"</span>, <span class="st">"lawngreen"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      </span>
+<span>      <span class="fu">numericInput</span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"desired_mean"</span>, </span>
+<span>                   label <span class="op">=</span> <span class="st">"Please enter the desired population mean"</span>, </span>
+<span>                   value <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>, <span class="co"># closes sidebarPanel</span></span>
+<span>    </span>
+<span>    <span class="fu">mainPanel</span><span class="op">(</span></span>
+<span>      <span class="fu">tabsetPanel</span><span class="op">(</span></span>
+<span>        <span class="fu">tabPanel</span><span class="op">(</span>title<span class="op">=</span><span class="st">"Histogram"</span>, </span>
+<span>                 <span class="fu">plotOutput</span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"normal_plot"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        <span class="fu">tabPanel</span><span class="op">(</span>title<span class="op">=</span><span class="st">"Explanation"</span>, </span>
+<span>                 <span class="fu">textOutput</span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"context_discussion"</span><span class="op">)</span><span class="op">)</span></span>
+<span>      <span class="op">)</span> <span class="co"># closes tabsetPanel</span></span>
+<span>    <span class="op">)</span> <span class="co"># closes mainPanel</span></span>
+<span>  <span class="op">)</span> <span class="co"># closes sidebarLayout</span></span>
+<span><span class="op">)</span> <span class="co"># closes fluidPage</span></span>
+<span></span>
+<span><span class="co"># Server</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">normal_plot</span> <span class="op">&lt;-</span> <span class="fu">renderPlot</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">samples</span> <span class="op">&lt;-</span> <span class="fu">rnorm</span><span class="op">(</span><span class="fl">1000</span>, mean <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desired_mean</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="fu">hist</span><span class="op">(</span><span class="va">samples</span>, breaks <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desired_bins</span>, col <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">desired_color</span>,</span>
+<span>         main <span class="op">=</span> <span class="st">"Histogram of Normal Samples"</span>,</span>
+<span>         xlab <span class="op">=</span> <span class="st">"Value"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">context_discussion</span> <span class="op">&lt;-</span> <span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="st">"This histogram shows 1,000 values drawn from a normal distribution with the specified mean. </span></span>
+<span><span class="st">    You can change the number of bins and the histogram color using the controls on the right."</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Run the app</span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Now, when the app is launched, you’ll see the theme is applied:</p>
+<figure style="text-align: center"><img src="fig/fig29-theme-applied.png" alt="Figure 29. Shiny superhero theme" class="figure mx-auto d-block"><figcaption>
+Figure 29. Shiny superhero theme
+</figcaption></figure><p>Which yields a static application that looks something like this:</p>
 <ul>
 <li>reactive()</li>
 <li>observers</li>
@@ -1772,7 +2161,7 @@ reinforce the objectives.</li>
 <h3 class="callout-title">Challenge 1: Can you do it?</h3>
 <div class="callout-content">
 <p>What is the output of this command?</p>
-<div class="codewrapper sourceCode" id="cb26">
+<div class="codewrapper sourceCode" id="cb32">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1786,7 +2175,7 @@ reinforce the objectives.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
   <h4 class="accordion-header" id="headingSolution5"> Output </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1813,7 +2202,7 @@ reinforce the objectives.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution6" aria-expanded="false" aria-controls="collapseSolution6">
   <h4 class="accordion-header" id="headingSolution6"> Show me the solution </h4>
 </button>
-<div id="collapseSolution6" class="accordion-collapse collapse" data-bs-parent="#accordionSolution6" aria-labelledby="headingSolution6">
+<div id="collapseSolution6" class="accordion-collapse collapse" aria-labelledby="headingSolution6" data-bs-parent="#accordionSolution6">
 <div class="accordion-body">
 <p>You can add a line with at least three colons and a
 <code>solution</code> tag.</p>
@@ -1826,7 +2215,7 @@ reinforce the objectives.</li>
 </h2>
 <hr class="half-width">
 <p>You can include figures generated from R Markdown:</p>
-<div class="codewrapper sourceCode" id="cb28">
+<div class="codewrapper sourceCode" id="cb34">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1877,7 +2266,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-03-data-applications"><p>Content from <a href="03-data-applications.html">Shiny Data Applications</a></p>
 <hr>
-<p>Last updated on 2025-05-08 |
+<p>Last updated on 2025-05-10 |
 
         <a href="https://github.com/aranganath24/data-dashboard-carpentries/edit/main/episodes/03-data-applications.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2060,7 +2449,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-04-data-dashboards"><p>Content from <a href="04-data-dashboards.html">Shiny Data Dashboards</a></p>
 <hr>
-<p>Last updated on 2025-05-08 |
+<p>Last updated on 2025-05-10 |
 
         <a href="https://github.com/aranganath24/data-dashboard-carpentries/edit/main/episodes/04-data-dashboards.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2106,7 +2495,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-05-publishing-applications"><p>Content from <a href="05-publishing-applications.html">Publishing Shiny Applications</a></p>
 <hr>
-<p>Last updated on 2025-05-08 |
+<p>Last updated on 2025-05-10 |
 
         <a href="https://github.com/aranganath24/data-dashboard-carpentries/edit/main/episodes/05-publishing-applications.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2320,8 +2709,8 @@ any links that you are not going to use.
   "url": "https://aranganath24.github.io/data-dashboard-carpentries/aio.html",
   "identifier": "https://aranganath24.github.io/data-dashboard-carpentries/aio.html",
   "dateCreated": "2025-01-10",
-  "dateModified": "2025-05-09",
-  "datePublished": "2025-05-09"
+  "dateModified": "2025-05-10",
+  "datePublished": "2025-05-10"
 }
 
   </script><script>
