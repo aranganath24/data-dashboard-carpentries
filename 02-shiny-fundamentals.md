@@ -31,6 +31,24 @@ Before beginning this episode, please load the following libraries"
 # load libraries
 library(shiny)
 library(shinythemes)
+library(shinyjs)
+```
+
+``` output
+
+Attaching package: 'shinyjs'
+```
+
+``` output
+The following object is masked from 'package:shiny':
+
+    runExample
+```
+
+``` output
+The following objects are masked from 'package:methods':
+
+    removeClass, show
 ```
 
 
@@ -1241,141 +1259,322 @@ Now, when the app is launched, you'll see the theme is applied:
 <p class="caption">Figure 29. Shiny superhero theme</p>
 </div>
 
+## Advanced Reactivity
 
+As we noted above, in a reactive programming context, a change in an input (triggered by a user) automatically triggers an update in all downstream outputs that depend on that input. Shiny's suite of input and output functions, which we are becoming familiar with, facilitate this reactivity, making it possible to develop interactive applications in a relatively straightforward way. Now that we have some more experience in Shiny's reactive programming context, this section will introduce some more advanced tools and concepts related to reactivity. 
 
+### Reactive conductors and the ```reactive()``` function
 
+In considering reactive programming within Shiny, it's helpful to distinguish between the following:
 
+* **Reactive Sources** are the values provided by the user through UI widgets created by input functions
+* **Reactive Endpoints** are outputs that depend on reactive sources. These include render functions like ```renderText()``` or ```renderPlot()```, which respond to input changes and update the UI accordingly.
+* **Reactive conductors** sit in between sources and endpoints. They are created using the ```reactive()``` function and are used to process or transform input values before they reach the endpoints. They can help reduce code duplication, and improve efficiency. 
 
+These reactive conductors are particularly useful when multiple outputs depend on the same derived value. Without a conductor, you'd have to repeat the same calculation in every render function. For example, in a Fahrenheit-to-Celsius conversion app with multiple outputs that display the Celsius temperature in different ways, it would be inefficient to recompute the conversion in each output. Instead, you can use a reactive conductor to perform the conversion once, and then reference it in each render function. This makes your code cleaner, avoids duplication, and improves efficiency.
 
-
-
-
-
-
-
-
-
-
-
-
-
-Which yields a static application that looks something like this:
-
-
-
-
-* reactive()
-* observers
-* styling
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-This is a lesson created via The Carpentries Workbench. It is written in
-[Pandoc-flavored Markdown][pandoc] for static files (with extension `.md`) and
-[R Markdown][r-markdown] for dynamic files that can render code into output
-(with extension `.Rmd`). Please refer to the [Introduction to The Carpentries
-Workbench][carpentries-workbench] for full documentation.
-
-What you need to know is that there are three sections required for a valid
-Carpentries lesson template:
-
- 1. `questions` are displayed at the beginning of the episode to prime the
-    learner for the content.
- 2. `objectives` are the learning objectives for an episode displayed with
-    the questions.
- 3. `keypoints` are displayed at the end of the episode to reinforce the
-    objectives.
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
-
-Inline instructor notes can help inform instructors of timing challenges
-associated with the lessons. They appear in the "Instructor View"
-
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::: challenge 
-
-## Challenge 1: Can you do it?
-
-What is the output of this command?
-
-```r
-paste("This", "new", "lesson", "looks", "good")
-```
-
-:::::::::::::::::::::::: solution 
-
-## Output
- 
-```output
-[1] "This new lesson looks good"
-```
-
-:::::::::::::::::::::::::::::::::
-
-
-## Challenge 2: how do you nest solutions within challenge blocks?
-
-:::::::::::::::::::::::: solution 
-
-You can add a line with at least three colons and a `solution` tag.
-
-:::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-## Figures
-
-You can include figures generated from R Markdown:
+Let's consider an example. We'll make a tip calculator application that takes as input your bill, and the desired tip (as a percentage). It then returns the dollar value of the tip (based on the bill and desired tip percentage), and the total value of the bill (including the tip). Note that in the process we'll also introduce a new input widget, the slider bar, which is created with ```sliderInput()```:
 
 
 ``` r
-pie(
-  c(Sky = 78, "Sunny side of pyramid" = 17, "Shady side of pyramid" = 5), 
-  init.angle = 315, 
-  col = c("deepskyblue", "yellow", "yellow3"), 
-  border = FALSE
-)
+# Define the user interface
+ui <- fluidPage(
+  titlePanel("Tip Calculator"),  # App title displayed at the top
+  
+  sidebarLayout(
+    sidebarPanel(  # Sidebar contains input controls
+      numericInput("bill", "Bill amount ($):", value = 50, min = 0),  # Input for bill amount
+      sliderInput("tip", "Tip percentage:", min = 0, max = 30, value = 15)  # Slider for tip %
+    ),
+    
+    mainPanel(  # Main panel displays output
+      textOutput("tip_amount"),   # Displays computed tip amount
+      textOutput("total_amount")  # Displays computed total amount (bill + tip)
+    ) # closes mainPanel
+  ) # closes sidebarLayout
+) # closes fluidPage
+
+# Define the server logic
+server <- function(input, output) {
+  
+  # Calculate and display the tip amount
+  output$tip_amount <- renderText({
+    tip_amt <- input$bill * input$tip / 100  # Calculate tip as a percentage of the bill
+    paste("Tip amount: $", round(tip_amt, 2))  # Create a string to display the result
+  })
+  
+  # Calculate and display the total amount
+  output$total_amount <- renderText({
+    tip_amt <- input$bill * input$tip / 100         # Recalculate tip again (duplicated logic)
+    total_amt <- input$bill + tip_amt               # Add tip to bill for total
+    paste("Total amount: $", round(total_amt, 2))   # Display total
+  })
+}
+
+# Run the Shiny app
+shinyApp(ui, server)
 ```
 
+This yields an application that looks like the following:
+
 <div class="figure" style="text-align: center">
-<img src="fig/02-shiny-fundamentals-rendered-pyramid-1.png" alt="pie chart illusion of a pyramid"  />
-<p class="caption">Sun arise each and every morning</p>
+<img src="fig/fig30-tip-initial.png" alt="Figure 30. Tip calculator"  />
+<p class="caption">Figure 30. Tip calculator</p>
 </div>
-Or you can use pandoc markdown for static figures with the following syntax:
 
-`![optional caption that appears below the figure](figure url){alt='alt text for
-accessibility purposes'}`
+The app looks and works as expected, but note that the code used to create it involved some duplication (which the comments in the code call attention to). In particular ```tip_amt <- input$bill * input$tip / 100``` is repeated in both the ```tip_amount``` and ```total_amount``` endpoints. You might wonder why ```tip_amt``` can't be reused after it's initially defined in  ```output$tip_amount```; the reason is that the value of ```tip_amt``` calculated inside the first ```renderText()``` id local to that block of code. It is not remembered or shared across other render functions. More generally, each render function is its own reactive context; variables defined within one of these contexts only exist there. 
 
-![You belong in The Carpentries!](https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg){alt='Blue Carpentries hex person logo with no text.'}
+Given that's the case, you might wonder whether you can define a function in the server to calculate ```tip_amt```, and then use that function within render functions to avoid code duplication. The answer is that this won't work; in particular, regular user-defined functions are not reactive, so they won't automatically update when input values change. 
 
-## Math
+The solution to avoid code duplication of this sort is the ```reactive()``` function. Below, we'll rewrite the script above, this time using the ```reactive()``` function to calculate ```tip_amt```, which we'll then subsequently use in different endpoints without having to recalculate anything:
 
-One of our episodes contains $\LaTeX$ equations when describing how to create
-dynamic reports with {knitr}, so we now use mathjax to describe this:
 
-`$\alpha = \dfrac{1}{(1 - \beta)^2}$` becomes: $\alpha = \dfrac{1}{(1 - \beta)^2}$
+``` r
+ui <- fluidPage(
+  titlePanel("Tip Calculator"),
+  sidebarLayout(
+    sidebarPanel(
+      numericInput("bill", "Bill amount ($):", value = 50, min = 0),
+      sliderInput("tip", "Tip percentage:", min = 0, max = 30, value = 15)
+    ),
+    mainPanel(
+      textOutput("tip_amount"),
+      textOutput("total_amount")
+    ) # closes mainPanel
+  ) # closes sidebarLayout
+) # closes fluidPage
 
-Cool, right?
+server <- function(input, output) {
+  
+  # Reactive conductor: compute tip once and reuse it
+  tip_amt <- reactive({
+    input$bill * input$tip / 100
+  })
+  
+  output$tip_amount <- renderText({
+    paste("Tip amount: $", round(tip_amt(), 2))
+  })
+  
+  output$total_amount <- renderText({
+    total <- input$bill + tip_amt()
+    paste("Total amount: $", round(total, 2))
+  })
+}
+
+shinyApp(ui, server)
+```
+
+Above, ```tip_amount()``` is turned into a reactive expression by being enclosed in ```reactive()``` and is subsequently used in both of the subsequent render functions, which helps avoid code duplication. Note that when referring to a reactive expression, the name of the expression must be followed by (), as in ```tip_amt()```. 
+
+Consider the benefits of using ```reactive()```, even in this simple application:
+
+* It avoids duplication and increases efficiency: Tip amount is calculated once in the ```reactive()``` expression, instead of being repeated in each output block. This can improve app performance, particularly in more complex settings. 
+* Improves maintainability: If you need to change how the tip is calculated, you only need to update it in one place
+
+The ability to define custom reactive conductors with ```reactive()``` is especially useful when creating applications based on datasets, which we will explore in the next episode. If you are still a little hazy on what exactly ```reactive()``` does or why it's useful, it will become clearer then. 
+
+### Controlling Reactivity with eventReactive()
+
+In the apps we've created so far, application outputs automatically update whenever an input changes. Often, however, it can be useful to control or delay reactivity, such that an update only happens when a specific event occurs (such as the user clicking a button). Delaying reactivity in this way can improve a user experience and conserve computational resources.
+
+A useful Shiny function for controlling reactivity in this way is ```eventReactive()```. Below, we modify the tip calculator application to only run when the user clicks a button that says "Calculate Tip". To do so, we make two changes:
+
+* We include the ```actionButton()``` function in the UI, which creates the button users must click to trigger a calculation
+* Instead of using ```reactive()``` to calculate the tip, we wrap the calculation in ```eventReactive()```. This tells Shiny to update the tip (and all downstream outputs) only when the **Calculate Tip** button is clicked. 
+
+
+``` r
+ui <- fluidPage(
+  titlePanel("Tip Calculator"),
+  sidebarLayout(
+    sidebarPanel(
+      numericInput("bill", "Bill amount ($):", value = 50, min = 0),
+      sliderInput("tip", "Tip percentage:", min = 0, max = 30, value = 15),
+      actionButton("calc_btn", "Calculate Tip")
+    ),
+    mainPanel(
+      textOutput("tip_amount"),
+      textOutput("total_amount")
+    ) # closes mainPanel
+  ) # closes sidebarLayout
+) # closes fluidPage
+
+server <- function(input, output) {
+  
+  # Reactive conductor: compute tip once and reuse it
+  tip_amt <- eventReactive(input$calc_btn, {
+    input$bill * input$tip / 100
+  })
+  
+  # create output of tip amount
+  output$tip_amount <- renderText({
+    paste("Tip amount: $", round(tip_amt(), 2))
+  })
+  
+  # create output of total amount
+  output$total_amount <- renderText({
+    total <- input$bill + tip_amt()
+    paste("Total amount: $", round(total, 2))
+  })
+}
+
+shinyApp(ui, server)
+```
+
+When you launch the newly revised application, it will look something like this: 
+
+<div class="figure" style="text-align: center">
+<img src="fig/fig31-tip-button.png" alt="Figure 31. Tip calculator with activation button"  />
+<p class="caption">Figure 31. Tip calculator with activation button</p>
+</div>
+
+Now, the application will only "run" (i.e. return the relevant outputs) after the user sets the input parameters and clicks the "Calculate Tip" button.
+
+### Observers
+
+In Shiny, observers are functions that watch for changes in inputs, and then trigger actions that 
+don’t directly produce outputs shown in the app's user interface, but still affect how the app behaves. These actions are called "side effects" because they influence the app in ways other than updating visible output (for example, showing a message, resetting a form, saving data to a file etc). Unlike reactive expressions, which calculate values to update the UI, observers don’t return values. Instead, they simply carry out a task when something changes. Shiny provides two kinds of observers: ```observe()```, which runs code whenever any of its inputs change, and ```observeEvent()```, which waits for a specific event (like a button click) before running. We can think of ```observe()``` and ```observeEvent()``` as counterparts to ```reactive()``` and ```observeReactive()```, but instead of computing values for outputs, they trigger side effects that change the app’s behavior.
+
+To make this more concrete, let's see how ```observe()``` and ```observeEvent()``` can be used to enrich our tip calculator app. In particular, we'll use ```observe()``` to grey out the "Calculate Tip" button if the Bill amount entered by the user is 0. We'll also use ```observeEvent()``` to reset the input parameters to their default state when a "Reset" button is clicked; in addition, when "Reset" is clicked and the input parameters are reset to their default, the output values in the app are erased; when the "Calculate" button is clicked again, the output values are once again displayed: 
+
+
+``` r
+ui <- fluidPage(
+  useShinyjs(),  # Initialize shinyjs
+  titlePanel("Tip Calculator"),
+  sidebarLayout(
+    sidebarPanel(
+      numericInput("bill", "Bill amount ($):", value = 50, min = 0),
+      sliderInput("tip", "Tip percentage:", min = 0, max = 30, value = 15),
+      actionButton("calc_btn", "Calculate Tip"),
+      actionButton("reset_btn", "Reset")
+    ),
+    mainPanel(
+      textOutput("tip_amount"),  
+      textOutput("total_amount")
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  
+  # Reactive conductor: calculate tip when button is clicked
+  tip_amt <- eventReactive(input$calc_btn, {
+    input$bill * input$tip / 100
+  })
+  
+  # Disable "Calculate Tip" button when bill is 0
+  observe({
+    if (input$bill == 0) {
+      shinyjs::disable("calc_btn")
+    } else {
+      shinyjs::enable("calc_btn")
+    }
+  })
+  
+  # create output of tip amount
+  output$tip_amount <- renderText({
+    paste("Tip amount: $", round(tip_amt(), 2))
+  })
+  
+  # create output of total amount
+  output$total_amount <- renderText({
+    total <- input$bill + tip_amt()
+    paste("Total amount: $", round(total, 2))
+  })
+  
+  # Reset form and clear outputs when the "reset" button is clicked
+  observeEvent(input$reset_btn, {
+    updateNumericInput(session, "bill", value = 50)  # Reset bill to 50
+    updateSliderInput(session, "tip", value = 15)    # Reset tip to 15
+    shinyjs::hide("tip_amount")                     # Hide tip output
+    shinyjs::hide("total_amount")                   # Hide total output
+  })
+  
+  # Show outputs when "calculate" button is clicked 
+  observeEvent(input$calc_btn, {
+    shinyjs::show("tip_amount")    # Show tip output
+    shinyjs::show("total_amount")  # Show total output
+  })
+}
+
+shinyApp(ui, server)
+```
+
+A couple of points are worth highlighting about these changes to the code. 
+
+* You'll notice that we use functions from the *shinyjs* package inside our observers. *Shinyjs* is a package within the tidyverse ecosystem that offers a variety of functions that can improve the user experience. We used the functions ```enable()``` and ```disable()``` to enable or disable the "Calculate Tip" button depending on a condition. We also used it to hide outputs after a user resets the application, and show outputs after a user clicks the "Calculate Tip" button again. 
+* Note the tasks the observers are accomplishing, such as disabling or enabling buttons or resetting the form to default values. This underscores our earlier point that observers perform tasks in response to inputs, and thereby shape the app's behavior; however, they do not actually compute values used in outputs (as reactive expressions do). Note, also, the difference between ```observe()``` and ```observeEvent()``` in action; the former produces its side-effect (i.e. disabling the button) whenever the input value for the bill is 0, while the latter produces its side effects (i.e. resetting the form and clearing or restoring outputs) in response to a specific trigger. 
+* In response to a user clicking the reset button, code within an observer function hides output, and restores this output when the "Calculate Tip" button is again clicked. This may seem to contradict our earlier point, that observers do not actually impact outputs, but trigger side effects that are relevant for the app's behavior. It's important to note, though, that these "hiding" and "showing" effects modify the UI's appearance via JavaScript/CSS (via the *shinyjs* functions) rather than altering the reactive values or computations that drive the outputs, and are therefore best understood as side effects.  
+* Note that we included the "session" argument to the server function this time, because of the way in which the side effects of the observer function impact the UI. The details are too technical to get into here, but the basic point is that in apps with multiple concurrent users, the session object ensures that updates (triggered, for example, by the reset button) are applied to the correct user's instance of the app. 
+
+::::::::::::::::::::::::::::::::::::: callout
+
+One advanced reactivity function that we won't cover in detail, but which you should be aware of, is ```isolate()```. The ```isolate()``` function lets you access an input value without making your code react to it. In other words, ```isolate()``` lets you use an input while disabling Shiny's default behavior of automatically updating outputs in response to input changes. This is helpful when you want to use an input—like a name or a comment—in your output, but don’t want changes to that input to automatically rerun your calculations or update your results. Just like other reactivity functions, ```isolate()``` gives you more control over how and when your app responds to changes. You'll want to be aware of ```isolate()```, particularly if you go on to use Shiny extensively in the future, and anticipate developing sophisticated applications; for our purposes now, however, the reactivity functions we've already covered are more fundamental. 
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: challenge
+
+## Challenge 6: Create a button-activated Fahrenheit to Celsius converter application
+
+Write a Fahrenheit to Celsius converter application in which the user enters a Fahrenheit temperature, and can convert this value to its Celsius equivalent by clicking a button.
+
+::: solution
+
+Your application code should look something like this:
+
+
+``` r
+ui <- fluidPage(
+  titlePanel("Fahrenheit to Celsius Converter"),
+  sidebarLayout(
+    sidebarPanel(
+      numericInput("temp_f", "Temperature in Fahrenheit:", value = NULL),
+      actionButton("convert_btn", "Convert")
+    ),
+    mainPanel(
+      textOutput("result")
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  temp_celsius <- eventReactive(input$convert_btn, {
+    (input$temp_f - 32) * 5 / 9
+  })
+  
+  output$result <- renderText({
+    paste("Temperature in Celsius:", round(temp_celsius(), 1), "°C")
+  })
+}
+
+shinyApp(ui, server)
+```
+
+Once the app is launched, it looks something like this:
+
+<div class="figure" style="text-align: center">
+<img src="fig/fig32-fahreneheit-celsius-button.png" alt="Figure 32. The Fahrenheit to Celsius Converter App with Activation Button"  />
+<p class="caption">Figure 32. The Fahrenheit to Celsius Converter App with Activation Button</p>
+</div>
+
+Entering a temperature value in the text box, and then clicking "Convert", should trigger the application to make the required conversion display the Celsius temperature equivalent. 
+
+:::
+
+:::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- The fundamental building blocks of all Shiny applications are the user interface (UI) and the server. Shiny apps are launched by combining the UI and server with the shinyApp() function.
+- Output functions serve two purposes: in the UI, they act as placeholders for content; in the server, their corresponding render functions generate content to be displayed. It's possible to build a static Shiny application using only outputs, without any inputs.
+- Input functions create various widgets (such as text boxes, sliders, menus etc.) that allow users to interact with an application by specifying input values. By default, changes in inputs automatically trigger updates in outputs—this behavior is called reactivity. Input values are referenced in the server using their unique IDs.
+- Reactive expressions (also known as reactive conductors) created with ```reactive()``` sit between inputs and outputs, allowing you to process or transform input values before they're displayed. They help reduce duplication and improve performance.
+- Observers created with ```observe()``` let you perform side effects—tasks that respond to changes but do not return values (e.g., resetting inputs, enabling/disabling buttons, or saving files). They affect app behavior rather than generating output.
+- Functions such as ```eventReactive()``` and ```observeEvent()``` provide more control over when reactivity occurs. They are useful for delaying updates until a specific event (like a button click) happens. Use ```eventReactive()``` when producing outputs and ```observeEvent()``` for behavior changes that don't involve rendering output. 
+- Layouts and themes help organize and style your app. Use sidebar layout and tabs to arrange components clearly. Style templates from the *shinythemes* package can give your app a polished look with minimal effort.
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
