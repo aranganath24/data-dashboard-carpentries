@@ -371,14 +371,36 @@ like HTML, CSS, or JavaScript.</li>
 </ul></section><section id="02-shiny-fundamentals"><h2 class="section-heading"><a href="02-shiny-fundamentals.html">Shiny Fundamentals</a></h2>
 <hr class="half-width">
 <ul>
-<li>Use <code>.md</code> files for episodes when you want static
-content</li>
-<li>Use <code>.Rmd</code> files for episodes when you need to generate
-output</li>
-<li>Run <code>sandpaper::check_lesson()</code> to identify any issues
-with your lesson</li>
-<li>Run <code>sandpaper::build_lesson()</code> to preview your lesson
-locally</li>
+<li>The fundamental building blocks of all Shiny applications are the
+user interface (UI) and the server. Shiny apps are launched by combining
+the UI and server with the shinyApp() function.</li>
+<li>Output functions serve two purposes: in the UI, they act as
+placeholders for content; in the server, their corresponding render
+functions generate content to be displayed. It’s possible to build a
+static Shiny application using only outputs, without any inputs.</li>
+<li>Input functions create various widgets (such as text boxes, sliders,
+menus etc.) that allow users to interact with an application by
+specifying input values. By default, changes in inputs automatically
+trigger updates in outputs—this behavior is called reactivity. Input
+values are referenced in the server using their unique IDs.</li>
+<li>Reactive expressions (also known as reactive conductors) created
+with <code>reactive()</code> sit between inputs and outputs, allowing
+you to process or transform input values before they’re displayed. They
+help reduce duplication and improve performance.</li>
+<li>Observers created with <code>observe()</code> let you perform side
+effects—tasks that respond to changes but do not return values (e.g.,
+resetting inputs, enabling/disabling buttons, or saving files). They
+affect app behavior rather than generating output.</li>
+<li>Functions such as <code>eventReactive()</code> and
+<code>observeEvent()</code> provide more control over when reactivity
+occurs. They are useful for delaying updates until a specific event
+(like a button click) happens. Use <code>eventReactive()</code> when
+producing outputs and <code>observeEvent()</code> for behavior changes
+that don’t involve rendering output.</li>
+<li>Layouts and themes help organize and style your app. Use sidebar
+layout and tabs to arrange components clearly. Style templates from the
+<em>shinythemes</em> package can give your app a polished look with
+minimal effort.</li>
 </ul></section><section id="03-data-applications"><h2 class="section-heading"><a href="03-data-applications.html">Shiny Data Applications</a></h2>
 <hr class="half-width">
 <ul>
@@ -450,8 +472,8 @@ locally</li>
   "url": "https://aranganath24.github.io/data-dashboard-carpentries/instructor/key-points.html",
   "identifier": "https://aranganath24.github.io/data-dashboard-carpentries/instructor/key-points.html",
   "dateCreated": "2025-01-10",
-  "dateModified": "2025-05-10",
-  "datePublished": "2025-05-10"
+  "dateModified": "2025-05-11",
+  "datePublished": "2025-05-11"
 }
 
   </script><script>

@@ -233,8 +233,7 @@
 <li><a href="#a-conceptual-overview-of-interactive-applications">A conceptual overview of interactive applications</a></li>
 <li><a href="#writing-interactive-applications">Writing interactive applications</a></li>
 <li><a href="#layouts-and-themes">Layouts and Themes</a></li>
-<li><a href="#figures">Figures</a></li>
-<li><a href="#math">Math</a></li>
+<li><a href="#advanced-reactivity">Advanced Reactivity</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
 
@@ -326,7 +325,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Shiny Fundamentals</h1>
-        <p>Last updated on 2025-05-10 |
+        <p>Last updated on 2025-05-11 |
 
         <a href="https://github.com/aranganath24/data-dashboard-carpentries/edit/main/episodes/02-shiny-fundamentals.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -378,7 +377,28 @@ libraries”</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># load libraries</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">shiny</span><span class="op">)</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">shinythemes</span><span class="op">)</span></span></code></pre>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">shinythemes</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">shinyjs</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>
+Attaching package: 'shinyjs'</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>The following object is masked from 'package:shiny':
+
+    runExample</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>The following objects are masked from 'package:methods':
+
+    removeClass, show</code></pre>
 </div>
 </section><section><h2 class="section-heading" id="the-structure-of-a-shiny-application">The Structure of a Shiny Application<a class="anchor" aria-label="anchor" href="#the-structure-of-a-shiny-application"></a></h2>
 <hr class="half-width"><p>At the conclusion of the previous Episode, we examined some currently
@@ -405,7 +425,7 @@ proceed.</p>
 <hr class="half-width"><p>In this section, we’ll develop our very first Shiny application.
 There’s a good chance that the first (or one of the first) things you
 did in R was to print a “Hello, World” statement:</p>
-<div class="codewrapper sourceCode" id="cb2">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -457,7 +477,7 @@ outputs, and how are they visually displayed), the server defines what
 the application <em>does</em> and how it works (i.e. how inputs are
 processed to generate outputs), and the call to <code>shinyApp()</code>
 brings these elements together to launch the application.</p>
-<div class="codewrapper sourceCode" id="cb4">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -500,7 +520,7 @@ Figure 3. A Blank Application
 text to the application structure we’ve defined above. It may not seem
 intuitive at first, but we’ll unpack it after writing out the code and
 launching the application.</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -600,7 +620,7 @@ distribution with a mean of 0 and a standard deviation of 1, and assign
 the resulting vector to a new object named <code>samples</code>. We then
 plot a histogram of the <code>samples</code> data that’s divided into 30
 bins:</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -619,7 +639,7 @@ plot, rather than text. In particular, we’ll use a new set of output
 functions designed specifically for plots (rather than output functions
 designed for text, as above). Let’s start by first creating the skeletal
 structure for a blank application:</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -652,7 +672,7 @@ this case, a comma separates the <code>titlePanel()</code> and
 <code>renderPlot()</code> function, and assign this output back to the
 UI using the “normal_plot” ID.</li>
 </ul><p>Our application code should look something like this:</p>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -698,7 +718,7 @@ create the message we’d like to display. The output created using
 using dollar sign notation to reference the output ID specified in
 <code>textOutput()</code>. Your application code should look something
 like the following:</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -765,7 +785,7 @@ is no need to change the order of anything in the server; the order in
 which elements is displayed is solely governed by the UI code. The code
 for a modified application with the text element below the plot looks as
 follows:</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -847,7 +867,7 @@ compared to the way the R programming language works more generally. In
 particular, traditional R code is emphatically <em>not</em> reactive. To
 make this more concrete, let’s consider an example. First, we’ll define
 two new objects, <code>x</code> and <code>y</code>”</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -856,7 +876,7 @@ two new objects, <code>x</code> and <code>y</code>”</p>
 <span><span class="va">y</span><span class="op">&lt;-</span><span class="va">x</span><span class="op">+</span><span class="fl">1</span></span></code></pre>
 </div>
 <p>As expected, we can see the value of <code>y</code> is 6:</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -869,7 +889,7 @@ two new objects, <code>x</code> and <code>y</code>”</p>
 <pre class="output" tabindex="0"><code>[1] 6</code></pre>
 </div>
 <p>Now, let’s change the value of of <code>x</code> to 10:</p>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -879,7 +899,7 @@ two new objects, <code>x</code> and <code>y</code>”</p>
 <p>Now, what is the value of <code>y</code>? As you likely know from
 your previous experience with R, the value of y would remain
 unchanged:</p>
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -917,7 +937,7 @@ the application dynamic and interactive (though still, of course, very
 simple). We can generate such an application with the following:</p>
 <div class="section level3">
 <h3 id="interactive-greeting-applications">Interactive Greeting Applications<a class="anchor" aria-label="anchor" href="#interactive-greeting-applications"></a></h3>
-<div class="codewrapper sourceCode" id="cb17">
+<div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -988,7 +1008,7 @@ application the same; we just have to change the input function from
 defined within one of the function’s arguments. For more information,
 check the <code>selectInput()</code> function’s documentation. The
 modified code will look something like this:</p>
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1057,7 +1077,7 @@ same greeting options we used for the dropdown menu above.</p>
 <p>To make this change, you can replace <code>selectInput()</code> with
 <code>radioButtons()</code>, while keeping the remaining code unchanged.
 It will look something like this:</p>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1101,7 +1121,7 @@ Figure 12. Greeting App with Radio Buttons
 provides their name, and the application responds with a personal
 greeting. We can develop this application with some now-familiar
 functions:</p>
-<div class="codewrapper sourceCode" id="cb20">
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1143,7 +1163,7 @@ inserting the conditional statement
 <code>renderText()</code> function before the <code>paste0()</code>
 function. This essentially says “If the name field is blank, do not
 return an output.” The modified script looks like this:</p>
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1192,7 +1212,7 @@ written so far, but uses techniques and functions we’re already familiar
 with. The UI includes two input functions, <code>textInput()</code> and
 <code>radioButtons</code> that are referenced in the server, within
 conditional statements in the <code>renderText()</code> function:</p>
-<div class="codewrapper sourceCode" id="cb22">
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1301,7 +1321,7 @@ we’ll replace the number 30 with <code>input$desired_bins</code>, which
 sets the “breaks” argument equal to the number specified by the user
 (using dollar sign notation to reference this number using the
 <code>numericInput</code> function’s input ID):</p>
-<div class="codewrapper sourceCode" id="cb23">
+<div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1358,7 +1378,7 @@ box, and create it using the <code>textInput()</code> function; we’ll
 refer back to the user specified color in the server using dollar sign
 notation in conjunction with the ID argument passed to
 <code>textInput()</code>:</p>
-<div class="codewrapper sourceCode" id="cb24">
+<div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1430,7 +1450,7 @@ for the sample.</li>
 <div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>Your script should look something like this:</p>
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1492,7 +1512,7 @@ sidebar for inputs, and a “main” panel for outputs. To see how the
 sidebar layout works, let’s wrap the application we wrote in the
 previous exercise into a sidebar layout, with the inputs on the side,
 and the plot in the main panel:</p>
-<div class="codewrapper sourceCode" id="cb26">
+<div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1553,7 +1573,7 @@ Figure 23. Sidebar layout
 panel, you can do so by specifying
 <code>position="right" within</code>sidebarLayout()<code>, right before calling</code>sidebarPanel()```.
 The modified script would look like this:</p>
-<div class="codewrapper sourceCode" id="cb27">
+<div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1610,7 +1630,7 @@ Figure 24. Sidebar layout with inputs on the right
 </figcaption></figure><p>Recall, from above, that if we want the input widgets below the main
 plot, we could remove the sidebar layout, and place the input widgets
 below the plot output in the UI:</p>
-<div class="codewrapper sourceCode" id="cb28">
+<div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1665,7 +1685,7 @@ the material for that tab is placed. Below, we demonstrate the use of
 tabs by placing the plot in one tab (the tab is named “Histogram”), and
 then place some contextual information in another tab (named
 “Explanation”).</p>
-<div class="codewrapper sourceCode" id="cb29">
+<div class="codewrapper sourceCode" id="cb32">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1739,7 +1759,7 @@ one line of code. Before deciding on a theme, you’d probably want to
 preview various options, which you can do with the
 <code>themeSelector()</code> function. Let’s explore various themes that
 could be applied to the tab-based app we made above:</p>
-<div class="codewrapper sourceCode" id="cb30">
+<div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1802,7 +1822,7 @@ Figure 28. Shiny theme selector
 select the “slate” theme. To apply that theme, replace
 <code>themeSelector()</code> in the code with
 <code>theme=shinytheme("superhero")</code>:</p>
-<div class="codewrapper sourceCode" id="cb31">
+<div class="codewrapper sourceCode" id="cb34">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1859,124 +1879,454 @@ select the “slate” theme. To apply that theme, replace
 <p>Now, when the app is launched, you’ll see the theme is applied:</p>
 <figure style="text-align: center"><img src="../fig/fig29-theme-applied.png" alt="Figure 29. Shiny superhero theme" class="figure mx-auto d-block"><figcaption>
 Figure 29. Shiny superhero theme
-</figcaption></figure><p>Which yields a static application that looks something like this:</p>
-<ul><li>reactive()</li>
-<li>observers</li>
-<li>styling</li>
-</ul><p>This is a lesson created via The Carpentries Workbench. It is written
-in <a href="https://pandoc.org/MANUAL.html" class="external-link">Pandoc-flavored Markdown</a>
-for static files (with extension <code>.md</code>) and <a href="https://rmarkdown.rstudio.com/" class="external-link">R Markdown</a> for dynamic files
-that can render code into output (with extension <code>.Rmd</code>).
-Please refer to the <a href="https://carpentries.github.io/sandpaper-docs/" class="external-link">Introduction to The
-Carpentries Workbench</a> for full documentation.</p>
-<p>What you need to know is that there are three sections required for a
-valid Carpentries lesson template:</p>
-<ol style="list-style-type: decimal"><li>
-<code>questions</code> are displayed at the beginning of the episode
-to prime the learner for the content.</li>
+</figcaption></figure></div>
+</section><section><h2 class="section-heading" id="advanced-reactivity">Advanced Reactivity<a class="anchor" aria-label="anchor" href="#advanced-reactivity"></a></h2>
+<hr class="half-width"><p>As we noted above, in a reactive programming context, a change in an
+input (triggered by a user) automatically triggers an update in all
+downstream outputs that depend on that input. Shiny’s suite of input and
+output functions, which we are becoming familiar with, facilitate this
+reactivity, making it possible to develop interactive applications in a
+relatively straightforward way. Now that we have some more experience in
+Shiny’s reactive programming context, this section will introduce some
+more advanced tools and concepts related to reactivity.</p>
+<div class="section level3">
+<h3 id="reactive-conductors-and-the-reactive-function">Reactive conductors and the <code>reactive()</code> function<a class="anchor" aria-label="anchor" href="#reactive-conductors-and-the-reactive-function"></a></h3>
+<p>In considering reactive programming within Shiny, it’s helpful to
+distinguish between the following:</p>
+<ul><li>
+<strong>Reactive Sources</strong> are the values provided by the
+user through UI widgets created by input functions</li>
 <li>
-<code>objectives</code> are the learning objectives for an episode
-displayed with the questions.</li>
+<strong>Reactive Endpoints</strong> are outputs that depend on
+reactive sources. These include render functions like
+<code>renderText()</code> or <code>renderPlot()</code>, which respond to
+input changes and update the UI accordingly.</li>
 <li>
-<code>keypoints</code> are displayed at the end of the episode to
-reinforce the objectives.</li>
-</ol><div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
-  <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
-</button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
-<div class="accordion-body">
-<p>Inline instructor notes can help inform instructors of timing
-challenges associated with the lessons. They appear in the “Instructor
-View”</p>
-</div>
-</div>
-</div>
-</div>
-<div id="challenge-1-can-you-do-it" class="callout challenge">
-<div class="callout-square">
-<i class="callout-icon" data-feather="zap"></i>
-</div>
-<div id="challenge-1-can-you-do-it" class="callout-inner">
-<h3 class="callout-title">Challenge 1: Can you do it?</h3>
-<div class="callout-content">
-<p>What is the output of this command?</p>
-<div class="codewrapper sourceCode" id="cb32">
+<strong>Reactive conductors</strong> sit in between sources and
+endpoints. They are created using the <code>reactive()</code> function
+and are used to process or transform input values before they reach the
+endpoints. They can help reduce code duplication, and improve
+efficiency.</li>
+</ul><p>These reactive conductors are particularly useful when multiple
+outputs depend on the same derived value. Without a conductor, you’d
+have to repeat the same calculation in every render function. For
+example, in a Fahrenheit-to-Celsius conversion app with multiple outputs
+that display the Celsius temperature in different ways, it would be
+inefficient to recompute the conversion in each output. Instead, you can
+use a reactive conductor to perform the conversion once, and then
+reference it in each render function. This makes your code cleaner,
+avoids duplication, and improves efficiency.</p>
+<p>Let’s consider an example. We’ll make a tip calculator application
+that takes as input your bill, and the desired tip (as a percentage). It
+then returns the dollar value of the tip (based on the bill and desired
+tip percentage), and the total value of the bill (including the tip).
+Note that in the process we’ll also introduce a new input widget, the
+slider bar, which is created with <code>sliderInput()</code>:</p>
+<div class="codewrapper sourceCode" id="cb35">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">paste</span><span class="op">(</span><span class="st">"This"</span>, <span class="st">"new"</span>, <span class="st">"lesson"</span>, <span class="st">"looks"</span>, <span class="st">"good"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Define the user interface</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Tip Calculator"</span><span class="op">)</span>,  <span class="co"># App title displayed at the top</span></span>
+<span>  </span>
+<span>  <span class="fu">sidebarLayout</span><span class="op">(</span></span>
+<span>    <span class="fu">sidebarPanel</span><span class="op">(</span>  <span class="co"># Sidebar contains input controls</span></span>
+<span>      <span class="fu">numericInput</span><span class="op">(</span><span class="st">"bill"</span>, <span class="st">"Bill amount ($):"</span>, value <span class="op">=</span> <span class="fl">50</span>, min <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,  <span class="co"># Input for bill amount</span></span>
+<span>      <span class="fu">sliderInput</span><span class="op">(</span><span class="st">"tip"</span>, <span class="st">"Tip percentage:"</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">30</span>, value <span class="op">=</span> <span class="fl">15</span><span class="op">)</span>  <span class="co"># Slider for tip %</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    </span>
+<span>    <span class="fu">mainPanel</span><span class="op">(</span>  <span class="co"># Main panel displays output</span></span>
+<span>      <span class="fu">textOutput</span><span class="op">(</span><span class="st">"tip_amount"</span><span class="op">)</span>,   <span class="co"># Displays computed tip amount</span></span>
+<span>      <span class="fu">textOutput</span><span class="op">(</span><span class="st">"total_amount"</span><span class="op">)</span>  <span class="co"># Displays computed total amount (bill + tip)</span></span>
+<span>    <span class="op">)</span> <span class="co"># closes mainPanel</span></span>
+<span>  <span class="op">)</span> <span class="co"># closes sidebarLayout</span></span>
+<span><span class="op">)</span> <span class="co"># closes fluidPage</span></span>
+<span></span>
+<span><span class="co"># Define the server logic</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="co"># Calculate and display the tip amount</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">tip_amount</span> <span class="op">&lt;-</span> <span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">tip_amt</span> <span class="op">&lt;-</span> <span class="va">input</span><span class="op">$</span><span class="va">bill</span> <span class="op">*</span> <span class="va">input</span><span class="op">$</span><span class="va">tip</span> <span class="op">/</span> <span class="fl">100</span>  <span class="co"># Calculate tip as a percentage of the bill</span></span>
+<span>    <span class="fu">paste</span><span class="op">(</span><span class="st">"Tip amount: $"</span>, <span class="fu">round</span><span class="op">(</span><span class="va">tip_amt</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>  <span class="co"># Create a string to display the result</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Calculate and display the total amount</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">total_amount</span> <span class="op">&lt;-</span> <span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">tip_amt</span> <span class="op">&lt;-</span> <span class="va">input</span><span class="op">$</span><span class="va">bill</span> <span class="op">*</span> <span class="va">input</span><span class="op">$</span><span class="va">tip</span> <span class="op">/</span> <span class="fl">100</span>         <span class="co"># Recalculate tip again (duplicated logic)</span></span>
+<span>    <span class="va">total_amt</span> <span class="op">&lt;-</span> <span class="va">input</span><span class="op">$</span><span class="va">bill</span> <span class="op">+</span> <span class="va">tip_amt</span>               <span class="co"># Add tip to bill for total</span></span>
+<span>    <span class="fu">paste</span><span class="op">(</span><span class="st">"Total amount: $"</span>, <span class="fu">round</span><span class="op">(</span><span class="va">total_amt</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>   <span class="co"># Display total</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Run the Shiny app</span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre>
 </div>
+<p>This yields an application that looks like the following:</p>
+<figure style="text-align: center"><img src="../fig/fig30-tip-initial.png" alt="Figure 30. Tip calculator" class="figure mx-auto d-block"><figcaption>
+Figure 30. Tip calculator
+</figcaption></figure><p>The app looks and works as expected, but note that the code used to
+create it involved some duplication (which the comments in the code call
+attention to). In particular
+<code>tip_amt &lt;- input$bill * input$tip / 100</code> is repeated in
+both the <code>tip_amount</code> and <code>total_amount</code>
+endpoints. You might wonder why <code>tip_amt</code> can’t be reused
+after it’s initially defined in <code>output$tip_amount</code>; the
+reason is that the value of <code>tip_amt</code> calculated inside the
+first <code>renderText()</code> id local to that block of code. It is
+not remembered or shared across other render functions. More generally,
+each render function is its own reactive context; variables defined
+within one of these contexts only exist there.</p>
+<p>Given that’s the case, you might wonder whether you can define a
+function in the server to calculate <code>tip_amt</code>, and then use
+that function within render functions to avoid code duplication. The
+answer is that this won’t work; in particular, regular user-defined
+functions are not reactive, so they won’t automatically update when
+input values change.</p>
+<p>The solution to avoid code duplication of this sort is the
+<code>reactive()</code> function. Below, we’ll rewrite the script above,
+this time using the <code>reactive()</code> function to calculate
+<code>tip_amt</code>, which we’ll then subsequently use in different
+endpoints without having to recalculate anything:</p>
+<div class="codewrapper sourceCode" id="cb36">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Tip Calculator"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">sidebarLayout</span><span class="op">(</span></span>
+<span>    <span class="fu">sidebarPanel</span><span class="op">(</span></span>
+<span>      <span class="fu">numericInput</span><span class="op">(</span><span class="st">"bill"</span>, <span class="st">"Bill amount ($):"</span>, value <span class="op">=</span> <span class="fl">50</span>, min <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>      <span class="fu">sliderInput</span><span class="op">(</span><span class="st">"tip"</span>, <span class="st">"Tip percentage:"</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">30</span>, value <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu">mainPanel</span><span class="op">(</span></span>
+<span>      <span class="fu">textOutput</span><span class="op">(</span><span class="st">"tip_amount"</span><span class="op">)</span>,</span>
+<span>      <span class="fu">textOutput</span><span class="op">(</span><span class="st">"total_amount"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span> <span class="co"># closes mainPanel</span></span>
+<span>  <span class="op">)</span> <span class="co"># closes sidebarLayout</span></span>
+<span><span class="op">)</span> <span class="co"># closes fluidPage</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="co"># Reactive conductor: compute tip once and reuse it</span></span>
+<span>  <span class="va">tip_amt</span> <span class="op">&lt;-</span> <span class="fu">reactive</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">input</span><span class="op">$</span><span class="va">bill</span> <span class="op">*</span> <span class="va">input</span><span class="op">$</span><span class="va">tip</span> <span class="op">/</span> <span class="fl">100</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">tip_amount</span> <span class="op">&lt;-</span> <span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu">paste</span><span class="op">(</span><span class="st">"Tip amount: $"</span>, <span class="fu">round</span><span class="op">(</span><span class="fu">tip_amt</span><span class="op">(</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">total_amount</span> <span class="op">&lt;-</span> <span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">total</span> <span class="op">&lt;-</span> <span class="va">input</span><span class="op">$</span><span class="va">bill</span> <span class="op">+</span> <span class="fu">tip_amt</span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="fu">paste</span><span class="op">(</span><span class="st">"Total amount: $"</span>, <span class="fu">round</span><span class="op">(</span><span class="va">total</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Above, <code>tip_amount()</code> is turned into a reactive expression
+by being enclosed in <code>reactive()</code> and is subsequently used in
+both of the subsequent render functions, which helps avoid code
+duplication. Note that when referring to a reactive expression, the name
+of the expression must be followed by (), as in
+<code>tip_amt()</code>.</p>
+<p>Consider the benefits of using <code>reactive()</code>, even in this
+simple application:</p>
+<ul><li>It avoids duplication and increases efficiency: Tip amount is
+calculated once in the <code>reactive()</code> expression, instead of
+being repeated in each output block. This can improve app performance,
+particularly in more complex settings.</li>
+<li>Improves maintainability: If you need to change how the tip is
+calculated, you only need to update it in one place</li>
+</ul><p>The ability to define custom reactive conductors with
+<code>reactive()</code> is especially useful when creating applications
+based on datasets, which we will explore in the next episode. If you are
+still a little hazy on what exactly <code>reactive()</code> does or why
+it’s useful, it will become clearer then.</p>
+</div>
+<div class="section level3">
+<h3 id="controlling-reactivity-with-eventreactive">Controlling Reactivity with eventReactive()<a class="anchor" aria-label="anchor" href="#controlling-reactivity-with-eventreactive"></a></h3>
+<p>In the apps we’ve created so far, application outputs automatically
+update whenever an input changes. Often, however, it can be useful to
+control or delay reactivity, such that an update only happens when a
+specific event occurs (such as the user clicking a button). Delaying
+reactivity in this way can improve a user experience and conserve
+computational resources.</p>
+<p>A useful Shiny function for controlling reactivity in this way is
+<code>eventReactive()</code>. Below, we modify the tip calculator
+application to only run when the user clicks a button that says
+“Calculate Tip”. To do so, we make two changes:</p>
+<ul><li>We include the <code>actionButton()</code> function in the UI, which
+creates the button users must click to trigger a calculation</li>
+<li>Instead of using <code>reactive()</code> to calculate the tip, we
+wrap the calculation in <code>eventReactive()</code>. This tells Shiny
+to update the tip (and all downstream outputs) only when the
+<strong>Calculate Tip</strong> button is clicked.</li>
+</ul><div class="codewrapper sourceCode" id="cb37">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Tip Calculator"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">sidebarLayout</span><span class="op">(</span></span>
+<span>    <span class="fu">sidebarPanel</span><span class="op">(</span></span>
+<span>      <span class="fu">numericInput</span><span class="op">(</span><span class="st">"bill"</span>, <span class="st">"Bill amount ($):"</span>, value <span class="op">=</span> <span class="fl">50</span>, min <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>      <span class="fu">sliderInput</span><span class="op">(</span><span class="st">"tip"</span>, <span class="st">"Tip percentage:"</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">30</span>, value <span class="op">=</span> <span class="fl">15</span><span class="op">)</span>,</span>
+<span>      <span class="fu">actionButton</span><span class="op">(</span><span class="st">"calc_btn"</span>, <span class="st">"Calculate Tip"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu">mainPanel</span><span class="op">(</span></span>
+<span>      <span class="fu">textOutput</span><span class="op">(</span><span class="st">"tip_amount"</span><span class="op">)</span>,</span>
+<span>      <span class="fu">textOutput</span><span class="op">(</span><span class="st">"total_amount"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span> <span class="co"># closes mainPanel</span></span>
+<span>  <span class="op">)</span> <span class="co"># closes sidebarLayout</span></span>
+<span><span class="op">)</span> <span class="co"># closes fluidPage</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="co"># Reactive conductor: compute tip once and reuse it</span></span>
+<span>  <span class="va">tip_amt</span> <span class="op">&lt;-</span> <span class="fu">eventReactive</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">calc_btn</span>, <span class="op">{</span></span>
+<span>    <span class="va">input</span><span class="op">$</span><span class="va">bill</span> <span class="op">*</span> <span class="va">input</span><span class="op">$</span><span class="va">tip</span> <span class="op">/</span> <span class="fl">100</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># create output of tip amount</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">tip_amount</span> <span class="op">&lt;-</span> <span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu">paste</span><span class="op">(</span><span class="st">"Tip amount: $"</span>, <span class="fu">round</span><span class="op">(</span><span class="fu">tip_amt</span><span class="op">(</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># create output of total amount</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">total_amount</span> <span class="op">&lt;-</span> <span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">total</span> <span class="op">&lt;-</span> <span class="va">input</span><span class="op">$</span><span class="va">bill</span> <span class="op">+</span> <span class="fu">tip_amt</span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="fu">paste</span><span class="op">(</span><span class="st">"Total amount: $"</span>, <span class="fu">round</span><span class="op">(</span><span class="va">total</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre>
+</div>
+<p>When you launch the newly revised application, it will look something
+like this:</p>
+<figure style="text-align: center"><img src="../fig/fig31-tip-button.png" alt="Figure 31. Tip calculator with activation button" class="figure mx-auto d-block"><figcaption>
+Figure 31. Tip calculator with activation button
+</figcaption></figure><p>Now, the application will only “run” (i.e. return the relevant
+outputs) after the user sets the input parameters and clicks the
+“Calculate Tip” button.</p>
+</div>
+<div class="section level3">
+<h3 id="observers">Observers<a class="anchor" aria-label="anchor" href="#observers"></a></h3>
+<p>In Shiny, observers are functions that watch for changes in inputs,
+and then trigger actions that don’t directly produce outputs shown in
+the app’s user interface, but still affect how the app behaves. These
+actions are called “side effects” because they influence the app in ways
+other than updating visible output (for example, showing a message,
+resetting a form, saving data to a file etc). Unlike reactive
+expressions, which calculate values to update the UI, observers don’t
+return values. Instead, they simply carry out a task when something
+changes. Shiny provides two kinds of observers: <code>observe()</code>,
+which runs code whenever any of its inputs change, and
+<code>observeEvent()</code>, which waits for a specific event (like a
+button click) before running. We can think of <code>observe()</code> and
+<code>observeEvent()</code> as counterparts to <code>reactive()</code>
+and <code>observeReactive()</code>, but instead of computing values for
+outputs, they trigger side effects that change the app’s behavior.</p>
+<p>To make this more concrete, let’s see how <code>observe()</code> and
+<code>observeEvent()</code> can be used to enrich our tip calculator
+app. In particular, we’ll use <code>observe()</code> to grey out the
+“Calculate Tip” button if the Bill amount entered by the user is 0.
+We’ll also use <code>observeEvent()</code> to reset the input parameters
+to their default state when a “Reset” button is clicked; in addition,
+when “Reset” is clicked and the input parameters are reset to their
+default, the output values in the app are erased; when the “Calculate”
+button is clicked again, the output values are once again displayed:</p>
+<div class="codewrapper sourceCode" id="cb38">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="fu">useShinyjs</span><span class="op">(</span><span class="op">)</span>,  <span class="co"># Initialize shinyjs</span></span>
+<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Tip Calculator"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">sidebarLayout</span><span class="op">(</span></span>
+<span>    <span class="fu">sidebarPanel</span><span class="op">(</span></span>
+<span>      <span class="fu">numericInput</span><span class="op">(</span><span class="st">"bill"</span>, <span class="st">"Bill amount ($):"</span>, value <span class="op">=</span> <span class="fl">50</span>, min <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>      <span class="fu">sliderInput</span><span class="op">(</span><span class="st">"tip"</span>, <span class="st">"Tip percentage:"</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">30</span>, value <span class="op">=</span> <span class="fl">15</span><span class="op">)</span>,</span>
+<span>      <span class="fu">actionButton</span><span class="op">(</span><span class="st">"calc_btn"</span>, <span class="st">"Calculate Tip"</span><span class="op">)</span>,</span>
+<span>      <span class="fu">actionButton</span><span class="op">(</span><span class="st">"reset_btn"</span>, <span class="st">"Reset"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu">mainPanel</span><span class="op">(</span></span>
+<span>      <span class="fu">textOutput</span><span class="op">(</span><span class="st">"tip_amount"</span><span class="op">)</span>,  </span>
+<span>      <span class="fu">textOutput</span><span class="op">(</span><span class="st">"total_amount"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="co"># Reactive conductor: calculate tip when button is clicked</span></span>
+<span>  <span class="va">tip_amt</span> <span class="op">&lt;-</span> <span class="fu">eventReactive</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">calc_btn</span>, <span class="op">{</span></span>
+<span>    <span class="va">input</span><span class="op">$</span><span class="va">bill</span> <span class="op">*</span> <span class="va">input</span><span class="op">$</span><span class="va">tip</span> <span class="op">/</span> <span class="fl">100</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Disable "Calculate Tip" button when bill is 0</span></span>
+<span>  <span class="fu">observe</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">bill</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu">shinyjs</span><span class="fu">::</span><span class="fu">disable</span><span class="op">(</span><span class="st">"calc_btn"</span><span class="op">)</span></span>
+<span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>      <span class="fu">shinyjs</span><span class="fu">::</span><span class="fu">enable</span><span class="op">(</span><span class="st">"calc_btn"</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># create output of tip amount</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">tip_amount</span> <span class="op">&lt;-</span> <span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu">paste</span><span class="op">(</span><span class="st">"Tip amount: $"</span>, <span class="fu">round</span><span class="op">(</span><span class="fu">tip_amt</span><span class="op">(</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># create output of total amount</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">total_amount</span> <span class="op">&lt;-</span> <span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">total</span> <span class="op">&lt;-</span> <span class="va">input</span><span class="op">$</span><span class="va">bill</span> <span class="op">+</span> <span class="fu">tip_amt</span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="fu">paste</span><span class="op">(</span><span class="st">"Total amount: $"</span>, <span class="fu">round</span><span class="op">(</span><span class="va">total</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Reset form and clear outputs when the "reset" button is clicked</span></span>
+<span>  <span class="fu">observeEvent</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">reset_btn</span>, <span class="op">{</span></span>
+<span>    <span class="fu">updateNumericInput</span><span class="op">(</span><span class="va">session</span>, <span class="st">"bill"</span>, value <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>  <span class="co"># Reset bill to 50</span></span>
+<span>    <span class="fu">updateSliderInput</span><span class="op">(</span><span class="va">session</span>, <span class="st">"tip"</span>, value <span class="op">=</span> <span class="fl">15</span><span class="op">)</span>    <span class="co"># Reset tip to 15</span></span>
+<span>    <span class="fu">shinyjs</span><span class="fu">::</span><span class="fu">hide</span><span class="op">(</span><span class="st">"tip_amount"</span><span class="op">)</span>                     <span class="co"># Hide tip output</span></span>
+<span>    <span class="fu">shinyjs</span><span class="fu">::</span><span class="fu">hide</span><span class="op">(</span><span class="st">"total_amount"</span><span class="op">)</span>                   <span class="co"># Hide total output</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Show outputs when "calculate" button is clicked </span></span>
+<span>  <span class="fu">observeEvent</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">calc_btn</span>, <span class="op">{</span></span>
+<span>    <span class="fu">shinyjs</span><span class="fu">::</span><span class="fu">show</span><span class="op">(</span><span class="st">"tip_amount"</span><span class="op">)</span>    <span class="co"># Show tip output</span></span>
+<span>    <span class="fu">shinyjs</span><span class="fu">::</span><span class="fu">show</span><span class="op">(</span><span class="st">"total_amount"</span><span class="op">)</span>  <span class="co"># Show total output</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre>
+</div>
+<p>A couple of points are worth highlighting about these changes to the
+code.</p>
+<ul><li>You’ll notice that we use functions from the <em>shinyjs</em>
+package inside our observers. <em>Shinyjs</em> is a package within the
+tidyverse ecosystem that offers a variety of functions that can improve
+the user experience. We used the functions <code>enable()</code> and
+<code>disable()</code> to enable or disable the “Calculate Tip” button
+depending on a condition. We also used it to hide outputs after a user
+resets the application, and show outputs after a user clicks the
+“Calculate Tip” button again.</li>
+<li>Note the tasks the observers are accomplishing, such as disabling or
+enabling buttons or resetting the form to default values. This
+underscores our earlier point that observers perform tasks in response
+to inputs, and thereby shape the app’s behavior; however, they do not
+actually compute values used in outputs (as reactive expressions do).
+Note, also, the difference between <code>observe()</code> and
+<code>observeEvent()</code> in action; the former produces its
+side-effect (i.e. disabling the button) whenever the input value for the
+bill is 0, while the latter produces its side effects (i.e. resetting
+the form and clearing or restoring outputs) in response to a specific
+trigger.</li>
+<li>In response to a user clicking the reset button, code within an
+observer function hides output, and restores this output when the
+“Calculate Tip” button is again clicked. This may seem to contradict our
+earlier point, that observers do not actually impact outputs, but
+trigger side effects that are relevant for the app’s behavior. It’s
+important to note, though, that these “hiding” and “showing” effects
+modify the UI’s appearance via JavaScript/CSS (via the <em>shinyjs</em>
+functions) rather than altering the reactive values or computations that
+drive the outputs, and are therefore best understood as side
+effects.<br></li>
+<li>Note that we included the “session” argument to the server function
+this time, because of the way in which the side effects of the observer
+function impact the UI. The details are too technical to get into here,
+but the basic point is that in apps with multiple concurrent users, the
+session object ensures that updates (triggered, for example, by the
+reset button) are applied to the correct user’s instance of the
+app.</li>
+</ul><div id="callout2" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Callout</h3>
+<div class="callout-content">
+<p>One advanced reactivity function that we won’t cover in detail, but
+which you should be aware of, is <code>isolate()</code>. The
+<code>isolate()</code> function lets you access an input value without
+making your code react to it. In other words, <code>isolate()</code>
+lets you use an input while disabling Shiny’s default behavior of
+automatically updating outputs in response to input changes. This is
+helpful when you want to use an input—like a name or a comment—in your
+output, but don’t want changes to that input to automatically rerun your
+calculations or update your results. Just like other reactivity
+functions, <code>isolate()</code> gives you more control over how and
+when your app responds to changes. You’ll want to be aware of
+<code>isolate()</code>, particularly if you go on to use Shiny
+extensively in the future, and anticipate developing sophisticated
+applications; for our purposes now, however, the reactivity functions
+we’ve already covered are more fundamental.</p>
+</div>
+</div>
+</div>
+<div id="challenge-6-create-a-button-activated-fahrenheit-to-celsius-converter-application" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="challenge-6-create-a-button-activated-fahrenheit-to-celsius-converter-application" class="callout-inner">
+<h3 class="callout-title">Challenge 6: Create a button-activated Fahrenheit to Celsius converter application</h3>
+<div class="callout-content">
+<p>Write a Fahrenheit to Celsius converter application in which the user
+enters a Fahrenheit temperature, and can convert this value to its
+Celsius equivalent by clicking a button.</p>
 </div>
 </div>
 </div>
 <div id="accordionSolution5" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
-  <h4 class="accordion-header" id="headingSolution5"> Output </h4>
+  <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
 </button>
 <div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
 <div class="accordion-body">
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>[1] "This new lesson looks good"</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div id="challenge-2-how-do-you-nest-solutions-within-challenge-blocks" class="callout challenge">
-<div class="callout-square">
-<i class="callout-icon" data-feather="zap"></i>
-</div>
-<div id="challenge-2-how-do-you-nest-solutions-within-challenge-blocks" class="callout-inner">
-<h3 class="callout-title">Challenge 2: how do you nest solutions within challenge blocks?</h3>
-<div class="callout-content">
-
-</div>
-</div>
-</div>
-<div id="accordionSolution6" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution6" aria-expanded="false" aria-controls="collapseSolution6">
-  <h4 class="accordion-header" id="headingSolution6"> Show me the solution </h4>
-</button>
-<div id="collapseSolution6" class="accordion-collapse collapse" aria-labelledby="headingSolution6" data-bs-parent="#accordionSolution6">
-<div class="accordion-body">
-<p>You can add a line with at least three colons and a
-<code>solution</code> tag.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section><section><h2 class="section-heading" id="figures">Figures<a class="anchor" aria-label="anchor" href="#figures"></a></h2>
-<hr class="half-width"><p>You can include figures generated from R Markdown:</p>
-<div class="codewrapper sourceCode" id="cb34">
+<p>Your application code should look something like this:</p>
+<div class="codewrapper sourceCode" id="cb39">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">pie</span><span class="op">(</span></span>
-<span>  <span class="fu">c</span><span class="op">(</span>Sky <span class="op">=</span> <span class="fl">78</span>, <span class="st">"Sunny side of pyramid"</span> <span class="op">=</span> <span class="fl">17</span>, <span class="st">"Shady side of pyramid"</span> <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>, </span>
-<span>  init.angle <span class="op">=</span> <span class="fl">315</span>, </span>
-<span>  col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"deepskyblue"</span>, <span class="st">"yellow"</span>, <span class="st">"yellow3"</span><span class="op">)</span>, </span>
-<span>  border <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Fahrenheit to Celsius Converter"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">sidebarLayout</span><span class="op">(</span></span>
+<span>    <span class="fu">sidebarPanel</span><span class="op">(</span></span>
+<span>      <span class="fu">numericInput</span><span class="op">(</span><span class="st">"temp_f"</span>, <span class="st">"Temperature in Fahrenheit:"</span>, value <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>,</span>
+<span>      <span class="fu">actionButton</span><span class="op">(</span><span class="st">"convert_btn"</span>, <span class="st">"Convert"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu">mainPanel</span><span class="op">(</span></span>
+<span>      <span class="fu">textOutput</span><span class="op">(</span><span class="st">"result"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">temp_celsius</span> <span class="op">&lt;-</span> <span class="fu">eventReactive</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">convert_btn</span>, <span class="op">{</span></span>
+<span>    <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">temp_f</span> <span class="op">-</span> <span class="fl">32</span><span class="op">)</span> <span class="op">*</span> <span class="fl">5</span> <span class="op">/</span> <span class="fl">9</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu">paste</span><span class="op">(</span><span class="st">"Temperature in Celsius:"</span>, <span class="fu">round</span><span class="op">(</span><span class="fu">temp_celsius</span><span class="op">(</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>, <span class="st">"°C"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre>
 </div>
-<figure style="text-align: center"><img src="../fig/02-shiny-fundamentals-rendered-pyramid-1.png" alt="pie chart illusion of a pyramid" class="figure mx-auto d-block"><figcaption>
-Sun arise each and every morning
-</figcaption></figure><p>Or you can use pandoc markdown for static figures with the following
-syntax:</p>
-<p><code>![optional caption that appears below the figure](figure url){alt='alt text for accessibility purposes'}</code></p>
-<figure><img src="https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg" alt="Blue Carpentries hex person logo with no text." class="figure mx-auto d-block"><div class="figcaption">You belong in The Carpentries!</div>
-</figure></section><section><h2 class="section-heading" id="math">Math<a class="anchor" aria-label="anchor" href="#math"></a></h2>
-<hr class="half-width"><p>One of our episodes contains <span class="math inline">\(\LaTeX\)</span> equations when describing how to
-create dynamic reports with {knitr}, so we now use mathjax to describe
-this:</p>
-<p><code>$\alpha = \dfrac{1}{(1 - \beta)^2}$</code> becomes: <span class="math inline">\(\alpha = \dfrac{1}{(1 - \beta)^2}\)</span></p>
-<p>Cool, right?</p>
+<p>Once the app is launched, it looks something like this:</p>
+<figure style="text-align: center"><img src="../fig/fig32-fahreneheit-celsius-button.png" alt="Figure 32. The Fahrenheit to Celsius Converter App with Activation Button" class="figure mx-auto d-block"><figcaption>
+Figure 32. The Fahrenheit to Celsius Converter App with Activation
+Button
+</figcaption></figure><p>Entering a temperature value in the text box, and then clicking
+“Convert”, should trigger the application to make the required
+conversion display the Celsius temperature equivalent.</p>
+</div>
+</div>
+</div>
+</div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -1984,14 +2334,36 @@ this:</p>
 <div class="callout-inner">
 <h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
-<ul><li>Use <code>.md</code> files for episodes when you want static
-content</li>
-<li>Use <code>.Rmd</code> files for episodes when you need to generate
-output</li>
-<li>Run <code>sandpaper::check_lesson()</code> to identify any issues
-with your lesson</li>
-<li>Run <code>sandpaper::build_lesson()</code> to preview your lesson
-locally</li>
+<ul><li>The fundamental building blocks of all Shiny applications are the
+user interface (UI) and the server. Shiny apps are launched by combining
+the UI and server with the shinyApp() function.</li>
+<li>Output functions serve two purposes: in the UI, they act as
+placeholders for content; in the server, their corresponding render
+functions generate content to be displayed. It’s possible to build a
+static Shiny application using only outputs, without any inputs.</li>
+<li>Input functions create various widgets (such as text boxes, sliders,
+menus etc.) that allow users to interact with an application by
+specifying input values. By default, changes in inputs automatically
+trigger updates in outputs—this behavior is called reactivity. Input
+values are referenced in the server using their unique IDs.</li>
+<li>Reactive expressions (also known as reactive conductors) created
+with <code>reactive()</code> sit between inputs and outputs, allowing
+you to process or transform input values before they’re displayed. They
+help reduce duplication and improve performance.</li>
+<li>Observers created with <code>observe()</code> let you perform side
+effects—tasks that respond to changes but do not return values (e.g.,
+resetting inputs, enabling/disabling buttons, or saving files). They
+affect app behavior rather than generating output.</li>
+<li>Functions such as <code>eventReactive()</code> and
+<code>observeEvent()</code> provide more control over when reactivity
+occurs. They are useful for delaying updates until a specific event
+(like a button click) happens. Use <code>eventReactive()</code> when
+producing outputs and <code>observeEvent()</code> for behavior changes
+that don’t involve rendering output.</li>
+<li>Layouts and themes help organize and style your app. Use sidebar
+layout and tabs to arrange components clearly. Style templates from the
+<em>shinythemes</em> package can give your app a polished look with
+minimal effort.</li>
 </ul></div>
 </div>
 </div>
@@ -1999,6 +2371,7 @@ locally</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
+</div>
 </section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="../instructor/introduction.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
@@ -2057,8 +2430,8 @@ any links that you are not going to use.
   "url": "https://aranganath24.github.io/data-dashboard-carpentries/instructor/02-shiny-fundamentals.html",
   "identifier": "https://aranganath24.github.io/data-dashboard-carpentries/instructor/02-shiny-fundamentals.html",
   "dateCreated": "2025-01-10",
-  "dateModified": "2025-05-10",
-  "datePublished": "2025-05-10"
+  "dateModified": "2025-05-11",
+  "datePublished": "2025-05-11"
 }
 
   </script><script>
