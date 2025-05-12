@@ -17,7 +17,7 @@ carpentry: 'incubator'
 # carpentry_description: "Custom Carpentry"
 
 # Overall title for pages.
-title: 'Creating &quot;Shiny&quot; Data Applications and Dashboards for Open Science in R'
+title: 'Creating Data Applications and Dashboards for Open Science in R'
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
 created: '2025-01-10'
@@ -70,7 +70,7 @@ episodes:
 - 03-data-applications.Rmd
 - 04-data-dashboards.Rmd
 - 05-publishing-applications.Rmd
-- dashboard.Rmd
+
 
 # Information for Learners
 learners: 
