@@ -404,14 +404,18 @@ minimal effort.</li>
 </ul></section><section id="03-data-applications"><h2 class="section-heading"><a href="03-data-applications.html">Shiny Data Applications</a></h2>
 <hr class="half-width">
 <ul>
-<li>Use <code>.md</code> files for episodes when you want static
-content</li>
-<li>Use <code>.Rmd</code> files for episodes when you need to generate
-output</li>
-<li>Run <code>sandpaper::check_lesson()</code> to identify any issues
-with your lesson</li>
-<li>Run <code>sandpaper::build_lesson()</code> to preview your lesson
-locally</li>
+<li>Shiny applications can offer an accessible and interactive entry
+point into tabular datasets; you can build such applications using only
+the concepts and tools introduced in the previous Episode</li>
+<li>R Studio’s Shiny web application template can help save you time in
+writing applications; start with the template, and swap in the functions
+needed for your specific applications</li>
+<li>It can be helpful to verbally conceptualize and outline your
+application before writing the relevant code</li>
+<li>To add tabular information to the Shiny application UI, it’s
+recommended that you use the <em>DT</em> package’s
+<code>dataTableOutput()</code> (in the UI) and
+<code>renderDataTable()</code> (in the server) functions.</li>
 </ul></section><section id="04-data-dashboards"><h2 class="section-heading"><a href="04-data-dashboards.html">Shiny Data Dashboards</a></h2>
 <hr class="half-width"></section><section id="05-publishing-applications"><h2 class="section-heading"><a href="05-publishing-applications.html">Publishing Shiny Applications</a></h2>
 <hr class="half-width">
