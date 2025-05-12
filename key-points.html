@@ -300,18 +300,6 @@
 </div>
 <!--/div.accordion-flush-->
 
-<div class="accordion accordion-flush" id="accordionFlush7">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading7">
-        <a href="dashboard.html">6. DaSHBOARD</a>
-    </div>
-<!--/div.accordion-header-->
-
-  </div>
-<!--/div.accordion-item-->
-</div>
-<!--/div.accordion-flush-->
-
                 </div>
               </div>
             </div>
@@ -426,17 +414,36 @@ application before writing the relevant code</li>
 recommended that you use the <em>DT</em> package’s
 <code>dataTableOutput()</code> (in the UI) and
 <code>renderDataTable()</code> (in the server) functions.</li>
-</ul></section><section id="04-data-dashboards"><h2 class="section-heading"><a href="04-data-dashboards.html">Shiny Data DashboardsPreliminaries<a class="anchor" aria-label="anchor" href="#preliminaries"></a></a></h2>
+</ul></section><section id="04-data-dashboards"><h2 class="section-heading"><a href="04-data-dashboards.html">Shiny Data Dashboards</a></h2>
 <hr class="half-width">
 <ul>
-<li>Use <code>.md</code> files for episodes when you want static
-content</li>
-<li>Use <code>.Rmd</code> files for episodes when you need to generate
-output</li>
-<li>Run <code>sandpaper::check_lesson()</code> to identify any issues
-with your lesson</li>
-<li>Run <code>sandpaper::build_lesson()</code> to preview your lesson
-locally</li>
+<li>
+<em>shinydashboard</em> is a package that makes it easier to develop
+data dashboards using Shiny principles</li>
+<li>We can think of a data dashboard as a specific type of data
+application with a more structured layout, and the ability to display
+larger amounts of information in context</li>
+<li>The basic principles involved in building a dashboard with
+<em>shinydashboard</em> are the same as those for any Shiny application,
+but <em>shinydashboards</em> has unique functions associated with the
+dashboard layout</li>
+<li>In <em>shinydashboard</em>, the UI is divided into three main parts:
+<code>dashboardHeader()</code>, <code>dashboardSidebar(</code>), and
+<code>dashboardBody()</code>. These allow for a clear separation of the
+header, navigation sidebar, and main content body, which contributes to
+a structured, user-friendly layout.</li>
+<li>
+<em>shinydashboard</em> makes it easy to organize content using
+boxes, value boxes, and fluid rows. Each of these can be customized with
+specific widths to ensure an optimal layout for displaying information
+like charts, tables, or textual content.</li>
+<li>Just like any other Shiny application, dashboards can include
+interactive elements like inputs (e.g., sliders, dropdowns, checkboxes)
+to filter or modify the displayed data in real time. You can create
+dynamic outputs using render functions, such as
+<code>renderPlot()</code> that are familiar from before, as well as
+render functions unique to <em>shinydashboard</em> such as
+<code>renderValueBox()</code>.</li>
 </ul></section><section id="05-publishing-applications"><h2 class="section-heading"><a href="05-publishing-applications.html">Publishing Shiny Applications</a></h2>
 <hr class="half-width">
 <ul>
@@ -448,8 +455,7 @@ output</li>
 with your lesson</li>
 <li>Run <code>sandpaper::build_lesson()</code> to preview your lesson
 locally</li>
-</ul></section><section id="dashboard"><h2 class="section-heading"><a href="dashboard.html">DaSHBOARD</a></h2>
-<hr class="half-width"></section>
+</ul></section>
 </div>
     </main>
 </div>
