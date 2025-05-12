@@ -6,14 +6,14 @@ exercises: 2
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do you write a lesson using R Markdown and `{sandpaper}`?
+- How do you create Shiny applications that allow users to query and explore datasets in an intuitive and interactive manner?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to use markdown with the new lesson template
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+- Apply what you learned about general principles of Shiny application development in the previous Episode to make simple but powerful Shiny applications that facilitate interactive data exploration 
+- Continue to learn new tools, concepts, and functions related to Shiny application development
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -21,7 +21,7 @@ exercises: 2
 
 Before beginning this episode, please ensure you have the following libraries installed and loaded:
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 library(shiny)
 library(shinyjs)
 library(nycflights13)
@@ -37,7 +37,7 @@ Now that we are oriented to some of the fundamental principles of application de
 
 This Episode uses a "case-study" approach to demonstrating how the basic principles we learned in the previous Episode can be applied in the context of developing dataset-based applications. Certain new features of Shiny will be introduced as we go, but for the most part, the focus will be on applying and reinforcing what we have already learned about Shiny, but in an applied context that is more relevant for researchers and data scientists than application developers. 
 
-## Shiny template
+## Shiny script template
 
 Before proceeding to our first data application, we'll briefly introduce R Studio's Shiny template, which you can use to develop the applications in this Episode. In the previous Episode, we wrote out our simple Shiny applications in regular R scripts. Writing Shiny code from scratch offered good practice when starting out, but it's useful to know that R Studio comes with a prebuilt shiny template that can make it easier to develop applications. This template is actually a simple Shiny app, and we can swap out the elements in this template with our own as we go; this allows us to focus on our inputs and outputs, rather than the app's structure. To access this template go to **File**, then select **New File** followed by **Shiny Web App**:
 
@@ -216,114 +216,20 @@ knitr::include_graphics("fig/fig36-flights-exercise.png")
 
 :::::::::::::::::::::::::::::::::::::
 
-
-
-
-
-
-
-
-
-This is a lesson created via The Carpentries Workbench. It is written in
-[Pandoc-flavored Markdown](https://pandoc.org/MANUAL.txt) for static files and
-[R Markdown][r-markdown] for dynamic files that can render code into output. 
-Please refer to the [Introduction to The Carpentries 
-Workbench](https://carpentries.github.io/sandpaper-docs/) for full documentation.
-
-What you need to know is that there are three sections required for a valid
-Carpentries lesson template:
-
- 1. `questions` are displayed at the beginning of the episode to prime the
-    learner for the content.
- 2. `objectives` are the learning objectives for an episode displayed with
-    the questions.
- 3. `keypoints` are displayed at the end of the episode to reinforce the
-    objectives.
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
-
-Inline instructor notes can help inform instructors of timing challenges
-associated with the lessons. They appear in the "Instructor View"
-
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::: challenge 
-
-## Challenge 1: Can you do it?
-
-What is the output of this command?
-
-```r
-paste("This", "new", "lesson", "looks", "good")
-```
-
-:::::::::::::::::::::::: solution 
-
-## Output
- 
-```output
-[1] "This new lesson looks good"
-```
-
-:::::::::::::::::::::::::::::::::
-
-
-## Challenge 2: how do you nest solutions within challenge blocks?
-
-:::::::::::::::::::::::: solution 
-
-You can add a line with at least three colons and a `solution` tag.
-
-:::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-## Figures
-
-You can also include figures generated from R Markdown:
-
-```{r pyramid, fig.alt = "pie chart illusion of a pyramid", fig.cap = "Sun arise each and every morning"}
-pie(
-  c(Sky = 78, "Sunny side of pyramid" = 17, "Shady side of pyramid" = 5), 
-  init.angle = 315, 
-  col = c("deepskyblue", "yellow", "yellow3"), 
-  border = FALSE
-)
-```
-
-Or you can use standard markdown for static figures with the following syntax:
-
-`![optional caption that appears below the figure](figure url){alt='alt text for
-accessibility purposes'}`
-
-![You belong in The Carpentries!](https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg){alt='Blue Carpentries hex person logo with no text.'}
-
 ::::::::::::::::::::::::::::::::::::: callout
+## Did you know? 
 
-Callout sections can highlight information.
-
-They are sometimes used to emphasise particularly important points
-but are also used in some lessons to present "asides": 
-content that is not central to the narrative of the lesson,
-e.g. by providing the answer to a commonly-asked question.
-
+You can configure your Shiny apps to allow users to download data from your app, based on their queries. For example, using the ```downloadButton()``` (in the UI), and ```downloadHandler()``` in the server, you could create an application feature that allows users to download a CSV file of the top 5 delays based on their selected filters. If you'd like to learn more, consult the documentation for these functions, and see if you can add this feature to the app.  
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-
-## Math
-
-One of our episodes contains $\LaTeX$ equations when describing how to create
-dynamic reports with {knitr}, so we now use mathjax to describe this:
-
-`$\alpha = \dfrac{1}{(1 - \beta)^2}$` becomes: $\alpha = \dfrac{1}{(1 - \beta)^2}$
-
-Cool, right?
+## test
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- Shiny applications can offer an accessible and interactive entry point into tabular datasets; you can build such applications using only the concepts and tools introduced in the previous Episode
+- R Studio's Shiny web application template can help save you time in writing applications; start with the template, and swap in the functions needed for your specific applications
+- It can be helpful to verbally conceptualize and outline your application before writing the relevant code
+- To add tabular information to the Shiny application UI, it's recommended that you use the *DT* package's ```dataTableOutput()``` (in the UI) and ```renderDataTable()``` (in the server) functions.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
