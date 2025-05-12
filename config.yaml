@@ -70,7 +70,7 @@ episodes:
 - 03-data-applications.Rmd
 - 04-data-dashboards.Rmd
 - 05-publishing-applications.Rmd
-- dashboard.Rmd
+
 
 # Information for Learners
 learners: 
