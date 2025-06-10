@@ -47,7 +47,7 @@ library(tidyverse)
 ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.2     ✔ tibble    3.2.1
+✔ ggplot2   3.5.2     ✔ tibble    3.3.0
 ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
 ✔ purrr     1.0.4     
 ```
@@ -495,7 +495,7 @@ server <- function(input, output) {
 shinyApp(ui, server)
 ```
 
-<!--html_preserve--><iframe data-deferred-src="app77a63940a0b05d38091da3dfa4ee7513/?w=&amp;__subapp__=1" width="100%" height="400" class="shiny-frame shiny-frame-deferred"></iframe><!--/html_preserve-->
+<!--html_preserve--><iframe data-deferred-src="app4a757e8ba8a45573ce30a5759996dc43/?w=&amp;__subapp__=1" width="100%" height="400" class="shiny-frame shiny-frame-deferred"></iframe><!--/html_preserve-->
 
 The result will look something like this:
 
