@@ -49,7 +49,7 @@ library(tidyverse)
 ✔ forcats   1.0.0     ✔ stringr   1.5.1
 ✔ ggplot2   3.5.2     ✔ tibble    3.3.0
 ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.0.4     
+✔ purrr     1.1.0     
 ```
 
 ``` output
@@ -495,7 +495,7 @@ server <- function(input, output) {
 shinyApp(ui, server)
 ```
 
-<!--html_preserve--><iframe data-deferred-src="appec60978ba4e1442eb204ccd2b067a530/?w=&amp;__subapp__=1" width="100%" height="400" class="shiny-frame shiny-frame-deferred"></iframe><!--/html_preserve-->
+<!--html_preserve--><iframe data-deferred-src="app58290746ef78dab99ff8724cf5330ffa/?w=&amp;__subapp__=1" width="100%" height="400" class="shiny-frame shiny-frame-deferred"></iframe><!--/html_preserve-->
 
 The result will look something like this:
 
