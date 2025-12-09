@@ -495,7 +495,7 @@ server <- function(input, output) {
 shinyApp(ui, server)
 ```
 
-<!--html_preserve--><iframe data-deferred-src="app9d93765087e8d7bb3c079c2f4a26929d/?w=&amp;__subapp__=1" width="100%" height="400" class="shiny-frame shiny-frame-deferred"></iframe><!--/html_preserve-->
+<!--html_preserve--><iframe data-deferred-src="appfc94bf87ed27b6d5b293c8563fad45ee/?w=&amp;__subapp__=1" width="100%" height="400" class="shiny-frame shiny-frame-deferred"></iframe><!--/html_preserve-->
 
 The result will look something like this:
 
